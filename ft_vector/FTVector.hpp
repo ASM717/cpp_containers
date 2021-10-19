@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/10/18 16:30:43 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/10/19 15:08:56 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,43 @@ namespace ft {
 				}
 				catch(const std::exception& e)
 				{
-					std::cerr << e.what() << '\n';
+					std::cerr << e.what() << std::endl;
 				}
 			}
 			//range constructor
 			// Constructs a container with as many elements as the range [first,last),
 			// with each element constructed from its corresponding element in that range, in the same order.
-			template <class InputIterator> vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+			template <class InputIterator>
+			vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+				InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
 				:
 			{
+				///// дописать
+			}
+			// copy constructor
+			// Constructs a container with a copy of each of the elements in ref, in the same order.
+			vector (const vector& ref)
+				: m_alloc(ref.m_alloc), m_size(ref.m_size), m_capacity(ref.m_capacity) {
+				try
+				{
+					m_array = m_alloc.allocate(m_capacity);
+					for (size_type i = 0; i < _size; i++)
+						m_array[i] = ref.m_array[i];
+				}
+				catch(const std::exception& e)
+				{
+					std::cerr << e.what() << std::endl;
+				}
+			}
 
+			//destuctor
+			~vector () {
+				if (m_array != NULL) {
+					for (size_type i = 0 ; index < m_size ; i++ ) {
+						m_alloc.destroy( &m_array[i]);
+					}
+					m_alloc.deallocate(m_array, m_capacity);
+				}
 			}
 	};
 }
