@@ -6,7 +6,7 @@
 /*   By: amuriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/10/24 11:26:34 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/10/24 11:31:24 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,40 @@ namespace ft {
 			//destuctor
 			~vector () {
 				if (m_array != NULL) {
-					for (size_type i = 0 ; index < m_size ; i++ ) {
-						m_alloc.destroy( &m_array[i]);
+					for (size_type i = 0; index < m_size; i++) {
+						m_alloc.destroy(&m_array[i]);
 					}
 					m_alloc.deallocate(m_array, m_capacity);
 				}
+			}
+
+			//iterators
+			iterator begin() {
+				return iterator(m_array);
+			}
+			const_iterator begin() const {
+				return const_iterator(m_array);
+			}
+
+			iterator end() {
+				return iterator(m_array + m_size);
+			}
+			const_iterator end() const {
+				return const_iterator(m_array + m_size);
+			}
+
+			reverse_iterator rbegin() {
+				return reverse_iterator(end());
+			}
+			const_reverse_iterator rbegin() const {
+				return const_reverse_iterator(end());
+			}
+
+			reverse_iterator rend() {
+				return reverse_iterator(begin());
+			}
+			const_reverse_iterator rend() const {
+				return const_reverse_iterator(begin());
 			}
 	};
 }
