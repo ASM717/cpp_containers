@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FTVector.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amuriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:56 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/10/24 11:26:34 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,37 @@ namespace ft {
 				{
 					m_array = m_alloc.allocate(n);
 					for (size_type i = 0; i < n; i++)
-						m_array[i] = value;
+					{
+						m_alloc.construct(&m_array[i], value);
+					}
 				}
 				catch(const std::exception& e)
 				{
-					std::cerr << e.what() << std::endl;
+					std::cerr << e.what() << '\n';
 				}
+
 			}
 			//range constructor
 			// Constructs a container with as many elements as the range [first,last),
 			// with each element constructed from its corresponding element in that range, in the same order.
 			template <class InputIterator>
-			vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value,
-				InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-				:
-			{
-				///// дописать
+			vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
+				const allocator_type& alloc = allocator_type()) : m_alloc(alloc), m_array(NULL), m_size(0), m_capacity(0) {
+				size_type i = 0;
+				size_type j = 0;
+				for (InputIterator it = first; it != last; it++)
+					i++;
+				try
+				{
+					reserve(i);
+				}
+				catch(const std::exception& e)
+				{
+					std::cerr << e.what() << '\n';
+				}
+				for (InputIterator it = first; it != last; it++, j++)
+					m_alloc.construct(&m_array[i], *it);
+				m_size = i;
 			}
 			// copy constructor
 			// Constructs a container with a copy of each of the elements in ref, in the same order.
@@ -82,7 +97,24 @@ namespace ft {
 					std::cerr << e.what() << std::endl;
 				}
 			}
-
+			vector &operator=(const vector &ref) {
+				if (this == &ref)
+					return (*this);
+				if (m_size < ref.m_size) {
+					reserve(ref.m_size);
+					resize(ref.m_size);
+				} else {
+					for (size_type i = 0; i < m_size; i++)
+					{
+						m_alloc.destroy(&m_array[i]);
+					}
+				}
+				m_size = x.size;
+				for (size_type i = 0; i < m_size; i++) {
+					m_alloc.construct(&m_array[i], ref.m_array[i]);
+				}
+				return *this;
+			}
 			//destuctor
 			~vector () {
 				if (m_array != NULL) {
