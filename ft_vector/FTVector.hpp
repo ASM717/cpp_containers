@@ -6,7 +6,7 @@
 /*   By: amuriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/10/24 11:31:24 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/10/31 16:30:24 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ namespace ft {
 	class vector {
 		private:
 			allocator_type m_alloc;
-			size_type m_capacity;
+			size_type m_capacity, m_size;
 			pointer_type m_array;
-			size_type m_size;
 
 		public:
 			typedef size_t                                size_type;
@@ -153,6 +152,23 @@ namespace ft {
 			const_reverse_iterator rend() const {
 				return const_reverse_iterator(begin());
 			}
+
+			void reserve (size_type n) {
+
+			}
+
+			// void vector<T, Alloc>::realloc(size_type n) {
+			// 	if (n <= m_capacity)
+			// 		return;
+			// 	T *new_cap = m_alloc.allocate(n); //указатель
+			// 	for (size_type i = 0; i < m_size; i++) {
+			// 		m_alloc.construct(new_cap + i, m_array[i]);
+			// 		m_alloc.destroy(m_array + i);
+			// 	}
+			// 	m_alloc.deallocate(m_array, m_capacity);
+			// 	m_array = new_cap;
+			// 	m_capacity = n;
+			// }
 	};
 }
 
