@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FTVector.hpp                                       :+:      :+:    :+:   */
+/*   ft_vector.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amuriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/10/31 16:30:24 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/11/02 13:55:40 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FTVECTOR_HPP
-#define FTVECTOR_HPP
+#ifndef FT_VECTOR_HPP
+#define FT_VECTOR_HPP
 
 #include <iostream>
 
@@ -19,18 +19,18 @@ namespace ft {
 	template <class T, class Alloc = std::allocator<T> > // generic template
 	class vector {
 		private:
-			allocator_type m_alloc;
+			Allocator m_alloc;
 			size_type m_capacity, m_size;
-			pointer_type m_array;
+			pointer m_array;
 
 		public:
 			typedef size_t                                size_type;
 			typedef T                                     value_type;
 			typedef Alloc                                 allocator_type;
-			typedef allocator_type::reference             reference;
-			typedef allocator_type::const_reference       const_reference;
-			typedef allocator_type::pointer               pointer;
-			typedef allocator_type::const_pointer         const_pointer;
+			typedef typename allocator_type::reference             reference;
+			typedef typename allocator_type::const_reference       const_reference;
+			typedef typename allocator_type::pointer               pointer;
+			typedef typename allocator_type::const_pointer         const_pointer;
 			typedef vector_iterator<value_type, value_type*, value_type&>                   iterator;
 			typedef const_vector_iterator<value_type, const value_type*, const value_type&> const_iterator;
 			typedef reverse_vector_iterator<iterator>                                       reverse_iterator;
@@ -62,25 +62,26 @@ namespace ft {
 			//range constructor
 			// Constructs a container with as many elements as the range [first,last),
 			// with each element constructed from its corresponding element in that range, in the same order.
-			template <class InputIterator>
-			vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
-				const allocator_type& alloc = allocator_type()) : m_alloc(alloc), m_array(NULL), m_size(0), m_capacity(0) {
-				size_type i = 0;
-				size_type j = 0;
-				for (InputIterator it = first; it != last; it++)
-					i++;
-				try
-				{
-					reserve(i);
-				}
-				catch(const std::exception& e)
-				{
-					std::cerr << e.what() << '\n';
-				}
-				for (InputIterator it = first; it != last; it++, j++)
-					m_alloc.construct(&m_array[i], *it);
-				m_size = i;
-			}
+
+			// template <class InputIterator>
+			// vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
+			// 	const allocator_type& alloc = allocator_type()) : m_alloc(alloc), m_array(NULL), m_size(0), m_capacity(0) {
+			// 	size_type i = 0;
+			// 	size_type j = 0;
+			// 	for (InputIterator it = first; it != last; it++)
+			// 		i++;
+			// 	try
+			// 	{
+			// 		reserve(i);
+			// 	}
+			// 	catch(const std::exception& e)
+			// 	{
+			// 		std::cerr << e.what() << '\n';
+			// 	}
+			// 	for (InputIterator it = first; it != last; it++, j++)
+			// 		m_alloc.construct(&m_array[i], *it);
+			// 	m_size = i;
+			// }
 			// copy constructor
 			// Constructs a container with a copy of each of the elements in ref, in the same order.
 			vector (const vector& ref)
@@ -88,7 +89,7 @@ namespace ft {
 				try
 				{
 					m_array = m_alloc.allocate(m_capacity);
-					for (size_type i = 0; i < _size; i++)
+					for (size_type i = 0; i < m_size; i++)
 						m_array[i] = ref.m_array[i];
 				}
 				catch(const std::exception& e)
@@ -108,7 +109,7 @@ namespace ft {
 						m_alloc.destroy(&m_array[i]);
 					}
 				}
-				m_size = x.size;
+				m_size = ref.size;
 				for (size_type i = 0; i < m_size; i++) {
 					m_alloc.construct(&m_array[i], ref.m_array[i]);
 				}
@@ -117,7 +118,7 @@ namespace ft {
 			//destuctor
 			~vector () {
 				if (m_array != NULL) {
-					for (size_type i = 0; index < m_size; i++) {
+					for (size_type i = 0; i < m_size; i++) {
 						m_alloc.destroy(&m_array[i]);
 					}
 					m_alloc.deallocate(m_array, m_capacity);
@@ -154,7 +155,15 @@ namespace ft {
 			}
 
 			void reserve (size_type n) {
-
+				if (n <= m_capacity)
+					return ;
+				pointer new_array = m_alloc.allocate(n);
+				for (size_type i = 0; i < m_size; i++) {
+					m_alloc.construct(m_array + i, this->m_array[i]);
+				}
+				this->~vector();
+				this->m_array = m_array;
+				m_capacity = n;
 			}
 
 			// void vector<T, Alloc>::realloc(size_type n) {

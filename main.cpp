@@ -1,29 +1,12 @@
 #include <iostream>
-
-template <typename T>
-
-class ft_vector {
-private:
-	T *arr;
-	size_t sz;
-	size_t cap;
-
-	//Изменяет размер контейнера, чтобы он содержал n элементов.
-
-	void ft_realloc(size_t newCap) {
-		
-	}
-	void ft_resize(size_type n, value_type val = value_type ()) {
-		//n = новый размер
-
-	}
-
-	void ft_reserve(size_type n) {
-		if (n <= cap)
-			return ;
-	}
-};
+#include <vector>
+#include "./ft_vector/ft_vector.hpp"
 
 int main() {
-
+	std::vector<int> std_vec;
+	std_vec.push_back(1);
+	std_vec.push_back(41);
+	std_vec.push_back(-71);
+	std_vec.push_back(8);
+	ft::vector<int> ft_vec(std_vec.begin(), std_vec.end());
 }
