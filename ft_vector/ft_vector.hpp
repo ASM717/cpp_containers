@@ -6,13 +6,14 @@
 /*   By: amuriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/03 11:28:06 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/11/03 14:48:43 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_VECTOR_HPP
 #define FT_VECTOR_HPP
 
+#include "ft_vector_iterator.hpp"
 #include <iostream>
 
 namespace ft {
@@ -31,11 +32,11 @@ namespace ft {
 			typedef typename allocator_type::const_reference       const_reference;
 			typedef typename allocator_type::pointer               pointer;
 			typedef typename allocator_type::const_pointer         const_pointer;
-			typedef vector_iterator<value_type, value_type*, value_type&>                   iterator;
-			typedef const_vector_iterator<value_type, const value_type*, const value_type&> const_iterator;
-			typedef reverse_vector_iterator<iterator>                                       reverse_iterator;
-			typedef const_reverse_vector_iterator<const_iterator>                           const_reverse_iterator;
-			typedef typename iterator_traits<iterator>::difference_type                     difference_type;
+			typedef ft::vectorRandomAccessIterator<T, T*, T&>                 iterator;
+			typedef ft::vectorRandomAccessIterator<T, const T*, const T&>     const_iterator;
+			// typedef ft::reverseVectorIterator<iterator>                       reverse_iterator;
+			// typedef ft::reverseVectorIterator<const_iterator>                 const_reverse_iterator;
+			// typedef typename iterator_traits<iterator>::difference_type                         difference_type;
 
 			//https://www.cplusplus.com/reference/vector/vector/vector/
 			//empty container constructor (default constructor)
