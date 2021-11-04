@@ -4,12 +4,12 @@
 //https://www.cplusplus.com/reference/iterator/iterator_traits/
 //https://www.cplusplus.com/reference/iterator/
 
+#include <cstddef>
+#include <cstdlib>
 
 namespace ft {
 	template <class T, class Pointer, class Reference>
-	class vectorRandomAccessIterator {
-	private:
-		pointer m_arr;
+	class VectorRandomAccessIterator {
 	public:
 		typedef T                                 value_type;
 		typedef ptrdiff_t                         difference_type;
@@ -18,15 +18,18 @@ namespace ft {
 		//typedef std::random_access_iterator_tag   iterator_category;
 		typedef std::random_access_iterator_tag   iterator_category;
 		//typedef Category                          iterator_category;
-		typedef vectorRandomAccessIterator<T, Pointer, Reference>  type_class;
+		typedef VectorRandomAccessIterator<T, Pointer, Reference>  type_class;
+	private:
+		pointer m_arr;
+	public:
 		pointer getArrPointer() const {return  m_arr;}
-		vectorRandomAccessIterator() {
+		VectorRandomAccessIterator() {
 			m_arr = NULL;
 		}
-		vectorRandomAccessIterator(pointer array) : m_arr(array) {}
-		vectorRandomAccessIterator(vectorRandomAccessIterator<T, Pointer*, Reference&> const &ref)
+		VectorRandomAccessIterator(pointer array) : m_arr(array) {}
+		VectorRandomAccessIterator(VectorRandomAccessIterator<T, Pointer*, Reference&> const &ref)
 			: m_arr(ref.getArrPointer()) {}
-		virtual ~vectorRandomAccessIterator() {}
+		virtual ~VectorRandomAccessIterator() {}
 
 		//==
 		bool operator==(const type_class *ref) const {
@@ -37,7 +40,7 @@ namespace ft {
 			return (this->m_arr != ref->m_arr);
 		}
 		// =
-		type_class &operator=(type const &ref) {
+		type_class &operator=(type_class const &ref) {
 			if (this == &ref)
 				return (*this);
 			m_arr = ref.m_arr;
