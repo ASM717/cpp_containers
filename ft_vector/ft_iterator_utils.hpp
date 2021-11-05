@@ -35,6 +35,23 @@ namespace ft {
 		typedef std::random_access_iterator_tag iterator_category;
 		//std::random_access_iterator_tag
 	};
+
+//	template<typename InputIterator>
+//	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last,
+//		typename ft::enable_if<ft::is_random_access_iterator_tag<typename InputIterator::iterator_category>::value>::type* = NULL) {
+//		return (last - first);
+//	}
+//
+//	template<typename InputIterator>
+//	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last,
+//		typename ft::enable_if<!ft::is_random_access_iterator_tag<typename InputIterator::iterator_category>::value>::type* = NULL) {
+//		typename iterator_traits<InputIterator>::difference_type diff = 0;
+//		while (first != last) {
+//			first++;
+//			diff++;
+//		}
+//		return (diff);
+//	}
 }
 
 #endif
