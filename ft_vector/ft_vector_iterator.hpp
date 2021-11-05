@@ -102,8 +102,6 @@ namespace ft {
 		reference operator[](difference_type n) {return (*(this->m_arr_point + n));}
 	};
 
-	//relational operators (vector)
-
 	template <typename T>
 	bool operator==(const ft::VectorRandomAccessIterator<T> lhs, const ft::VectorRandomAccessIterator<T> rhs) {
 		return (lhs.base() == rhs.base());
