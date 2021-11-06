@@ -15,6 +15,7 @@
 
 #include "ft_vector_iterator.hpp"
 #include "ft_vector_reverse_iterator.hpp"
+#include "ft_type_traits.hpp"
 #include <iostream>
 #include <memory>    // allocator
 #include <cstddef>   // ptrdiff_t
@@ -63,29 +64,29 @@ namespace ft {
 			}
 
 		}
-		//range constructor
-		// Constructs a container with as many elements as the range [first,last),
-		// with each element constructed from its corresponding element in that range, in the same order.
+		range constructor
+		 Constructs a container with as many elements as the range [first,last),
+		 with each element constructed from its corresponding element in that range, in the same order.
 
-		// template <class InputIterator>
-		// vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
-		// 	const allocator_type& alloc = allocator_type()) : m_alloc(alloc), m_array(NULL), m_size(0), m_capacity(0) {
-		// 	size_type i = 0;
-		// 	size_type j = 0;
-		// 	for (InputIterator it = first; it != last; it++)
-		// 		i++;
-		// 	try
-		// 	{
-		// 		reserve(i);
-		// 	}
-		// 	catch(const std::exception& e)
-		// 	{
-		// 		std::cerr << e.what() << '\n';
-		// 	}
-		// 	for (InputIterator it = first; it != last; it++, j++)
-		// 		m_alloc.construct(&m_array[i], *it);
-		// 	m_size = i;
-		// }
+		 template <class InputIterator>
+		 vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
+		 	const allocator_type& alloc = allocator_type()) : m_alloc(alloc), m_array(NULL), m_size(0), m_capacity(0) {
+		 	size_type i = 0;
+		 	size_type j = 0;
+		 	for (InputIterator it = first; it != last; it++)
+		 		i++;
+		 	try
+		 	{
+		 		reserve(i);
+		 	}
+		 	catch(const std::exception& e)
+		 	{
+		 		std::cerr << e.what() << '\n';
+		 	}
+		 	for (InputIterator it = first; it != last; it++, j++)
+		 		m_alloc.construct(&m_array[i], *it);
+		 	m_size = i;
+		 }
 		// copy constructor
 		// Constructs a container with a copy of each of the elements in ref, in the same order.
 		vector (const vector& ref)

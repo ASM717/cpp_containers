@@ -112,7 +112,7 @@ namespace ft {
 	bool operator>=(const VectorReverseIterator<Iterator>& lhs, const VectorReverseIterator<Iterator>& rhs) {
 		return (lhs.base() >= rhs.base());
 	}
-	///////////////////////////////////////////////////////////////
+
 	template <class Iterator_Lhs, class Iterator_Rhs>
 	bool operator==(const VectorReverseIterator<Iterator_Lhs>& lhs, const VectorReverseIterator<Iterator_Rhs>& rhs) {
 		return (lhs.base() == rhs.base());
