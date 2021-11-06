@@ -36,6 +36,13 @@ namespace ft {
 		//std::random_access_iterator_tag
 	};
 
+	template<class T>
+	void swap(T&a, T&b) {
+		T tmp = a;
+		a = b;
+		b = tmp;
+	}
+
 //	template<typename InputIterator>
 //	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last,
 //		typename ft::enable_if<ft::is_random_access_iterator_tag<typename InputIterator::iterator_category>::value>::type* = NULL) {
