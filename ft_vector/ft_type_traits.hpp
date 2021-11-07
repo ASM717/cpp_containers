@@ -7,10 +7,9 @@
 // https://www.cplusplus.com/reference/type_traits/is_integral/
 
 namespace ft {
-	template<bool B, class T = void> struct enable_if {};
+	template <bool B, class T = void> struct enable_if {};
 
-	template<class T>
-	struct enable_if<true> {typedef int type;};
+	template <> struct enable_if<true> {typedef int type;};
 
 	template <class T> struct is_integral {static const bool value = false;};
 

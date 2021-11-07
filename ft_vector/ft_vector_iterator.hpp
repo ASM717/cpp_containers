@@ -26,6 +26,7 @@ namespace ft {
 		VectorRandomAccessIterator() {
 			m_arr_point = NULL;
 		}
+
 		VectorRandomAccessIterator(VectorRandomAccessIterator const &ref)
 			: m_arr_point(ref.m_arr_point) {}
 		VectorRandomAccessIterator operator=(VectorRandomAccessIterator const &ref) {

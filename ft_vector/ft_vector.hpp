@@ -16,23 +16,24 @@
 #include "ft_vector_iterator.hpp"
 #include "ft_vector_reverse_iterator.hpp"
 #include "ft_type_traits.hpp"
+#include "ft_algorithm.hpp"
 #include <iostream>
-#include <memory>    // allocator
-#include <cstddef>   // ptrdiff_t
+#include <memory>  // allocator
+#include <cstddef> // ptrdiff_t
 
 namespace ft {
-	template <class T, class Alloc = std::allocator<T> > // generic template
+	template <class T, class Alloc = std::allocator<T> >
 	class vector {
 	public:
-		typedef size_t                                      size_type;
+		typedef size_t                                     size_type;
 		typedef T                                          value_type;
-		typedef Alloc                                  allocator_type;
+		typedef Alloc                                      allocator_type;
 		typedef typename allocator_type::reference                        reference;
 		typedef typename allocator_type::const_reference                  const_reference;
 		typedef typename allocator_type::pointer                          pointer;
 		typedef typename allocator_type::const_pointer                    const_pointer;
-		typedef ft::VectorRandomAccessIterator<T, T*, T&>                 iterator;
-		typedef ft::VectorRandomAccessIterator<T, const T*, const T&>     const_iterator;
+		typedef ft::VectorRandomAccessIterator<T>                         iterator;
+		typedef ft::VectorRandomAccessIterator<const T>                   const_iterator;
 		typedef ft::VectorReverseIterator<iterator>                       reverse_iterator;
 		typedef ft::VectorReverseIterator<const_iterator>                 const_reverse_iterator;
 		typedef typename ft::iterator_traits<iterator>::difference_type   difference_type;
@@ -42,12 +43,13 @@ namespace ft {
 		pointer m_array;
 	public:
 
-		//https://www.cplusplus.com/reference/vector/vector/vector/
-		//empty container constructor (default constructor)
+		/*	https://www.cplusplus.com/reference/vector/vector/vector/
+			empty container constructor (default constructor) */
 		explicit vector (const allocator_type& alloc = allocator_type())
-			: m_alloc(alloc), m_array(NULL), m_size(0), m_capacity(0) {}
-		//fill constructor
-		// Constructs a container with n elements. Each element is a copy of val.
+			: m_alloc(alloc), m_array(0), m_size(0), m_capacity(0) {}
+
+		/*	fill constructor
+		 	Constructs a container with n elements. Each element is a copy of val.*/
 		explicit vector (size_type n, const value_type& value = value_type(), const allocator_type& alloc = allocator_type())
 			: m_alloc(alloc), m_size(n), m_capacity(n) {
 			try
@@ -62,31 +64,44 @@ namespace ft {
 			{
 				std::cerr << e.what() << '\n';
 			}
-
 		}
-		range constructor
-		 Constructs a container with as many elements as the range [first,last),
-		 with each element constructed from its corresponding element in that range, in the same order.
 
-		 template <class InputIterator>
-		 vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
-		 	const allocator_type& alloc = allocator_type()) : m_alloc(alloc), m_array(NULL), m_size(0), m_capacity(0) {
-		 	size_type i = 0;
-		 	size_type j = 0;
-		 	for (InputIterator it = first; it != last; it++)
-		 		i++;
-		 	try
-		 	{
-		 		reserve(i);
-		 	}
-		 	catch(const std::exception& e)
-		 	{
-		 		std::cerr << e.what() << '\n';
-		 	}
-		 	for (InputIterator it = first; it != last; it++, j++)
-		 		m_alloc.construct(&m_array[i], *it);
-		 	m_size = i;
-		 }
+		/*	range constructor
+			Constructs a container with as many elements as the range [first,last),
+			with each element constructed from its corresponding element in that range, in the same order. */
+
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last,  allocator_type const &alloc = allocator_type(),
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0): m_alloc(alloc) {
+			m_size = 0;
+			for (InputIterator i = first; i != last; i++)
+				m_size++;
+			for (m_capacity = 1; m_capacity < m_size;)
+				m_capacity *= 2;
+			m_array = m_alloc.allocate(m_capacity);
+			for (size_type i = 0; i < m_size; i++, first++)
+				m_alloc.construct(m_array + i, *first);
+		}
+
+//		template <class InputIterator>
+//		vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
+//		 	const allocator_type& alloc = allocator_type()) : m_alloc(alloc), m_array(NULL), m_size(0), m_capacity(0) {
+//		 	size_type i = 0;
+//		 	size_type j = 0;
+//		 	for (InputIterator it = first; it != last; it++)
+//		 		i++;
+//		 	try
+//		 	{
+//		 		reserve(i);
+//		 	}
+//		 	catch(const std::exception& e)
+//		 	{
+//		 		std::cerr << e.what() << '\n';
+//		 	}
+//		 	for (InputIterator it = first; it != last; it++, j++)
+//		 		m_alloc.construct(&m_array[i], *it);
+//		 	m_size = i;
+//		}
 		// copy constructor
 		// Constructs a container with a copy of each of the elements in ref, in the same order.
 		vector (const vector& ref)
@@ -131,33 +146,21 @@ namespace ft {
 		}
 
 		//iterators
-		iterator begin() {
-			return iterator(m_array);
-		}
-		const_iterator begin() const {
-			return const_iterator(m_array);
-		}
+		iterator begin() {return (m_array);}
 
-		iterator end() {
-			return iterator(m_array + m_size);
-		}
-		const_iterator end() const {
-			return const_iterator(m_array + m_size);
-		}
+		const_iterator begin() const {return (m_array);}
 
-//			reverse_iterator rbegin() {
-//				return reverse_iterator(end());
-//			}
-//			const_reverse_iterator rbegin() const {
-//				return const_reverse_iterator(end());
-//			}
-//
-//			reverse_iterator rend() {
-//				return reverse_iterator(begin());
-//			}
-//			const_reverse_iterator rend() const {
-//				return const_reverse_iterator(begin());
-//			}
+		iterator end() {return (begin() + m_size);}
+
+		const_iterator end() const {return (begin() + m_size);}
+
+		reverse_iterator rbegin() {return reverse_iterator(end());}
+
+		const_reverse_iterator rbegin() const {return const_reverse_iterator(end());}
+
+		reverse_iterator rend() {return reverse_iterator(begin());}
+
+		const_reverse_iterator rend() const {return const_reverse_iterator(begin());}
 
 		void reserve (size_type n) {
 			if (n <= m_capacity)
@@ -170,7 +173,9 @@ namespace ft {
 			this->m_array = m_array;
 			m_capacity = n;
 		}
-
+		size_type capacity() const {
+			return m_capacity;
+		}
 		// void vector<T, Alloc>::realloc(size_type n) {
 		// 	if (n <= m_capacity)
 		// 		return;
