@@ -9,11 +9,13 @@ namespace ft {
 	template<class Iterator>
 	struct iterator_traits
 	{
-		typedef ptrdiff_t      difference_type;
-		typedef Iterator       value_type;
-		typedef Iterator*      pointer;
-		typedef Iterator&      reference;
-		typedef size_t         size_type;
+		typedef ptrdiff_t       difference_type;
+		typedef Iterator        value_type;
+		typedef Iterator*       pointer;
+		typedef Iterator&       reference;
+		typedef size_t          size_type;
+		typedef const Iterator& const_reference;
+		typedef const Iterator* const_pointer;
 	};
 
 	template<class Iterator>

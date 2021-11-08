@@ -6,7 +6,7 @@
 /*   By: amuriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/03 14:48:43 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/11/08 09:11:13 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,20 +147,13 @@ namespace ft {
 
 		//iterators
 		iterator begin() {return (m_array);}
-
-		const_iterator begin() const {return (m_array);}
-
+		//const_iterator begin() const {return (m_array);}
 		iterator end() {return (begin() + m_size);}
-
-		const_iterator end() const {return (begin() + m_size);}
-
+		//const_iterator end() const {return (begin() + m_size);}
 		reverse_iterator rbegin() {return reverse_iterator(end());}
-
-		const_reverse_iterator rbegin() const {return const_reverse_iterator(end());}
-
+		//const_reverse_iterator rbegin() const {return const_reverse_iterator(end());}
 		reverse_iterator rend() {return reverse_iterator(begin());}
-
-		const_reverse_iterator rend() const {return const_reverse_iterator(begin());}
+		//const_reverse_iterator rend() const {return const_reverse_iterator(begin());}
 
 		void reserve (size_type n) {
 			if (n <= m_capacity)
@@ -176,6 +169,7 @@ namespace ft {
 		size_type capacity() const {
 			return m_capacity;
 		}
+
 		// void vector<T, Alloc>::realloc(size_type n) {
 		// 	if (n <= m_capacity)
 		// 		return;
