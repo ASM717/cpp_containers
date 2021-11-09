@@ -9,12 +9,21 @@ namespace ft {
 	template <class Iterator>
 	class VectorReverseIterator {
 	public:
-		typedef Iterator                                                  iterator_type;
-		typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
-		typedef typename ft::iterator_traits<Iterator>::value_type        value_type;
-		typedef typename ft::iterator_traits<Iterator>::difference_type   difference_type;
-		typedef typename ft::iterator_traits<Iterator>::pointer           pointer;
-		typedef typename ft::iterator_traits<Iterator>::reference         reference;
+
+//		typedef Iterator                                                  iterator_type;
+//		typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
+//		typedef typename ft::iterator_traits<Iterator>::value_type        value_type;
+//		typedef typename ft::iterator_traits<Iterator>::difference_type   difference_type;
+//		typedef typename ft::iterator_traits<Iterator>::pointer           pointer;
+//		typedef typename ft::iterator_traits<Iterator>::reference         reference;
+
+		typedef	Iterator                                iterator_type;
+		typedef	typename Iterator::iterator_category    iterator_category;
+		typedef typename Iterator::value_type           value_type;
+		typedef typename Iterator::difference_type      difference_type;
+		typedef typename Iterator::pointer              pointer;
+		typedef typename Iterator::reference            reference;
+
 	private:
 		Iterator m_it;
 	public:
@@ -22,11 +31,13 @@ namespace ft {
 		explicit VectorReverseIterator(iterator_type it) : m_it(it) {}
 		//template <typename Iter> если надо, то вниз уйдет <Iter>
 		VectorReverseIterator(const VectorReverseIterator<Iterator> &rev_it) : m_it(rev_it.base()) {}
-		~VectorReverseIterator() {}
+		virtual ~VectorReverseIterator() {}
 
 		iterator_type base() const {return (this->m_it);}
 		// *
-		reference operator*() const {return (*this->m_it);}
+		reference operator*() const {
+			return (*(--base()));
+		}
 		// +
 		VectorReverseIterator operator+(difference_type n) const {
 			return (ReverseIterator(this->m_it - n));

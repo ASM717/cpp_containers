@@ -31,12 +31,12 @@ namespace ft
 		VectorRandomAccessIterator (VectorRandomAccessIterator const &other)
 			: m_arr_ptr (other.m_arr_ptr) {}
 
-		VectorRandomAccessIterator operator=(VectorRandomAccessIterator const &other) {
+		VectorRandomAccessIterator &operator=(VectorRandomAccessIterator const &other) {
 			m_arr_ptr = other.m_arr_ptr;
 			return *this;
 		}
 
-		virtual ~VectorRandomAccessIterator() {}
+		virtual ~VectorRandomAccessIterator() = default;
 
 		bool operator==(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr == ref.m_arr_ptr);}
 		bool operator!=(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr != ref.m_arr_ptr);}

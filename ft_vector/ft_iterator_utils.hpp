@@ -9,13 +9,14 @@ namespace ft {
 	template<class Iterator>
 	struct iterator_traits
 	{
-		typedef ptrdiff_t       difference_type;
-		typedef Iterator        value_type;
-		typedef Iterator*       pointer;
-		typedef Iterator&       reference;
-		typedef size_t          size_type;
-		typedef const Iterator& const_reference;
-		typedef const Iterator* const_pointer;
+		typedef ptrdiff_t         difference_type;
+		typedef Iterator          value_type;
+		typedef Iterator*         pointer;
+		typedef Iterator&         reference;
+		typedef size_t            size_type;
+		typedef const Iterator&   const_reference;
+		typedef const Iterator*   const_pointer;
+		//typedef std::random_access_iterator_tag iterator_category;
 	};
 
 	template<class Iterator>
@@ -25,7 +26,7 @@ namespace ft {
 		typedef Iterator                        value_type;
 		typedef Iterator*                       pointer;
 		typedef Iterator&                       reference;
-		typedef std::random_access_iterator_tag iterator_category;
+		//typedef std::random_access_iterator_tag iterator_category;
 	};
 
 	template<class Iterator>
@@ -34,7 +35,7 @@ namespace ft {
 		typedef Iterator                        value_type;
 		typedef const Iterator*                 pointer;
 		typedef const Iterator&                 reference;
-		typedef std::random_access_iterator_tag iterator_category;
+		//typedef std::random_access_iterator_tag iterator_category;
 	};
 
 	template<class T>
@@ -44,6 +45,10 @@ namespace ft {
 		b = tmp;
 	}
 
+	template <class T>
+	const T& max(const T &a, const T &b) {
+		return (a < b) ? b : a;
+	}
 //	template<typename InputIterator>
 //	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last,
 //		typename ft::enable_if<ft::is_random_access_iterator_tag<typename InputIterator::iterator_category>::value>::type* = NULL) {
