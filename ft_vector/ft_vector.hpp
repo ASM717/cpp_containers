@@ -156,18 +156,6 @@ namespace ft {
 		const_reverse_iterator rbegin() const {return const_reverse_iterator(end());}
 		const_reverse_iterator rend() const {return const_reverse_iterator(begin());}
 
-		void reserve (size_type n) {
-			if (n <= m_capacity)
-				return ;
-			//pointer new_array = m_alloc.allocate(n);
-			for (size_type i = 0; i < m_size; i++) {
-				m_alloc.construct(m_array + i, this->m_array[i]);
-			}
-			this->~vector();
-			this->m_array = m_array;
-			m_capacity = n;
-		}
-
 		// Capacity
 		size_type size() const {return m_size;}
 
@@ -183,6 +171,29 @@ namespace ft {
 			return m_capacity;
 		}
 
+		bool empty() const {
+			return begin() == end();
+		}
+
+		void reserve (size_type n) {
+			if (n <= m_capacity)
+				return ;
+			//pointer new_array = m_alloc.allocate(n);
+			for (size_type i = 0; i < m_size; i++) {
+				m_alloc.construct(m_array + i, this->m_array[i]);
+			}
+			this->~vector();
+			this->m_array = m_array;
+			m_capacity = n;
+		}
+		// Element access:
+		reference operator[] (size_type n) {
+			return *(m_array + n);
+		}
+
+		const_reference operator[] (size_type n) const {
+			return *(m_array + n);
+		}
 		// Modifiers:
 		iterator insert (iterator position, const value_type &val){
 			difference_type type = position - begin();

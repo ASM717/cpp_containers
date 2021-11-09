@@ -23,13 +23,12 @@ int main() {
 	std::cout << "ft: " << ft_vector.max_size() << " | std: " << std_vector.max_size() << std::endl;
 	std::cout << "VECTOR CAPACITY" << std::endl;
 	std::cout << "ft: " << ft_vector.capacity() << " | std: " << std_vector.capacity() << std::endl;
-
 	ft_vector.resize(10);
 	std_vector.resize(10);
 	std::cout << "SIZE AFTER RESIZE" << std::endl;
 	std::cout << "ft: " << ft_vector.size() << " | std: " << std_vector.size() << std::endl;
-	std::cout << "now" << std::endl;
-	//std::cout << "ft: " << ft_vector.empty()  << " | std: " << std_vector.empty() << std::endl;
+	std::cout << "SIZE AFTER EMPTY FUNC USE" << std::endl;
+	std::cout << "ft: " << ft_vector.empty()  << " | std: " << std_vector.empty() << std::endl;
 
 	return (0);
 }
