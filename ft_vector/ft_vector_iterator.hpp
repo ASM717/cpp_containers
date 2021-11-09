@@ -36,7 +36,7 @@ namespace ft
 			return *this;
 		}
 
-		virtual ~VectorRandomAccessIterator() = default;
+		virtual ~VectorRandomAccessIterator() {}
 
 		bool operator==(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr == ref.m_arr_ptr);}
 		bool operator!=(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr != ref.m_arr_ptr);}

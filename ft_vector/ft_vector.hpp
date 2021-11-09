@@ -159,7 +159,7 @@ namespace ft {
 		void reserve (size_type n) {
 			if (n <= m_capacity)
 				return ;
-			pointer new_array = m_alloc.allocate(n);
+			//pointer new_array = m_alloc.allocate(n);
 			for (size_type i = 0; i < m_size; i++) {
 				m_alloc.construct(m_array + i, this->m_array[i]);
 			}
@@ -189,7 +189,7 @@ namespace ft {
 			size_type n = 1;
 			position = begin() + type;
 			if (m_capacity < m_size + n)
-				reserve(ft::max(m_size * 2, m_size + n));
+				reserve(std::max(m_size * 2, m_size + n));
 			iterator accessIterator = end() + n - 1;
 			while (accessIterator >= position + n) {
 				m_alloc.construct(accessIterator.base(), *(accessIterator - n));
@@ -237,6 +237,11 @@ namespace ft {
 				dist++;
 				iter++;
 			}
+			iterator inputIterator = firstIter;
+			while (inputIterator != endIt) {
+				dist++;
+				inputIterator++;
+			}
 			if (m_capacity < m_size + dist)
 				reserve(ft::max(m_size * 2, m_size + dist));
 			difference_type type = position - begin();
@@ -276,7 +281,7 @@ namespace ft {
 //			return first;
 
 			iterator it = first;
-			difference_type diff = last - first;
+			size_type diff = last - first;
 
 			while (last != end())
 				*(first++) = *(last++);
