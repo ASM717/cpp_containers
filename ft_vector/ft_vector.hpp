@@ -20,6 +20,7 @@
 #include <iostream>
 #include <memory>  // allocator
 #include <cstddef> // ptrdiff_t
+#include <stdexcept> // exception
 
 namespace ft {
 	template <class T, class Alloc = std::allocator<T> >
@@ -194,7 +195,41 @@ namespace ft {
 		const_reference operator[] (size_type n) const {
 			return *(m_array + n);
 		}
+
+		void ft_range_check(size_type n) const
+		{
+			if (n >= this->size() || n < 0)
+				throw(std::out_of_range("index out of range"));
+			//vector::_M_range_check:
+		}
+
+		reference at (size_type n) {
+			ft_range_check(n);
+			return (*(this->m_array + n));
+		}
+
+		const_reference at (size_type n) const {
+			ft_range_check(n);
+			return (*(this->m_array + n));
+		}
+
+		reference front() {return *begin();}
+		const_reference front() const {return *begin();}
+
+		reference back() {return *(end() - 1);}
+		const_reference back() const {return *(end() - 1);}
+
 		// Modifiers:
+
+		void assign (size_type n, const value_type& val) {
+
+		}
+
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last) {
+
+		}
+
 		iterator insert (iterator position, const value_type &val){
 			difference_type type = position - begin();
 			size_type n = 1;

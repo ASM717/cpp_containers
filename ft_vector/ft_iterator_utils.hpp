@@ -49,6 +49,9 @@ namespace ft {
 	const T& max(const T &a, const T &b) {
 		return (a < b) ? b : a;
 	}
+
+
+
 //	template<typename InputIterator>
 //	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last,
 //		typename ft::enable_if<ft::is_random_access_iterator_tag<typename InputIterator::iterator_category>::value>::type* = NULL) {
