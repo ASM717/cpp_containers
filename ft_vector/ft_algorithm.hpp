@@ -1,5 +1,5 @@
-#ifndef FT_ALGORITHM
-#define FT_ALGORITHM
+#ifndef FT_ALGORITHM_HPP
+#define FT_ALGORITHM_HPP
 
 namespace ft {
 	// https://en.cppreference.com/w/cpp/algorithm/lexicographical_compare
@@ -46,6 +46,48 @@ namespace ft {
 			}
 		}
 		return true;
+	}
+
+	// static class nullptr_t {
+	// 	public:
+	// 	template < class T >
+	// 	operator T*() const {
+	// 		return (0);
+	// 	}
+
+	// 	template < class C, class T >
+	// 	operator T C::*() const {
+	// 		return (0);
+	// 	}
+
+	// 	private:
+	// 	void operator&() const;
+
+	// 	} u_nullptr = {};
+
+	// template <typename InputIterator>
+	// typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last) {
+	// 	typename ft::iterator_traits<InputIterator>::difference_type dist = 0;
+	// 	while (first != last) {
+	// 		first++;
+	// 		dist++;
+	// 	}
+	// 	return (dist);
+	// }
+
+	// template <typename InputIterator>
+	// typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last) {
+	// 	typename ft::iterator_traits<InputIterator>::difference_type diff = 0;
+	// 	return (last - first);
+	// }
+
+	template <class InputIterator>
+	size_t	distance(InputIterator first, InputIterator second)
+	{
+		size_t i = 0;
+		for (InputIterator it = first; it != second; ++it)
+			i++;
+		return i;
 	}
 }
 

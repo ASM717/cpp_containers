@@ -9,27 +9,20 @@ namespace ft {
 	template <class Iterator>
 	class VectorReverseIterator {
 	public:
-
-//		typedef Iterator                                                  iterator_type;
-//		typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
-//		typedef typename ft::iterator_traits<Iterator>::value_type        value_type;
-//		typedef typename ft::iterator_traits<Iterator>::difference_type   difference_type;
-//		typedef typename ft::iterator_traits<Iterator>::pointer           pointer;
-//		typedef typename ft::iterator_traits<Iterator>::reference         reference;
-
-		typedef	Iterator                                iterator_type;
-		typedef	typename Iterator::iterator_category    iterator_category;
-		typedef typename Iterator::value_type           value_type;
-		typedef typename Iterator::difference_type      difference_type;
-		typedef typename Iterator::pointer              pointer;
-		typedef typename Iterator::reference            reference;
+		typedef Iterator iterator_type;
+		typedef
+		typename iterator_traits<Iterator>::iterator_category       iterator_category;
+		typedef typename iterator_traits<Iterator>::value_type      value_type;
+		typedef typename iterator_traits<Iterator>::difference_type difference_type;
+		typedef typename iterator_traits<Iterator>::pointer         pointer;
+		typedef typename iterator_traits<Iterator>::reference       reference;
 
 	private:
 		Iterator m_it;
 	public:
 		VectorReverseIterator() : m_it(){}
 		explicit VectorReverseIterator(iterator_type it) : m_it(it) {}
-		//template <typename Iter> если надо, то вниз уйдет <Iter>
+		template <typename Iter>
 		VectorReverseIterator(const VectorReverseIterator<Iterator> &rev_it) : m_it(rev_it.base()) {}
 		virtual ~VectorReverseIterator() {}
 
@@ -78,22 +71,15 @@ namespace ft {
 			this->m_it = this->m_it + n;
 			return (*this);
 		}
-//		bool operator==(reverse_iterator const &ref) const {
-//			return (this->m_it == ref.m_it);
-//		}
-//		bool operator!=(reverse_iterator const &ref) const {
-//			return (this->m_it != ref.m_it);
-//		}
+		// bool operator==(reverse_iterator const &ref) const {
+		// 	return (this->m_it == ref.m_it);
+		// }
+		// bool operator!=(reverse_iterator const &ref) const {
+		// 	return (this->m_it != ref.m_it);
+		// }
 		// ->
 		pointer operator->() const {return (&(this->operator*()));}
-		/*	Accesses the element located n positions away from the element
-		 * currently pointed to by the iterator.
-		 * If such an element does not exist, it causes undefined behavior.
-		 * Internally, the function accesses the proper element of its base iterator,
-		 * returning the same as: base()[-n-1].
-		*/
-		reference operator[](difference_type n) const {return (base()[-n-1]);} //???
-
+		reference operator[](difference_type n) const {return (base()[-n-1]);}
 	};
 	/*
 	 * relational operators (reverse_iterator)
