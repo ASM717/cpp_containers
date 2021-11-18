@@ -29,14 +29,14 @@ void print_vector_reverse(const ft::vector<T> &vct) {
 // }
 
 void vector_test() {
-	// ft::vector<int> vector2;
-	// vector2.push_back(20);
-	// vector2.push_back(22);
-	// vector2.push_back(48);
-	// vector2.push_back(0);
-	// vector2.push_back(-200);
+	 ft::vector<int> vector2;
+	 vector2.push_back(20);
+	 vector2.push_back(22);
+	 vector2.push_back(48);
+	 vector2.push_back(0);
+	 vector2.push_back(-200);
 
-	// print_vector(vector2);
+	 print_vector(vector2);
 
 	std::vector<int> std_vector;
 	std_vector.push_back(1);
@@ -67,12 +67,48 @@ void vector_test() {
 	std::cout << "SIZE AFTER EMPTY FUNC USE" << std::endl;
 	std::cout << "ft: " << ft_vector.empty()  << " | std: " << std_vector.empty() << std::endl;
 	print_vector(ft_vector);
+	std::cout << "SIZE AFTER EMPTY FUNC USE" << std::endl;
+	std::cout << "ft: " << ft_vector.empty()  << " | std: " << std_vector.empty() << std::endl;
+	print_vector(ft_vector);
+	std::cout << "ft_vector[1]" << std::endl;
+	std::cout << "ft: " << ft_vector[1]  << " | std: " << std_vector[1] << std::endl;
+	print_vector(ft_vector);
+	std::cout << "ft_vector.at(2)" << std::endl;
+	std::cout << "ft: " << ft_vector.at(2) << " | std: " << std_vector.at(2) << std::endl;
+	print_vector(ft_vector);
+	std::cout << "ft_vector.front()" << std::endl;
+	std::cout << "ft: " << ft_vector.front()  << " | std: " << std_vector.front() << std::endl;
+	print_vector(ft_vector);
+	std::cout << "ft_vector.back()" << std::endl;
+	std::cout << "ft: " << ft_vector.back()  << " | std: " << std_vector.back() << std::endl;
+	ft_vector.insert(ft_vector.begin(), 99);
+	std_vector.insert(std_vector.begin(), 99);
+	std::cout << "ft: " << ft_vector[0]  << " | std: " << std_vector[0] << std::endl;
+	print_vector(ft_vector);
+
+	ft_vector.erase(ft_vector.begin());
+ 	std_vector.erase(std_vector.begin());
+ 	std::cout << "ft: " << ft_vector[0]  << " | std: " << std_vector[0] << std::endl;
+	print_vector(ft_vector);
+ 	ft::vector<int> ft_swap(10,10);
+ 	ft::vector<int>::iterator it = ft_swap.begin();
+// 	ft_vector.swap(ft_swap);
+// 	std::cout << "ft: " << (*(it + 2)) << std::endl;
+// 	std::cout << "ft: " << (*(ft_swap.begin() + 2)) << std::endl;
+// 	ft::vector<int>::const_iterator cit = ft_swap.begin() + 3;
+// 	std::cout << "ft: " << ((ft_swap.begin() + 2) > cit) << std::endl;
+// 	ft_swap.clear();
+// 	std_vector.clear();
+// 	std::cout << "ft: " << ft_swap.size()  << " | std: " << std_vector.size() << std::endl;
+// 	std::cout << "ft: " << (ft_vector > ft_swap) << std::endl;
+
 }
 
-int main() {
+// int main() {
 
-	std::cout << std::endl << "====== VECTOR ======" << std::endl;
-	vector_test();
+// 	std::cout << std::endl << "====== VECTOR ======" << std::endl;
+	//vector_test();
+
 
 // 	ft::vector<int> my;
 // 	my.push_back(3);
@@ -178,5 +214,64 @@ int main() {
 
 
 // 	return (0);
+// }
+#include <ctime>
+
+void speed_erase_test()
+{
+	unsigned int start_time = clock();
+
+	ft::vector<int> *test = new ft::vector<int>;
+	for(int i= 0; i < 1000000; i++)
+		test->push_back(i);
+	ft::vector<int>::iterator b = test->begin();
+	ft::vector<int>::iterator e = test->end();
+	std::cout << "size = " << test->size() << std::endl;
+	std::cout << "cap = " << test->capacity() << std::endl;
+	b++;
+	e--;
+	std::cout << " erase here " << std::endl;
+	test->erase(b, e);
+	for(ft::vector<int>::iterator i = test->begin(); i != test->end(); i++)
+		std::cout << " i = " << *i << std::endl;
+	delete test;
+	unsigned int end_time = clock();
+	unsigned int search_time = end_time - start_time;
+	std::cout << search_time << std::endl;
 }
 
+int main()
+{
+	//speed_erase_test();
+	std::cout << std::endl << "====== VECTOR ======" << std::endl;
+	vector_test();
+}
+
+// int main()
+// {
+// 	unsigned int start_time =  clock();
+
+// 	std::vector<int> *test = new std::vector<int>;
+// 	for(int i= 0; i < 1000000; i++)
+//     	test->push_back(i);
+
+// 	std::vector<int>::iterator b = test->begin();
+//     std::vector<int>::iterator e = test->end();
+
+//     std::cout << "size = " << test->size() << std::endl;
+//     std::cout << "cap = " << test->capacity() << std::endl;
+
+//     b++;
+
+//     e--;
+//     std::cout << " erase here " << std::endl;
+//     test->erase(b, e);
+//     for(std::vector<int>::iterator i = test->begin(); i != test->end(); i++)
+//     {
+//         std::cout << " i = " << *i << std::endl;
+//     }
+// 	delete test;
+// 	unsigned int end_time = clock();
+// 	unsigned int search_time = end_time - start_time;
+//     std::cout << search_time << std::endl;
+// }

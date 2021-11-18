@@ -6,7 +6,7 @@
 /*   By: amuriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/17 17:42:05 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/11/17 21:15:57 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,9 +369,6 @@ namespace ft {
 				m_alloc.construct(ptr.base(), *first);
 			m_size += dist;
 		}
-
-		/////////////////////////////////////////////////////////////////////////////////
-
 
 //		iterator insert (iterator position, const value_type &val){
 //			difference_type type = position - begin();
