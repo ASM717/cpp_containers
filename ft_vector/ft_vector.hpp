@@ -506,6 +506,8 @@ namespace ft {
 		allocator_type get_allocator() const {
 			return (m_alloc);
 		}
+
+
 		// void vector<T, Alloc>::realloc(size_type n) {
 		// 	if (n <= m_capacity)
 		// 		return;
@@ -519,6 +521,52 @@ namespace ft {
 		// 	m_capacity = n;
 		// }
 	};
+
+	// relational operators (vector)
+	template <typename T, typename Alloc>
+	bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		if (lhs.size() != rhs.size())
+			return (false);
+
+		typename ft::vector<T, Alloc>::const_iterator const_lhs_it = lhs.begin();
+		typename ft::vector<T, Alloc>::const_iterator const_rhs_it = rhs.begin();
+
+		for (; const_lhs_it != lhs.end(); const_lhs_it++, const_rhs_it++) {
+			if (const_rhs_it == rhs.end() || *const_lhs_it != *const_rhs_it)
+				return (false);
+		}
+		return (true);
+	}
+
+	template <typename T, typename Alloc>
+	bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (!(lhs == rhs));
+	}
+
+	template <typename T, typename Alloc>
+	bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template <typename T, typename Alloc>
+	bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return !(ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(),lhs.end()));
+	}
+
+	template <typename T, typename Alloc>
+	bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return !(ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(),lhs.end()));
+	}
+
+	template <typename T, typename Alloc>
+	bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template <typename T, typename Alloc>
+	void swap (vector<T,Alloc> &x, vector<T,Alloc> &y) {
+		x.swap(y);
+	}
 }
 
 #endif
