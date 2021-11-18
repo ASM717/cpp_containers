@@ -490,10 +490,22 @@ namespace ft {
 //			return it;
 		}
 
+		void swap (vector &ref) {
+			if (*this == ref)
+				return;
+			ft::swap(m_array, ref.m_array);
+			ft::swap(m_size, ref.m_size);
+			ft::swap(m_capacity, ref.m_capacity);
+			ft::swap(m_alloc, ref.m_capacity);
+		}
+
 		void clear() {
 			while (m_size) {pop_back();}
 		}
 
+		allocator_type get_allocator() const {
+			return (m_alloc);
+		}
 		// void vector<T, Alloc>::realloc(size_type n) {
 		// 	if (n <= m_capacity)
 		// 		return;
