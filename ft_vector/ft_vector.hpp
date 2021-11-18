@@ -525,15 +525,14 @@ namespace ft {
 	// relational operators (vector)
 	template <typename T, typename Alloc>
 	bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-		if (lhs.size() != rhs.size())
-			return (false);
-
-		typename ft::vector<T, Alloc>::const_iterator const_lhs_it = lhs.begin();
-		typename ft::vector<T, Alloc>::const_iterator const_rhs_it = rhs.begin();
-
-		for (; const_lhs_it != lhs.end(); const_lhs_it++, const_rhs_it++) {
-			if (const_rhs_it == rhs.end() || *const_lhs_it != *const_rhs_it)
+		if (lhs._size != rhs._size)
+			return false;
+		size_t i = 0;
+		while (i < lhs.size)
+		{
+			if (lhs[i] != rhs[i])
 				return (false);
+			i++;
 		}
 		return (true);
 	}
