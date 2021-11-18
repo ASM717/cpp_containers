@@ -30,6 +30,7 @@ void print_vector_reverse(const ft::vector<T> &vct) {
 
 void vector_max_size_test() {
 	std::cout << "====================== MAX SIZE ========================" << std::endl;
+
 	std::vector<int> std_vector;
 	// set some content in the vector:
 	for (int i = 0; i < 100; i++)
@@ -37,8 +38,10 @@ void vector_max_size_test() {
 	std::cout << "STD::size: " << std_vector.size() << std::endl;
 	std::cout << "STD::capacity: " << std_vector.capacity() << std::endl;
 	std::cout << "STD::max_size: " << std_vector.max_size() << std::endl;
+
 	std::cout << "----------------------------------" << std::endl;
-	std::vector<int> ft_vector;
+
+	ft::vector<int> ft_vector;
 	// set some content in the vector:
 	for (int i = 0; i < 100; i++)
 		ft_vector.push_back(i);
@@ -168,6 +171,107 @@ void vector_reverse_iterator_test() {
 	std::cout << '\n';
 }
 
+void vector_resize_test() {
+	std::cout << "======================= RESIZE =========================" << std::endl;
+	std::vector<int> std_vector;
+	// set some initial content:
+	for (unsigned long i = 1; i < 10; i++) std_vector.push_back(i);
+	std_vector.resize(5);
+	std_vector.resize(8, 100);
+	std_vector.resize(12);
+	std::cout << "STD::vector contains:";
+	for (unsigned long i = 0; i < std_vector.size(); i++)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+
+	ft::vector<int> ft_vector;
+	// set some initial content:
+	for (unsigned long i = 1; i < 10; i++) ft_vector.push_back(i);
+	ft_vector.resize(5);
+	ft_vector.resize(8, 100);
+	ft_vector.resize(12);
+	std::cout << "FTV::vector contains:";
+	for (unsigned long i = 0; i < ft_vector.size(); i++)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+}
+
+void vector_empty_test() {
+	std::cout << "======================= EMPTY ==========================" << std::endl;
+	std::vector<int> std_vector;
+	int sum (0);
+	for (int i = 1; i <= 10; i++)
+		std_vector.push_back(i);
+	while (!std_vector.empty())
+	{
+		sum += std_vector.back();
+		std_vector.pop_back();
+	}
+	std::cout << "STD::total: " << sum << std::endl;
+
+	ft::vector<int> ft_vector;
+	int ft_sum (0);
+	for (int i = 1; i <= 10; i++)
+		ft_vector.push_back(i);
+	while (!ft_vector.empty())
+	{
+		ft_sum += ft_vector.back();
+		ft_vector.pop_back();
+	}
+	std::cout << "FTV::total: " << ft_sum << std::endl;
+}
+
+void vector_reserve_test() {
+	std::cout << "====================== RESERVE =========================" << std::endl;
+	std::vector<int>::size_type sz;
+	std::vector<int> foo;
+	sz = foo.capacity();
+	std::cout << "STD::making foo grow:\n";
+	for (int i = 0; i < 100; ++i) {
+		foo.push_back(i);
+		if (sz != foo.capacity()) {
+			sz = foo.capacity();
+			std::cout << "STD::capacity changed: " << sz << std::endl;
+		}
+	}
+	std::vector<int> bar;
+	sz = bar.capacity();
+	bar.reserve(100);   // this is the only difference with foo above
+	std::cout << "STD::making bar grow:\n";
+	for (int i = 0; i < 100; ++i) {
+		bar.push_back(i);
+		if (sz != bar.capacity()) {
+			sz = bar.capacity();
+			std::cout << "STD::capacity changed: " << sz << std::endl;
+		}
+	}
+
+	std::cout << "------------------------------------" << std::endl;
+
+	ft::vector<int>::size_type ft_sz;
+	ft::vector<int> ft_foo;
+	ft_sz = ft_foo.capacity();
+	std::cout << "FTV::making foo grow:\n";
+	for (int i = 0; i < 100; ++i) {
+		ft_foo.push_back(i);
+		if (ft_sz != ft_foo.capacity()) {
+			ft_sz = ft_foo.capacity();
+			std::cout << "FTV::capacity changed: " << ft_sz << std::endl;
+		}
+	}
+	ft::vector<int> ft_bar;
+	ft_sz = ft_bar.capacity();
+	ft_bar.reserve(100);   // this is the only difference with foo above
+	std::cout << "FTV::making bar grow:\n";
+	for (int i = 0; i < 100; ++i) {
+		ft_bar.push_back(i);
+		if (ft_sz != ft_bar.capacity()) {
+			ft_sz = ft_bar.capacity();
+			std::cout << "FTV::capacity changed: " << ft_sz << std::endl;
+		}
+	}
+}
+
 void vector_test() {
 	std::cout << "======================== VECTOR ========================" << std::endl;
 	vector_constructor_test();
@@ -176,6 +280,9 @@ void vector_test() {
 	vector_reverse_iterator_test();
 	vector_size_test();
 	vector_max_size_test();
+	vector_resize_test();
+	vector_empty_test();
+	vector_reserve_test();
 }
 
 int main()
