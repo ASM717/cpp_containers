@@ -56,6 +56,7 @@ namespace ft {
 			--(*this);
 			return (result);
 		}
+
 		bool operator==(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr == ref.m_arr_ptr);}
 		bool operator!=(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr != ref.m_arr_ptr);}
 		bool operator>=(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr >= ref.m_arr_ptr);}

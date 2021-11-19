@@ -272,6 +272,237 @@ void vector_reserve_test() {
 	}
 }
 
+// vector::operator[]
+void vector_operator_el_pos_test() {
+	std::cout << "====================== OPERATOR[] ======================" << std::endl;
+	std::vector<int> std_vector (10);   // 10 zero-initialized elements
+	std::vector<int>::size_type sz = std_vector.size();
+	// assign some values:
+	for (unsigned i = 0; i < sz; i++)
+		std_vector[i] = i;
+	// reverse vector using operator[]:
+	for (unsigned i = 0; i < sz/2; i++)
+	{
+		int temp;
+		temp = std_vector[sz - 1 - i];
+		std_vector[sz - 1 - i] = std_vector[i];
+		std_vector[i] = temp;
+	}
+	std::cout << "STD::vector contains:";
+	for (unsigned i = 0; i < sz; i++)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+
+	ft::vector<int> ft_vector (10);   // 10 zero-initialized elements
+	ft::vector<int>::size_type ft_sz = ft_vector.size();
+	// assign some values:
+	for (unsigned i = 0; i < ft_sz; i++)
+		ft_vector[i] = i;
+	// reverse vector using operator[]:
+	for (unsigned i = 0; i < ft_sz/2; i++)
+	{
+		int temp;
+		temp = ft_vector[ft_sz - 1 - i];
+		ft_vector[ft_sz - 1 - i] = ft_vector[i];
+		ft_vector[i] = temp;
+	}
+	std::cout << "FTV::vector contains:";
+	for (unsigned i = 0; i < ft_sz; i++)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+}
+
+void vector_at_test() {
+	std::cout << "========================== AT ==========================" << std::endl;
+	std::vector<int> std_vector (10);   // 10 zero-initialized ints
+	// assign some values:
+	for (unsigned int i = 0; i < std_vector.size(); i++)
+		std_vector.at(i) = i;
+	std::cout << "STD::vector contains:";
+	for (unsigned int i = 0; i < std_vector.size(); i++)
+		std::cout << ' ' << std_vector.at(i);
+	std::cout << std::endl;
+
+	ft::vector<int> ft_vector (10);   // 10 zero-initialized ints
+	// assign some values:
+	for (unsigned int i = 0; i < ft_vector.size(); i++)
+		ft_vector.at(i) = i;
+	std::cout << "FTV::vector contains:";
+	for (unsigned int i = 0; i < ft_vector.size(); i++)
+		std::cout << ' ' << ft_vector.at(i);
+	std::cout << std::endl;
+	std::cout << "--------------------------------" << std::endl;
+	//error range (at)
+	std::vector<int> std_err_v(10);
+	try {
+		std_err_v.at(20) = 100;      // vector::at throws an out-of-range
+	}
+	catch (const std::out_of_range& oor) {
+		std::cerr << "STD::Out of Range error: " << oor.what() << std::endl;
+	}
+
+	ft::vector<int> ft_err_v(10);
+	try {
+		ft_err_v.at(20) = 100;      // vector::at throws an out-of-range
+	}
+	catch (const std::out_of_range& oor) {
+		std::cerr << "FTV::Out of Range error: " << oor.what() << std::endl;
+	}
+}
+
+void vector_front_test() {
+	std::cout << "======================== FRONT =========================" << std::endl;
+	std::vector<int> std_vector;
+	std_vector.push_back(78);
+	std_vector.push_back(16);
+	// now front equals 78, and back 16
+	std_vector.front() -= std_vector.back();
+	std::cout << "STD::vector.front() is now " << std_vector.front() << std::endl;
+
+	ft::vector<int> ft_vector;
+	ft_vector.push_back(78);
+	ft_vector.push_back(16);
+	// now front equals 78, and back 16
+	ft_vector.front() -= ft_vector.back();
+	std::cout << "FTV::vector.front() is now " << ft_vector.front() << std::endl;
+}
+
+void vector_back_test() {
+	std::cout << "========================= BACK =========================" << std::endl;
+	std::vector<int> std_vector;
+	std_vector.push_back(10);
+	while (std_vector.back() != 0)
+	{
+		std_vector.push_back (std_vector.back() - 1);
+	}
+	std::cout << "STD::vector contains:";
+	for (unsigned i = 0; i < std_vector.size(); i++)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+
+	ft::vector<int> ft_vector;
+	ft_vector.push_back(10);
+	while (ft_vector.back() != 0)
+	{
+		ft_vector.push_back (ft_vector.back() - 1);
+	}
+	std::cout << "FTV::vector contains:";
+	for (unsigned i = 0; i < ft_vector.size(); i++)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+}
+
+void vector_assign_test() {
+	std::cout << "======================== ASSIGN ========================" << std::endl;
+	std::vector<int> first;
+	std::vector<int> second;
+	std::vector<int> third;
+	first.assign (7,100);             // 7 ints with a value of 100
+	std::vector<int>::iterator it;
+	it = first.begin() + 1;
+	second.assign (it, first.end() - 1); // the 5 central values of first
+
+	int std_ints[] = {1776, 7, 4};
+	third.assign(std_ints, std_ints + 3);   // assigning from array.
+
+	std::cout << "STD::Size of first: " << int (first.size()) << std::endl;
+	std::cout << "STD::Size of second: " << int (second.size()) << std::endl;
+	std::cout << "STD::Size of third: " << int (third.size()) << std::endl;
+
+	std::cout << "-------------------------------" << std::endl;
+
+	ft::vector<int> ft_first;
+	ft::vector<int> ft_second;
+	ft::vector<int> ft_third;
+	ft_first.assign(7,100);             // 7 ints with a value of 100
+	ft::vector<int>::iterator ft_it;
+	ft_it = ft_first.begin() + 1;
+	ft_second.assign(ft_it, ft_first.end() - 1); // the 5 central values of first
+
+	int ft_ints[] = {1776, 7, 4};
+	ft_third.assign(ft_ints, ft_ints + 3);   // assigning from array.
+
+	std::cout << "FTV::Size of first: " << int (ft_first.size()) << std::endl;
+	std::cout << "FTV::Size of second: " << int (ft_second.size()) << std::endl;
+	std::cout << "FTV::Size of third: " << int (ft_third.size()) << std::endl;
+}
+
+void vector_push_pop_test() {
+	std::cout << "====================== PUSH _ POP ======================" << std::endl;
+	std::vector<int> std_vector;
+	int sum (0);
+	std_vector.push_back (100);
+	std_vector.push_back (200);
+	std_vector.push_back (300);
+	while (!std_vector.empty())
+	{
+		sum += std_vector.back();
+		std_vector.pop_back();
+	}
+	std::cout << "STD::The elements of vector add up to " << sum << std::endl;
+
+	ft::vector<int> ft_vector;
+	int ft_sum (0);
+	ft_vector.push_back (100);
+	ft_vector.push_back (200);
+	ft_vector.push_back (300);
+	while (!ft_vector.empty())
+	{
+		ft_sum += ft_vector.back();
+		ft_vector.pop_back();
+	}
+	std::cout << "FTV::The elements of vector add up to " << ft_sum << std::endl;
+}
+
+void vector_insert_test() {
+	std::cout << "======================== INSERT ========================" << std::endl;
+
+	std::vector<int> std_vector (3, 100);
+	std::vector<int>::iterator it;
+
+	it = std_vector.begin();
+	it = std_vector.insert (it , 200 );
+
+	std_vector.insert (it, 2, 300);
+
+	// "it" no longer valid, get a new one:
+	it = std_vector.begin();
+
+	std::vector<int> std_anothervector (2, 400);
+	std_vector.insert(it + 2, std_anothervector.begin(), std_anothervector.end());
+
+	int myarray [] = { 501,502,503 };
+	std_vector.insert (std_vector.begin(), myarray, myarray + 3);
+
+	std::cout << "STD::vector contains:";
+	for (it = std_vector.begin(); it < std_vector.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << std::endl;
+
+
+	ft::vector<int> ft_vector (3, 100);
+	ft::vector<int>::iterator ft_it;
+
+	ft_it = ft_vector.begin();
+	ft_it = ft_vector.insert(ft_it , 200 );
+
+	ft_vector.insert(ft_it, 2, 300);
+
+	// "ft_it" no longer valid, get a new one:
+	ft_it = ft_vector.begin();
+
+	ft::vector<int> ft_anothervector (2, 400);
+	ft_vector.insert(ft_it + 2, ft_anothervector.begin(), ft_anothervector.end());
+
+	int ft_myarray [] = { 501,502,503 };
+	ft_vector.insert(ft_vector.begin(), ft_myarray, ft_myarray + 3);
+
+	std::cout << "FTV::vector contains:";
+	for (ft_it = ft_vector.begin(); ft_it < ft_vector.end(); ft_it++)
+		std::cout << ' ' << *ft_it;
+	std::cout << std::endl;
+}
+
 void vector_test() {
 	std::cout << "======================== VECTOR ========================" << std::endl;
 	vector_constructor_test();
@@ -283,6 +514,13 @@ void vector_test() {
 	vector_resize_test();
 	vector_empty_test();
 	vector_reserve_test();
+	vector_operator_el_pos_test();
+	vector_at_test();
+	vector_front_test();
+	vector_back_test();
+	vector_assign_test();
+	vector_push_pop_test();
+	vector_insert_test();
 }
 
 int main()
@@ -302,7 +540,9 @@ int main()
 // {
 // 	unsigned int start_time =  clock();
 
-// 	std::vector<int> *test = new std::vector<int>;
+// 	std::vector<int> *test
+//
+// 	= new std::vector<int>;
 // 	for(int i= 0; i < 1000000; i++)
 //     	test->push_back(i);
 
