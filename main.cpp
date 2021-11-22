@@ -471,7 +471,7 @@ void vector_insert_test() {
 	std::vector<int> std_anothervector (2, 400);
 	std_vector.insert(it + 2, std_anothervector.begin(), std_anothervector.end());
 
-	int myarray [] = { 501,502,503 };
+	int myarray [] = { 707,717,777 };
 	std_vector.insert (std_vector.begin(), myarray, myarray + 3);
 
 	std::cout << "STD::vector contains:";
@@ -494,12 +494,211 @@ void vector_insert_test() {
 	ft::vector<int> ft_anothervector (2, 400);
 	ft_vector.insert(ft_it + 2, ft_anothervector.begin(), ft_anothervector.end());
 
-	int ft_myarray [] = { 501,502,503 };
+	int ft_myarray [] = { 707,717,777 };
 	ft_vector.insert(ft_vector.begin(), ft_myarray, ft_myarray + 3);
 
 	std::cout << "FTV::vector contains:";
 	for (ft_it = ft_vector.begin(); ft_it < ft_vector.end(); ft_it++)
 		std::cout << ' ' << *ft_it;
+	std::cout << std::endl;
+}
+
+void vector_erase_test() {
+	std::cout << "======================== ERASE =========================" << std::endl;
+	std::vector<int> std_vector;
+	// set some values (from 1 to 10)
+	for (int i = 1; i <= 10; i++) std_vector.push_back(i);
+	// erase the 6th element
+	std_vector.erase(std_vector.begin() + 5);
+	// erase the first 3 elements:
+	std_vector.erase(std_vector.begin(), std_vector.begin() + 3);
+
+	std::cout << "STD::vector contains:";
+	for (unsigned int i = 0; i < std_vector.size(); ++i)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+
+	ft::vector<int> ft_vector;
+	// set some values (from 1 to 10)
+	for (int i = 1; i <= 10; i++) ft_vector.push_back(i);
+	// erase the 6th element
+	ft_vector.erase(ft_vector.begin() + 5);
+	// erase the first 3 elements:
+	ft_vector.erase(ft_vector.begin(), ft_vector.begin() + 3);
+
+	std::cout << "FTV::vector contains:";
+	for (unsigned int i = 0; i < ft_vector.size(); ++i)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+}
+
+void vector_swap_test() {
+	std::cout << "========================= SWAP =========================" << std::endl;
+	std::vector<int> std_foo (3, 100);   // three ints with a value of 100
+	std::vector<int> std_bar (5, 200);   // five ints with a value of 200
+
+	std_foo.swap(std_bar);
+
+	std::cout << "STD::std_foo contains:";
+	for (unsigned int i = 0; i < std_foo.size(); i++)
+		std::cout << ' ' << std_foo[i];
+	std::cout << std::endl;
+
+	std::cout << "STD::std_bar contains:";
+	for (unsigned int i = 0; i < std_bar.size(); i++)
+		std::cout << ' ' << std_bar[i];
+	std::cout << std::endl;
+	std::cout << "------------------------------------------" << std::endl;
+	ft::vector<int> ft_foo (3, 100);   // three ints with a value of 100
+	ft::vector<int> ft_bar (5, 200);   // five ints with a value of 200
+
+	ft_foo.swap(ft_bar);
+
+	std::cout << "FTV::std_foo contains:";
+	for (unsigned int i = 0; i < ft_foo.size(); i++)
+		std::cout << ' ' << ft_foo[i];
+	std::cout << std::endl;
+
+	std::cout << "FTV::std_bar contains:";
+	for (unsigned int i = 0; i < ft_bar.size(); i++)
+		std::cout << ' ' << ft_bar[i];
+	std::cout << std::endl;
+}
+
+void vector_clear_test() {
+	std::cout << "======================== CLEAR ========================" << std::endl;
+	std::vector<int> std_vector;
+	std_vector.push_back (100);
+	std_vector.push_back (200);
+	std_vector.push_back (300);
+
+	std::cout << "STD::vector contains:";
+	for (unsigned int i = 0; i < std_vector.size(); i++)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+
+	std_vector.clear();
+	std_vector.push_back (1101);
+	std_vector.push_back (2202);
+
+	std::cout << "STD::vector contains:";
+	for (unsigned i = 0; i < std_vector.size(); i++)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+
+	std::cout << "------------------------------------------" << std::endl;
+
+	ft::vector<int> ft_vector;
+	ft_vector.push_back (100);
+	ft_vector.push_back (200);
+	ft_vector.push_back (300);
+
+	std::cout << "FTV::vector contains:";
+	for (unsigned int i = 0; i < ft_vector.size(); i++)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+
+	ft_vector.clear();
+	ft_vector.push_back (1101);
+	ft_vector.push_back (2202);
+
+	std::cout << "FTV::vector contains:";
+	for (unsigned i = 0; i < ft_vector.size(); i++)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+}
+
+void vector_get_allocator_test() {
+	std::cout << "==================== GET ALLOCATOR ====================" << std::endl;
+	std::vector<int> std_vector;
+	int * p;
+
+	// allocate an array with space for 5 elements using vector's allocator:
+	p = std_vector.get_allocator().allocate(5);
+
+	// construct values in-place on the array:
+	for (unsigned int i = 0; i < 5; i++) std_vector.get_allocator().construct(&p[i], i);
+
+	std::cout << "STD::The allocated array contains:";
+	for (unsigned int i = 0; i < 5; i++) std::cout << ' ' << p[i];
+	std::cout << std::endl;
+
+	// destroy and deallocate:
+	for (unsigned int i = 0; i < 5; i++) std_vector.get_allocator().destroy(&p[i]);
+	std_vector.get_allocator().deallocate(p, 5);
+
+	ft::vector<int> ft_vector;
+	int * q;
+
+	// allocate an array with space for 5 elements using vector's allocator:
+	q = ft_vector.get_allocator().allocate(5);
+
+	// construct values in-place on the array:
+	for (unsigned int i = 0; i < 5; i++) ft_vector.get_allocator().construct(&q[i], i);
+
+	std::cout << "FTV::The allocated array contains:";
+	for (unsigned int i = 0; i < 5; i++) std::cout << ' ' << q[i];
+	std::cout << std::endl;
+
+	// destroy and deallocate:
+	for (unsigned int i = 0; i < 5; i++) ft_vector.get_allocator().destroy(&q[i]);
+	ft_vector.get_allocator().deallocate(q, 5);
+}
+
+void vector_relational_operators_test() {
+	std::cout << "================= RELATIONAL OPERATORS =================" << std::endl;
+	std::vector<int> std_foo (3, 100);   // three ints with a value of 100
+	std::vector<int> std_bar (2, 200);   // two ints with a value of 200
+
+	if (std_foo == std_bar) std::cout << "std_foo and std_bar are equal\n";
+	if (std_foo != std_bar) std::cout << "std_foo and std_bar are not equal\n";
+	if (std_foo < std_bar) std::cout << "std_foo is less than std_bar\n";
+	if (std_foo > std_bar) std::cout << "std_foo is greater than std_bar\n";
+	if (std_foo <= std_bar) std::cout << "std_foo is less than or equal to std_bar\n";
+	if (std_foo >= std_bar) std::cout << "std_foo is greater than or equal to std_bar\n";
+
+	std::cout << "------------------------------------------" << std::endl;
+	ft::vector<int> ft_foo (3, 100);   // three ints with a value of 100
+	ft::vector<int> ft_bar (2, 200);   // two ints with a value of 200
+
+	if (ft_foo == ft_bar) std::cout << "ft_foo and ft_bar are equal\n";
+	if (ft_foo != ft_bar) std::cout << "ft_foo and ft_bar are not equal\n";
+	if (ft_foo < ft_bar) std::cout << "ft_foo is less than ft_bar\n";
+	if (ft_foo > ft_bar) std::cout << "ft_foo is greater than ft_bar\n";
+	if (ft_foo <= ft_bar) std::cout << "ft_foo is less than or equal to ft_bar\n";
+	if (ft_foo >= ft_bar) std::cout << "ft_foo is greater than or equal to ft_bar\n";
+}
+
+void vector_swap_rela_test() {
+	std::cout << "======================= SWAP REL =======================" << std::endl;
+	std::vector<int> std_foo (3, 100);   // three ints with a value of 100
+	std::vector<int> std_bar (5, 200);   // five ints with a value of 200
+
+	std_foo.swap(std_bar);
+
+	std::cout << "STD::foo contains:";
+	for (std::vector<int>::iterator it = std_foo.begin(); it != std_foo.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << std::endl;
+
+	std::cout << "STD::bar contains:";
+	for (std::vector<int>::iterator it = std_bar.begin(); it != std_bar.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << std::endl;
+
+	ft::vector<int> ft_foo (3, 100);   // three ints with a value of 100
+	ft::vector<int> ft_bar (5, 200);   // five ints with a value of 200
+
+	ft_foo.swap(ft_bar);
+
+	std::cout << "FTV::foo contains:";
+	for (ft::vector<int>::iterator it = ft_foo.begin(); it != ft_foo.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << std::endl;
+
+	std::cout << "FTV::bar contains:";
+	for (ft::vector<int>::iterator it = ft_bar.begin(); it != ft_bar.end(); ++it)
+		std::cout << ' ' << *it;
 	std::cout << std::endl;
 }
 
@@ -521,6 +720,12 @@ void vector_test() {
 	vector_assign_test();
 	vector_push_pop_test();
 	vector_insert_test();
+	vector_erase_test();
+	vector_swap_test();
+	vector_clear_test();
+	vector_get_allocator_test();
+	vector_relational_operators_test();
+	vector_swap_rela_test();
 }
 
 int main()

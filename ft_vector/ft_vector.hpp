@@ -169,7 +169,8 @@ namespace ft {
 			return (begin() == end());
 		}
 
-		void reserve (size_type n) {
+		void reserve (size_type n)
+		{
 			if (n > m_capacity) {
 				pointer update = m_alloc.allocate(n);
 				for (size_type i = 0; i < m_size; i++) {
@@ -180,6 +181,7 @@ namespace ft {
 				m_array = update;
 				m_capacity = n;
 			}
+
 		}
 		// Element access:
 		reference operator[] (size_type n) {
@@ -238,22 +240,10 @@ namespace ft {
 			erase(end() - 1);
 		}
 
-		iterator insert(iterator pos, const value_type &val) {
-			difference_type move = pos - begin();
-			size_type n = 1;
-
-			if (m_capacity < m_size + n)
-				reserve(ft::max(m_size * 2, m_size + n));
-			pos = begin() + move;
-			for (iterator ptr = end() + n - 1; ptr >= pos + n; ptr--) {
-				m_alloc.construct(ptr.base(), *(ptr - n));
-				m_alloc.destroy(ptr.base() - n);
-			}
-			for (iterator ptr = pos + n - 1; ptr >= pos; --ptr)
-				m_alloc.construct(ptr.base(), val);
-			m_size += n;
-
-			return pos;
+		iterator insert(iterator pos, const value_type& val) {
+			size_type pos_at = &(*pos) - m_array;
+			insert(pos, 1, val);
+			return (m_array + pos_at);
 		}
 
 		void insert (iterator pos, size_type n, const value_type& val) {
@@ -262,7 +252,7 @@ namespace ft {
 			if (n == 0 || move < 0)
 				return;
 			if (m_capacity < m_size + n)
-				reserve(ft::max(m_size * 2, m_size + n));
+				reserve(std::max(m_size * 2, m_size + n));
 			pos = begin() + move;
 			for (iterator ptr = end() + n - 1; ptr >= pos + n; ptr--)
 			{
@@ -275,8 +265,8 @@ namespace ft {
 		}
 
 		template <class InputIterator>
-		typename enable_if<!is_integral<InputIterator>::value, void>::type
-		insert (iterator pos, InputIterator f, InputIterator l) {
+		void insert(iterator pos, InputIterator f, InputIterator l,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0) {
 			vector<T> vec(f, l);
 			iterator first = vec.begin();
 			iterator last = vec.end();
@@ -286,7 +276,7 @@ namespace ft {
 			for (iterator i = first; i != last; i++)
 				dist++;
 			if (m_capacity < m_size + dist)
-				reserve(std::max(m_size * 2, m_size + dist));
+				reserve(ft::max(m_size * 2, m_size + dist));
 			pos = begin() + position;
 			for (iterator ptr = m_array + dist + m_size - 1; ptr >= pos + dist; ptr--)
 			{
@@ -296,8 +286,8 @@ namespace ft {
 //			for (iterator ptr = pos ; ptr != position + dist; ptr++, first++)
 //				m_alloc.construct(ptr.base(), *first);
 			m_size += dist;
-		}
 
+		}
 
 		iterator erase(iterator position) {
 			return (erase(position, position + 1));
@@ -355,17 +345,17 @@ namespace ft {
 
 	template <typename T, typename Alloc>
 	bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-		return !(ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(),lhs.end()));
+		return (!(lhs > rhs));
 	}
 
 	template <typename T, typename Alloc>
 	bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-		return !(ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(),lhs.end()));
+		return (rhs < lhs);
 	}
 
 	template <typename T, typename Alloc>
 	bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return (!(lhs < rhs));
 	}
 
 	template <typename T, typename Alloc>
