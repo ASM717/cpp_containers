@@ -246,20 +246,20 @@ namespace ft {
 			return (m_array + pos_at);
 		}
 
-		void insert (iterator pos, size_type n, const value_type& val) {
-			difference_type move = pos - begin();
+		void insert (iterator position, size_type n, const value_type& val) {
+			difference_type move = position - begin();
 
 			if (n == 0 || move < 0)
 				return;
 			if (m_capacity < m_size + n)
 				reserve(std::max(m_size * 2, m_size + n));
-			pos = begin() + move;
-			for (iterator ptr = end() + n - 1; ptr >= pos + n; ptr--)
+			position = begin() + move;
+			for (iterator ptr = end() + n - 1; ptr >= position + n; ptr--)
 			{
 				m_alloc.construct(ptr.base(), *(ptr - n));
 				m_alloc.destroy(ptr.base() - n);
 			}
-			for (iterator ptr = pos + n - 1; ptr >= pos; --ptr)
+			for (iterator ptr = position + n - 1; ptr >= position; --ptr)
 				m_alloc.construct(ptr.base(), val);
 			m_size += n;
 		}
