@@ -24,10 +24,6 @@ void print_vector_reverse(const ft::vector<T> &vct) {
     std::cout << std::endl;
 }
 
-// void my_vector() {
-// 	ft::vector<int> vector;
-// }
-
 void vector_max_size_test() {
 	std::cout << "====================== MAX SIZE ========================" << std::endl;
 

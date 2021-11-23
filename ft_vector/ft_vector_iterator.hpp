@@ -12,6 +12,8 @@ namespace ft {
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference reference;
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type difference_type;
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category iterator_category;
+//		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::const_reference const_reference;
+//		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::const_pointer const_pointer;
 
 	private:
 		pointer m_arr_ptr;
@@ -33,7 +35,7 @@ namespace ft {
 		pointer const &base() const { return (this->m_arr_ptr); }
 
 		reference operator*() {return(*m_arr_ptr);}
-//		const_reference operator*() const {return(*m_arr_ptr);}
+		//const_reference operator*() const {return(*m_arr_ptr);}
 		pointer operator->() {return (m_arr_ptr);}
 		//const_pointer operator->() const {return (m_arr_ptr);}
 
