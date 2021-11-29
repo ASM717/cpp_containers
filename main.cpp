@@ -853,10 +853,26 @@ void vector_swap_rela_test() {
 	std::cout << std::endl;
 }
 
+void vector_string_back_test() {
+	std::cout << "========================= BACK =========================" << std::endl;
+	//unsigned int start_time = clock();
+//	std::vector<std::string> std_vector;
+//	for (int i = 0; i < 10; i++)
+//		std_vector.push_back("Test");
+//	for (int i = 0; i < 10; i++)
+//		std::cout << std_vector[i] << std::endl;
 
+	ft::vector<std::string> ft_vector;
+	for (int i = 0; i < 10; i++)
+		ft_vector.push_back("Test");
+	for (int i = 0; i < 10; i++)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+}
 
 void vector_test() {
 	std::cout << "======================== VECTOR ========================" << std::endl;
+	/*int*/
 	vector_constructor_test();
 	vector_operator_equel_test();
 	vector_iterator_test();
@@ -879,6 +895,9 @@ void vector_test() {
 	vector_get_allocator_test();
 	vector_relational_operators_test();
 	vector_swap_rela_test();
+
+	/*string*/
+	vector_string_back_test();
 
 	// ft::vector<int> test;
 	// ft::vector<const int>::iterator i = test.begin();
