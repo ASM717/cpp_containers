@@ -16,8 +16,9 @@
 #include "ft_iterator_utils.hpp"
 
 namespace ft {
+//	: public ft::iterator<ft::random_access_iterator_tag, T>
 	template <typename T>
-	class VectorRandomAccessIterator : public ft::iterator<ft::random_access_iterator_tag, T> {
+	class VectorRandomAccessIterator {
 	public:
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type value_type;
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer pointer;
@@ -47,9 +48,9 @@ namespace ft {
 		pointer const &base() const { return (this->m_arr_ptr); }
 
 		reference operator*() {return(*m_arr_ptr);}
-		//const_reference operator*() const {return(*m_arr_ptr);}
+//		const_reference operator*() const {return(*m_arr_ptr);}
 		pointer operator->() {return (m_arr_ptr);}
-		//const_pointer operator->() const {return (m_arr_ptr);}
+//		const_pointer operator->() const {return (m_arr_ptr);}
 
 		VectorRandomAccessIterator operator+(difference_type n) const {return (m_arr_ptr + n);}
 		VectorRandomAccessIterator &operator++() {
@@ -94,48 +95,6 @@ namespace ft {
 		//operator VectorRandomAccessIterator<const T> () const {return (VectorRandomAccessIterator<const T>(m_arr_ptr));}
 		reference operator[](difference_type i) const {return (*(m_arr_ptr + i));}
 	};
-
-//	template <typename T_Left, typename T_Right>
-//	bool operator==(const VectorRandomAccessIterator<T_Left>& lhs, const VectorRandomAccessIterator<T_Right>& rhs) {
-//		return (lhs.base() == rhs.base());
-//	};
-//
-//	template <typename T_Left, typename T_Right>
-//	bool operator!=(const VectorRandomAccessIterator<T_Left>& lhs, const VectorRandomAccessIterator<T_Right>& rhs) {
-//		return (lhs.base() != rhs.base());
-//	};
-//
-//	template <typename T_Left, typename T_Right>
-//	bool operator<(const VectorRandomAccessIterator<T_Left>& lhs, const VectorRandomAccessIterator<T_Right>& rhs) {
-//		return (lhs.base() < rhs.base());
-//	};
-//
-//	template <typename T_Left, typename T_Right>
-//	bool operator<=(const VectorRandomAccessIterator<T_Left>& lhs, const VectorRandomAccessIterator<T_Right>& rhs) {
-//		return (lhs.base() <= rhs.base());
-//	};
-//
-//	template <typename T_Left, typename T_Right>
-//	bool operator>(const VectorRandomAccessIterator<T_Left>& lhs, const VectorRandomAccessIterator<T_Right>& rhs) {
-//		return (lhs.base() > rhs.base());
-//	};
-//
-//	template <typename T_Left, typename T_Right>
-//	bool operator>=(const VectorRandomAccessIterator<T_Left>& lhs, const VectorRandomAccessIterator<T_Right>& rhs) {
-//		return (lhs.base() >= rhs.base());
-//	};
-//
-//	template <typename T>
-//	VectorRandomAccessIterator<T> operator+(typename VectorRandomAccessIterator<T>::difference_type n,
-//			const VectorRandomAccessIterator<T>& ref) {
-//		{return (&(*ref) + n);}
-//	};
-//
-//	template<typename T_Left, typename T_Right>
-//	typename VectorRandomAccessIterator<T_Left>::difference_type operator-(const VectorRandomAccessIterator<T_Left>& lhs,
-//			const VectorRandomAccessIterator<T_Right>& rhs) {
-//		return (lhs.base() - rhs.base());
-//	};
 
 	template <typename T>
 	bool operator==(const ft::VectorRandomAccessIterator<T> lhs, const ft::VectorRandomAccessIterator<T> rhs) {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vector.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amuriel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/17 21:15:57 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/11/29 11:50:04 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,53 +240,55 @@ namespace ft {
 			erase(end() - 1);
 		}
 
-		iterator insert(iterator pos, const value_type& val) {
-			size_type pos_at = &(*pos) - m_array;
-			insert(pos, 1, val);
-			return (m_array + pos_at);
+		iterator insert(iterator position, const value_type& val) {
+			size_type posAt = &(*position) - m_array;
+			insert(position, 1, val);
+			return (m_array + posAt);
 		}
 
 		void insert (iterator position, size_type n, const value_type& val) {
-			difference_type move = position - begin();
+			difference_type typePos = position - begin();
 
-			if (n == 0 || move < 0)
+			if (typePos < 0 || n == 0)
 				return;
 			if (m_capacity < m_size + n)
 				reserve(std::max(m_size * 2, m_size + n));
-			position = begin() + move;
-			for (iterator ptr = end() + n - 1; ptr >= position + n; ptr--)
-			{
-				m_alloc.construct(ptr.base(), *(ptr - n));
-				m_alloc.destroy(ptr.base() - n);
+			position = begin() + typePos;
+			iterator iter_1 = end() + n - 1;
+			while (iter_1 >= position + n) {
+				m_alloc.construct(iter_1.base(), *(iter_1 - n));
+				m_alloc.destroy(iter_1.base() - n);
+				iter_1--;
 			}
-			for (iterator ptr = position + n - 1; ptr >= position; --ptr)
-				m_alloc.construct(ptr.base(), val);
+			iterator iter_2 = position + n - 1;
+			while (iter_2 >= position) {
+				m_alloc.construct(iter_2.base(), val);
+				--iter_2;
+			}
 			m_size += n;
 		}
 
 		template <class InputIterator>
-		void insert(iterator pos, InputIterator f, InputIterator l,
+		void insert(iterator position, InputIterator first, InputIterator last,
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0) {
-			vector<T> vec(f, l);
-			iterator first = vec.begin();
-			iterator last = vec.end();
-			difference_type dist = 0;
-			difference_type position = pos - begin();
 
-			for (iterator i = first; i != last; i++)
-				dist++;
-			if (m_capacity < m_size + dist)
-				reserve(ft::max(m_size * 2, m_size + dist));
-			pos = begin() + position;
-			for (iterator ptr = m_array + dist + m_size - 1; ptr >= pos + dist; ptr--)
-			{
-				m_alloc.construct(ptr.base(), *(ptr - dist));
-				m_alloc.destroy(ptr.base() - dist);
+			difference_type typePos = position - begin();
+			difference_type distanceType = ft::distance(first, last);
+			if (m_capacity < m_size + distanceType)
+					reserve(std::max(m_size * 2, m_size + distanceType));
+			position = begin() + typePos;
+			vector::iterator iter_1 = end() - 1;
+			vector::iterator iter_2 = position;
+			while (iter_1 >= position) {
+				*(iter_1 + distanceType) = *iter_1;
+				iter_1--;
 			}
-//			for (iterator ptr = pos ; ptr != position + dist; ptr++, first++)
-//				m_alloc.construct(ptr.base(), *first);
-			m_size += dist;
-
+			while (iter_2 < position + distanceType) {
+				m_alloc.construct(iter_2.base(), *first);
+				first++;
+				iter_2++;
+			}
+			m_size += distanceType;
 		}
 
 		iterator erase(iterator position) {
@@ -296,17 +298,22 @@ namespace ft {
 		iterator erase (iterator first, iterator last) {
 
 			if (last <= first)
-				return last;
+				return (last);
 
 			difference_type dist = last - first;
-			for (iterator i = first; i != last; i++)
+			iterator i = first;
+			iterator j = last;
+			while (i != last) {
 				m_alloc.destroy(i.operator->());
-			for (iterator i = last; i != end(); i++ ) {
+				i++;
+			}
+			while (j != end()) {
 				m_alloc.construct((i - dist).operator->(), *i);
 				m_alloc.destroy(i.operator->());
+				j++;
 			}
 			m_size -= dist;
-			return first;
+			return (first);
 		}
 
 		void swap (vector &ref) {

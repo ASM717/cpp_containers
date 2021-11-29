@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 04:50:06 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/27 04:50:07 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/11/29 10:47:52 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void print_vector_reverse(const ft::vector<T> &vct) {
 
 void vector_max_size_test() {
 	std::cout << "====================== MAX SIZE ========================" << std::endl;
-
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	// set some content in the vector:
 	for (int i = 0; i < 100; i++)
@@ -46,9 +46,11 @@ void vector_max_size_test() {
 	std::cout << "STD::size: " << std_vector.size() << std::endl;
 	std::cout << "STD::capacity: " << std_vector.capacity() << std::endl;
 	std::cout << "STD::max_size: " << std_vector.max_size() << std::endl;
-
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 	std::cout << "----------------------------------" << std::endl;
-
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	// set some content in the vector:
 	for (int i = 0; i < 100; i++)
@@ -56,11 +58,14 @@ void vector_max_size_test() {
 	std::cout << "FTV::size: " << ft_vector.size() << std::endl;
 	std::cout << "FTV::capacity: " << ft_vector.capacity() << std::endl;
 	std::cout << "FTV::max_size: " << ft_vector.max_size() << std::endl;
-
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_size_test() {
 	std::cout << "========================= SIZE =========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	std::cout << "STD::0. size: " << std_vector.size() << std::endl;
 	for (int i = 0; i < 10; i++)
@@ -70,9 +75,12 @@ void vector_size_test() {
 	std::cout << "STD::2. size: " << std_vector.size() << std::endl;
 	std_vector.pop_back();
 	std::cout << "STD::3. size: " << std_vector.size() << std::endl;
-
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 	std::cout << "-----------------" << std::endl;
-	std::vector<int> ft_vector;
+	unsigned int ft_start_time = clock();
+	ft::vector<int> ft_vector;
 	std::cout << "FTV::0. size: " << ft_vector.size() << std::endl;
 	for (int i = 0; i < 10; i++)
 		ft_vector.push_back(i);
@@ -81,12 +89,16 @@ void vector_size_test() {
 	std::cout << "FTV::2. size: " << ft_vector.size() << std::endl;
 	ft_vector.pop_back();
 	std::cout << "FTV::3. size: " << ft_vector.size() << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_constructor_test()
 {
 	std::cout << "===================== CONSTRUCTOR ======================" << std::endl;
 	// constructors used in the same order as described above:
+	unsigned int start_time = clock();
 	std::vector<int> first;                                // empty vector of ints
 	std::vector<int> second (4,100);                       // four ints with value 100
 	std::vector<int> third (second.begin(),second.end());  // iterating through second
@@ -99,8 +111,12 @@ void vector_constructor_test()
 	std::cout << "STD::The contents of fifth are:";
 	for (std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
 		std::cout << ' ' << *it;
-	std::cout << '\n';
+	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> first1;                                // empty vector of ints
 	ft::vector<int> second2 (4,100);                       // four ints with value 100
 	ft::vector<int> third3 (second2.begin(),second2.end());  // iterating through second
@@ -113,51 +129,71 @@ void vector_constructor_test()
 	std::cout << "FTV::The contents of fifth are:";
 	for (ft::vector<int>::iterator it_ft = fifth5.begin(); it_ft != fifth5.end(); ++it_ft)
 		std::cout << ' ' << *it_ft;
-	std::cout << '\n';
+	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_operator_equel_test() {
 	std::cout << "=================== ASSIGN  OPERATOR ===================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> foo (3,0);
 	std::vector<int> bar (5,0);
 
 	bar = foo;
 	foo = std::vector<int>();
 
-	std::cout << "STD::Size of foo: " << int(foo.size()) << '\n';
-	std::cout << "STD::Size of bar: " << int(bar.size()) << '\n';
+	std::cout << "STD::Size of foo: " << int(foo.size()) << std::endl;
+	std::cout << "STD::Size of bar: " << int(bar.size()) << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_foo (3,0);
 	ft::vector<int> ft_bar (5,0);
 
 	ft_bar = ft_foo;
 	ft_foo = ft::vector<int>();
 
-	std::cout << "FTV::Size of foo: " << int(ft_foo.size()) << '\n';
-	std::cout << "FTV::Size of bar: " << int(ft_bar.size()) << '\n';
+	std::cout << "FTV::Size of foo: " << int(ft_foo.size()) << std::endl;
+	std::cout << "FTV::Size of bar: " << int(ft_bar.size()) << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_iterator_test() {
 	std::cout << "======================= ITERATOR =======================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	for (int i = 1; i <= 5; i++) std_vector.push_back(i);
 
 	std::cout << "STD::vector contains:";
 	for (std::vector<int>::iterator it = std_vector.begin() ; it != std_vector.end(); ++it)
 		std::cout << ' ' << *it;
-	std::cout << '\n';
+	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	for (int i = 1; i <= 5; i++) ft_vector.push_back(i);
 
 	std::cout << "FTV::vector contains:";
 	for (ft::vector<int>::iterator ft_it = ft_vector.begin() ; ft_it != ft_vector.end(); ++ft_it)
 		std::cout << ' ' << *ft_it;
-	std::cout << '\n';
+	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_reverse_iterator_test() {
 	std::cout << "=================== REVERSE ITERATOR ===================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector (5);  // 5 default-constructed ints
 	int i = 0;
 	std::vector<int>::reverse_iterator std_rit = std_vector.rbegin();
@@ -166,8 +202,12 @@ void vector_reverse_iterator_test() {
 	std::cout << "STD::vector contains:";
 	for (std::vector<int>::iterator it = std_vector.begin(); it != std_vector.end(); ++it)
 		std::cout << ' ' << *it;
-	std::cout << '\n';
+	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector (5);  // 5 default-constructed ints
 	int j = 0;
 	ft::vector<int>::reverse_iterator ft_rit = ft_vector.rbegin();
@@ -176,11 +216,15 @@ void vector_reverse_iterator_test() {
 	std::cout << "FTV::vector contains:";
 	for (ft::vector<int>::iterator ft_it = ft_vector.begin(); ft_it != ft_vector.end(); ++ft_it)
 		std::cout << ' ' << *ft_it;
-	std::cout << '\n';
+	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_resize_test() {
 	std::cout << "======================= RESIZE =========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	// set some initial content:
 	for (unsigned long i = 1; i < 10; i++) std_vector.push_back(i);
@@ -191,7 +235,11 @@ void vector_resize_test() {
 	for (unsigned long i = 0; i < std_vector.size(); i++)
 		std::cout << ' ' << std_vector[i];
 	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	// set some initial content:
 	for (unsigned long i = 1; i < 10; i++) ft_vector.push_back(i);
@@ -202,10 +250,14 @@ void vector_resize_test() {
 	for (unsigned long i = 0; i < ft_vector.size(); i++)
 		std::cout << ' ' << ft_vector[i];
 	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_empty_test() {
 	std::cout << "======================= EMPTY ==========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	int sum (0);
 	for (int i = 1; i <= 10; i++)
@@ -216,7 +268,11 @@ void vector_empty_test() {
 		std_vector.pop_back();
 	}
 	std::cout << "STD::total: " << sum << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	int ft_sum (0);
 	for (int i = 1; i <= 10; i++)
@@ -227,10 +283,14 @@ void vector_empty_test() {
 		ft_vector.pop_back();
 	}
 	std::cout << "FTV::total: " << ft_sum << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_reserve_test() {
 	std::cout << "====================== RESERVE =========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int>::size_type sz;
 	std::vector<int> foo;
 	sz = foo.capacity();
@@ -253,9 +313,11 @@ void vector_reserve_test() {
 			std::cout << "STD::capacity changed: " << sz << std::endl;
 		}
 	}
-
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 	std::cout << "------------------------------------" << std::endl;
-
+	unsigned int ft_start_time = clock();
 	ft::vector<int>::size_type ft_sz;
 	ft::vector<int> ft_foo;
 	ft_sz = ft_foo.capacity();
@@ -278,11 +340,15 @@ void vector_reserve_test() {
 			std::cout << "FTV::capacity changed: " << ft_sz << std::endl;
 		}
 	}
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 // vector::operator[]
 void vector_operator_el_pos_test() {
 	std::cout << "====================== OPERATOR[] ======================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector (10);   // 10 zero-initialized elements
 	std::vector<int>::size_type sz = std_vector.size();
 	// assign some values:
@@ -300,7 +366,11 @@ void vector_operator_el_pos_test() {
 	for (unsigned i = 0; i < sz; i++)
 		std::cout << ' ' << std_vector[i];
 	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector (10);   // 10 zero-initialized elements
 	ft::vector<int>::size_type ft_sz = ft_vector.size();
 	// assign some values:
@@ -318,6 +388,9 @@ void vector_operator_el_pos_test() {
 	for (unsigned i = 0; i < ft_sz; i++)
 		std::cout << ' ' << ft_vector[i];
 	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_at_test() {
@@ -360,23 +433,32 @@ void vector_at_test() {
 
 void vector_front_test() {
 	std::cout << "======================== FRONT =========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	std_vector.push_back(78);
 	std_vector.push_back(16);
 	// now front equals 78, and back 16
 	std_vector.front() -= std_vector.back();
 	std::cout << "STD::vector.front() is now " << std_vector.front() << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	ft_vector.push_back(78);
 	ft_vector.push_back(16);
 	// now front equals 78, and back 16
 	ft_vector.front() -= ft_vector.back();
 	std::cout << "FTV::vector.front() is now " << ft_vector.front() << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_back_test() {
 	std::cout << "========================= BACK =========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	std_vector.push_back(10);
 	while (std_vector.back() != 0)
@@ -387,7 +469,11 @@ void vector_back_test() {
 	for (unsigned i = 0; i < std_vector.size(); i++)
 		std::cout << ' ' << std_vector[i];
 	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	ft_vector.push_back(10);
 	while (ft_vector.back() != 0)
@@ -398,10 +484,14 @@ void vector_back_test() {
 	for (unsigned i = 0; i < ft_vector.size(); i++)
 		std::cout << ' ' << ft_vector[i];
 	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_assign_test() {
 	std::cout << "======================== ASSIGN ========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> first;
 	std::vector<int> second;
 	std::vector<int> third;
@@ -416,9 +506,13 @@ void vector_assign_test() {
 	std::cout << "STD::Size of first: " << int (first.size()) << std::endl;
 	std::cout << "STD::Size of second: " << int (second.size()) << std::endl;
 	std::cout << "STD::Size of third: " << int (third.size()) << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
 	std::cout << "-------------------------------" << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_first;
 	ft::vector<int> ft_second;
 	ft::vector<int> ft_third;
@@ -433,10 +527,14 @@ void vector_assign_test() {
 	std::cout << "FTV::Size of first: " << int (ft_first.size()) << std::endl;
 	std::cout << "FTV::Size of second: " << int (ft_second.size()) << std::endl;
 	std::cout << "FTV::Size of third: " << int (ft_third.size()) << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_push_pop_test() {
 	std::cout << "====================== PUSH _ POP ======================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	int sum (0);
 	std_vector.push_back (100);
@@ -448,7 +546,11 @@ void vector_push_pop_test() {
 		std_vector.pop_back();
 	}
 	std::cout << "STD::The elements of vector add up to " << sum << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	int ft_sum (0);
 	ft_vector.push_back (100);
@@ -460,12 +562,15 @@ void vector_push_pop_test() {
 		ft_vector.pop_back();
 	}
 	std::cout << "FTV::The elements of vector add up to " << ft_sum << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_insert_test() {
 	std::cout << "======================== INSERT ========================" << std::endl;
-
-	std::vector<int> std_vector (3, 100);
+	unsigned int start_time = clock();
+	std::vector<int> std_vector (3, 1000000);
 	std::vector<int>::iterator it;
 
 	it = std_vector.begin();
@@ -479,16 +584,19 @@ void vector_insert_test() {
 	std::vector<int> std_anothervector (2, 400);
 	std_vector.insert(it + 2, std_anothervector.begin(), std_anothervector.end());
 
-	int myarray [] = { 707,717,777 };
+	int myarray [] = {707,717,777};
 	std_vector.insert (std_vector.begin(), myarray, myarray + 3);
 
 	std::cout << "STD::vector contains:";
 	for (it = std_vector.begin(); it < std_vector.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
-
-	ft::vector<int> ft_vector (3, 100);
+	unsigned int ft_start_time = clock();
+	ft::vector<int> ft_vector (3, 1000000);
 	ft::vector<int>::iterator ft_it;
 
 	ft_it = ft_vector.begin();
@@ -502,17 +610,21 @@ void vector_insert_test() {
 	ft::vector<int> ft_anothervector (2, 400);
 	ft_vector.insert(ft_it + 2, ft_anothervector.begin(), ft_anothervector.end());
 
-	int ft_myarray [] = { 707,717,777 };
+	int ft_myarray [] = {707,717,777};
 	ft_vector.insert(ft_vector.begin(), ft_myarray, ft_myarray + 3);
 
 	std::cout << "FTV::vector contains:";
 	for (ft_it = ft_vector.begin(); ft_it < ft_vector.end(); ft_it++)
 		std::cout << ' ' << *ft_it;
 	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_erase_test() {
 	std::cout << "======================== ERASE =========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	// set some values (from 1 to 10)
 	for (int i = 1; i <= 10; i++) std_vector.push_back(i);
@@ -525,7 +637,11 @@ void vector_erase_test() {
 	for (unsigned int i = 0; i < std_vector.size(); ++i)
 		std::cout << ' ' << std_vector[i];
 	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	// set some values (from 1 to 10)
 	for (int i = 1; i <= 10; i++) ft_vector.push_back(i);
@@ -538,10 +654,14 @@ void vector_erase_test() {
 	for (unsigned int i = 0; i < ft_vector.size(); ++i)
 		std::cout << ' ' << ft_vector[i];
 	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_swap_test() {
 	std::cout << "========================= SWAP =========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_foo (3, 100);   // three ints with a value of 100
 	std::vector<int> std_bar (5, 200);   // five ints with a value of 200
 
@@ -556,7 +676,11 @@ void vector_swap_test() {
 	for (unsigned int i = 0; i < std_bar.size(); i++)
 		std::cout << ' ' << std_bar[i];
 	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 	std::cout << "------------------------------------------" << std::endl;
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_foo (3, 100);   // three ints with a value of 100
 	ft::vector<int> ft_bar (5, 200);   // five ints with a value of 200
 
@@ -571,10 +695,14 @@ void vector_swap_test() {
 	for (unsigned int i = 0; i < ft_bar.size(); i++)
 		std::cout << ' ' << ft_bar[i];
 	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_clear_test() {
 	std::cout << "======================== CLEAR ========================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	std_vector.push_back (100);
 	std_vector.push_back (200);
@@ -593,9 +721,13 @@ void vector_clear_test() {
 	for (unsigned i = 0; i < std_vector.size(); i++)
 		std::cout << ' ' << std_vector[i];
 	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
 	std::cout << "------------------------------------------" << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	ft_vector.push_back (100);
 	ft_vector.push_back (200);
@@ -614,10 +746,14 @@ void vector_clear_test() {
 	for (unsigned i = 0; i < ft_vector.size(); i++)
 		std::cout << ' ' << ft_vector[i];
 	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_get_allocator_test() {
 	std::cout << "==================== GET ALLOCATOR ====================" << std::endl;
+	unsigned int start_time = clock();
 	std::vector<int> std_vector;
 	int * p;
 
@@ -634,7 +770,11 @@ void vector_get_allocator_test() {
 	// destroy and deallocate:
 	for (unsigned int i = 0; i < 5; i++) std_vector.get_allocator().destroy(&p[i]);
 	std_vector.get_allocator().deallocate(p, 5);
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
 
+	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
 	int * q;
 
@@ -651,6 +791,9 @@ void vector_get_allocator_test() {
 	// destroy and deallocate:
 	for (unsigned int i = 0; i < 5; i++) ft_vector.get_allocator().destroy(&q[i]);
 	ft_vector.get_allocator().deallocate(q, 5);
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_relational_operators_test() {
@@ -736,6 +879,18 @@ void vector_test() {
 	vector_get_allocator_test();
 	vector_relational_operators_test();
 	vector_swap_rela_test();
+
+	// ft::vector<int> test;
+	// ft::vector<const int>::iterator i = test.begin();
+
+	// std::vector<const int> test;
+	// std::vector<const int>::iterator i = test.begin();
+
+	// std::vector<const int> test;
+	// test.push_back(8);
+
+	// ft::vector<const int> test1;
+	// test1.push_back(7);
 }
 
 int main()
