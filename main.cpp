@@ -854,17 +854,21 @@ void vector_swap_rela_test() {
 }
 
 void vector_string_back_test() {
-	std::cout << "========================= BACK =========================" << std::endl;
+	std::cout << "===================== STRING BACK ======================" << std::endl;
 	//unsigned int start_time = clock();
-//	std::vector<std::string> std_vector;
-//	for (int i = 0; i < 10; i++)
-//		std_vector.push_back("Test");
-//	for (int i = 0; i < 10; i++)
-//		std::cout << std_vector[i] << std::endl;
+	std::vector<std::string> std_vector;
+	for (int i = 0; i < 10; i++)
+		std_vector.push_back("Test");
+	std::cout << "STD::vector contains:";
+	for (int i = 0; i < 10; i++)
+		std::cout << ' ' << std_vector[i];
+
+	std::cout << std::endl;
 
 	ft::vector<std::string> ft_vector;
 	for (int i = 0; i < 10; i++)
 		ft_vector.push_back("Test");
+	std::cout << "FTV::vector contains:";
 	for (int i = 0; i < 10; i++)
 		std::cout << ' ' << ft_vector[i];
 	std::cout << std::endl;
