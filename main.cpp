@@ -13,7 +13,7 @@
 #include <iostream>
 #include <vector>
 //#include "ft_vector/ft_vector.hpp"
-#include "ft_tester/tester_header.cpp"
+#include "ft_tester/tester_headers.cpp"
 #include <string>
 #include <ctime>
 #include <iomanip>
@@ -90,7 +90,7 @@ int main()
 //	{
 
 		vector_test();
-		system ("leaks a.out");
+		//system ("leaks a.out");
 		return (0);
 //	}
 }
