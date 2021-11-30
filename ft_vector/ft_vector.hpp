@@ -172,16 +172,18 @@ namespace ft {
 		void reserve (size_type n)
 		{
 			if (n > m_capacity) {
-				pointer update = m_alloc.allocate(n);
-				for (size_type i = 0; i < m_size; i++) {
-					m_alloc.construct(&update[i], m_array[i]);
+				pointer new_array = m_alloc.allocate(n);
+
+				size_type i = 0;
+				while (i < m_size) {
+					m_alloc.construct(&new_array[i], m_array[i]);
 					m_alloc.destroy(&m_array[i]);
+					i++;
 				}
 				m_alloc.deallocate(m_array, m_capacity = n);
-				m_array = update;
+				m_array = new_array;
 				m_capacity = n;
 			}
-
 		}
 		// Element access:
 		reference operator[] (size_type n) {
