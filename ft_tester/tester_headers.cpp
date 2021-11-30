@@ -818,6 +818,7 @@ void vector_swap_rela_test() {
 // STRING
 void vector_string_begin_end_test() {
 	std::cout << "=================== STRING BEGIN END ===================" << std::endl;
+    unsigned int start_time = clock();
 	std::vector<std::string> std_vector;
 	std_vector.push_back("Zendaya"); // 0
 	std_vector.push_back("Monika"); // 1
@@ -826,12 +827,20 @@ void vector_string_begin_end_test() {
 	std_vector.push_back("Penelopa"); // 4
 	std::cout << "STD::vector contains(begin): " << *std_vector.begin() << std::endl;
 	std::cout << "STD::vector contains(end): " << *(std_vector.end() - 1) << std::endl;
-
-	std::cout << "STD::vector contains(reverse begin): " << *std_vector.rbegin() << std::endl;
+    std::cout << "STD::vector contains(reverse begin): " << *std_vector.rbegin() << std::endl;
 	std::cout << "STD::vector contains(reverse end): " << *(std_vector.rend() - 1) << std::endl;
+    std::cout << "STD::vector contains(at): " << std_vector.at(3) << std::endl;
+    //std::cout << "STD::vector contains(at_error): " << std_vector.at(6) << std::endl;
+    std::cout << "STD::vector contains(front): " << std_vector.front() << std::endl;
+    std::cout << "STD::vector contains(back): " << std_vector.back() << std::endl;
+    //std_vector.swap()
+//    std::cout << "STD::vector contains(swap): " << std_vector.swa << std::endl;
+    unsigned int finish_time = clock();
+    unsigned int diff_time = finish_time - start_time;
+    std::cout << "STD TIME = " << diff_time << std::endl;
 
 	std::cout << "------------------------------------------" << std::endl;
-
+    unsigned int ft_start_time = clock();
 	ft::vector<std::string> ft_vector;
 	ft_vector.push_back("Zendaya"); // 0
 	ft_vector.push_back("Monika"); // 1
@@ -840,15 +849,61 @@ void vector_string_begin_end_test() {
 	ft_vector.push_back("Penelopa"); // 4
 	std::cout << "FTV::vector contains(begin): " << *ft_vector.begin() << std::endl;
 	std::cout << "FTV::vector contains(end): " << *(ft_vector.end() - 1) << std::endl;
-
 	std::cout << "FTV::vector contains(reverse begin): " << *ft_vector.rbegin() << std::endl;
 	std::cout << "FTV::vector contains(reverse end): " << *(ft_vector.rend() - 1) << std::endl;
+    std::cout << "FTV::vector contains(at): " << ft_vector.at(3) << std::endl;
+    //std::cout << "FTV::vector contains(at_error): " << ft_vector.at(6) << std::endl;
+    std::cout << "FTV::vector contains(front): " << ft_vector.front() << std::endl;
+    std::cout << "FTV::vector contains(back): " << ft_vector.back() << std::endl;
 
+    unsigned int ft_finish_time = clock();
+    unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+    std::cout << "FTV TIME = " << ft_diff_time << std::endl;
+
+
+}
+
+void vector_string_swap_test() {
+    //std::vector<std::string> std_vector;
+    std::cout << "======================= SWAP STR =======================" << std::endl;
+    unsigned int start_time = clock();
+    std::vector<std::string> std_foo (10, "stl_1");   // three ints with a value of 100
+    std::vector<std::string> std_bar (5, "stl_2");   // five ints with a value of 200
+    std_foo.swap(std_bar);
+    std::cout << "STD::std_foo contains:";
+    for (unsigned int i = 0; i < std_foo.size(); i++)
+        std::cout << ' ' << std_foo[i];
+    std::cout << std::endl;
+    std::cout << "STD::std_bar contains:";
+    for (unsigned int i = 0; i < std_bar.size(); i++)
+        std::cout << ' ' << std_bar[i];
+    std::cout << std::endl;
+    unsigned int finish_time = clock();
+    unsigned int diff_time = finish_time - start_time;
+    std::cout << "STD TIME = " << diff_time << std::endl;
+
+    std::cout << "------------------------------------------" << std::endl;
+
+    unsigned int ft_start_time = clock();
+    ft::vector<std::string> ft_foo (10, "stl_1");   // three ints with a value of 100
+    ft::vector<std::string> ft_bar (5, "stl_2");   // five ints with a value of 200
+    ft_foo.swap(ft_bar);
+    std::cout << "FTV::std_foo contains:";
+    for (unsigned int i = 0; i < ft_foo.size(); i++)
+        std::cout << ' ' << ft_foo[i];
+    std::cout << std::endl;
+    std::cout << "FTV::std_bar contains:";
+    for (unsigned int i = 0; i < ft_bar.size(); i++)
+        std::cout << ' ' << ft_bar[i];
+    std::cout << std::endl;
+    unsigned int ft_finish_time = clock();
+    unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+    std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
 void vector_string_back_test() {
 	std::cout << "===================== STRING BACK ======================" << std::endl;
-	//unsigned int start_time = clock();
+	unsigned int start_time = clock();
 	std::vector<std::string> std_vector;
 	for (int i = 0; i < 1000000; i++)
 		std_vector.push_back("Test");
@@ -865,10 +920,13 @@ void vector_string_back_test() {
 	std::cout << "STD::vector empty: " << std_vector.empty() << std::endl;
 	std_vector.reserve(3000000);
 	std::cout << "STD::vector capacity after reserve: " << std_vector.capacity() << std::endl;
-
+    unsigned int finish_time = clock();
+    unsigned int diff_time = finish_time - start_time;
+    std::cout << "STD TIME = " << diff_time << std::endl;
 
 	std::cout << "------------------------------------------" << std::endl;
 
+    unsigned int ft_start_time = clock();
 	ft::vector<std::string> ft_vector;
 	for (int i = 0; i < 1000000; i++)
 		ft_vector.push_back("Test");
@@ -885,4 +943,7 @@ void vector_string_back_test() {
 	std::cout << "FTV::vector empty: " << ft_vector.empty() << std::endl;
 	ft_vector.reserve(3000000);
 	std::cout << "FTV::vector capacity after reserve: " << ft_vector.capacity() << std::endl;
+    unsigned int ft_finish_time = clock();
+    unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+    std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }

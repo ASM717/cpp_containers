@@ -65,6 +65,7 @@ void vector_test() {
 
 	/*string*/
 	vector_string_begin_end_test();
+    vector_string_swap_test();
 	vector_string_back_test();
 
 	// ft::vector<int> test;

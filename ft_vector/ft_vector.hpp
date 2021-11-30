@@ -51,14 +51,12 @@ namespace ft {
 		/*	https://www.cplusplus.com/reference/vector/vector/vector/
 			empty container constructor (default constructor) */
 		explicit vector(const Allocator &alloc = Allocator())
-				: m_alloc(alloc), m_capacity(0), m_size(0), m_array(0)
-		{}
+				: m_alloc(alloc), m_capacity(0), m_size(0), m_array(0) {}
 
 		/*	fill constructor
 		 	Constructs a container with n elements. Each element is a copy of val.*/
 		explicit vector(size_type n, const value_type &value = value_type(), const Allocator &alloc = Allocator())
-				: m_alloc(alloc), m_capacity(n), m_size(n)
-		{
+				: m_alloc(alloc), m_capacity(n), m_size(n) {
 			try
 			{
 				m_array = m_alloc.allocate(n);
@@ -79,8 +77,7 @@ namespace ft {
 
 		template<class InputIterator>
 		vector(InputIterator first, InputIterator last, Allocator const &alloc = Allocator(),
-			   typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0): m_alloc(alloc)
-		{
+			   typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0): m_alloc(alloc) {
 			m_size = 0;
 			for (InputIterator i = first; i != last; i++)
 				m_size++;
@@ -91,11 +88,11 @@ namespace ft {
 				m_alloc.construct(m_array + i, *first);
 		}
 
-		// copy constructor
-		// Constructs a container with a copy of each of the elements in ref, in the same order.
+        /* copy constructor
+		 Constructs a container with a copy of each of the elements in ref, in the same order.
+         */
 		vector(const vector &ref)
-				: m_alloc(ref.m_alloc), m_capacity(ref.m_capacity), m_size(ref.m_size)
-		{
+				: m_alloc(ref.m_alloc), m_capacity(ref.m_capacity), m_size(ref.m_size) {
 			try
 			{
 				m_array = m_alloc.allocate(m_capacity);
@@ -107,6 +104,7 @@ namespace ft {
 				std::cerr << e.what() << std::endl;
 			}
 		}
+
 		vector &operator=(const vector &ref) {
 			if (this == &ref)
 				return (*this);
@@ -159,7 +157,6 @@ namespace ft {
 			for (size_type i = n; i < m_size; i++)
 				m_alloc.destroy(&m_array[i]);
 			m_size = n;
-
 		}
 
 		size_type capacity() const {

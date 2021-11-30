@@ -34,6 +34,7 @@ void vector_max_size_test();
 
 /*prototype test vector string*/
 void vector_string_begin_end_test();
+void vector_string_swap_test();
 void vector_string_back_test();
 
 #endif
