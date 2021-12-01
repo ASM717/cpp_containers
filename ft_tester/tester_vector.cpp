@@ -591,8 +591,18 @@ void vector_erase_test() {
 	std::vector<int> std_vector;
 	// set some values (from 1 to 10)
 	for (int i = 1; i <= 10; i++) std_vector.push_back(i);
+	std::cout << "STD::vector contains after push back:";
+	for (unsigned int i = 0; i < std_vector.size(); ++i)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+
 	// erase the 6th element
 	std_vector.erase(std_vector.begin() + 5);
+	std::cout << "STD::vector contains after erase:";
+	for (unsigned int i = 0; i < std_vector.size(); ++i)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+
 	// erase the first 3 elements:
 	std_vector.erase(std_vector.begin(), std_vector.begin() + 3);
 
@@ -608,8 +618,18 @@ void vector_erase_test() {
 	ft::vector<int> ft_vector;
 	// set some values (from 1 to 10)
 	for (int i = 1; i <= 10; i++) ft_vector.push_back(i);
+
+	std::cout << "FTV::vector contains after push back:";
+	for (unsigned int i = 0; i < ft_vector.size(); ++i)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
 	// erase the 6th element
 	ft_vector.erase(ft_vector.begin() + 5);
+	std::cout << "FTV::vector contains after erase:";
+	for (unsigned int i = 0; i < ft_vector.size(); ++i)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+
 	// erase the first 3 elements:
 	ft_vector.erase(ft_vector.begin(), ft_vector.begin() + 3);
 
@@ -718,7 +738,7 @@ void vector_get_allocator_test() {
 	std::cout << "==================== GET ALLOCATOR ====================" << std::endl;
 	unsigned int start_time = clock();
 	std::vector<int> std_vector;
-	int * p;
+	int *p;
 
 	// allocate an array with space for 5 elements using vector's allocator:
 	p = std_vector.get_allocator().allocate(5);
@@ -739,7 +759,7 @@ void vector_get_allocator_test() {
 
 	unsigned int ft_start_time = clock();
 	ft::vector<int> ft_vector;
-	int * q;
+	int *q;
 
 	// allocate an array with space for 5 elements using vector's allocator:
 	q = ft_vector.get_allocator().allocate(5);
@@ -860,7 +880,6 @@ void vector_string_begin_end_test() {
     unsigned int ft_diff_time = ft_finish_time - ft_start_time;
     std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 
-
 }
 
 void vector_string_swap_test() {
@@ -901,8 +920,8 @@ void vector_string_swap_test() {
     std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }
 
-void vector_string_back_test() {
-	std::cout << "===================== STRING BACK ======================" << std::endl;
+void vector_string_resize_reserve_test() {
+	std::cout << "============ STRING RESIZE RESERVE CAP SIZE ============" << std::endl;
 	unsigned int start_time = clock();
 	std::vector<std::string> std_vector;
 	for (int i = 0; i < 1000000; i++)
@@ -946,4 +965,63 @@ void vector_string_back_test() {
     unsigned int ft_finish_time = clock();
     unsigned int ft_diff_time = ft_finish_time - ft_start_time;
     std::cout << "FTV TIME = " << ft_diff_time << std::endl;
+}
+
+void vector_string_insert_erase_test() {
+	std::cout << "================== STRING INSERT ERASE =================" << std::endl;
+	unsigned int start_time = clock();
+	std::vector<std::string> std_vector (3, "STL");
+	std::vector<std::string>::iterator it;
+	it = std_vector.begin();
+	it = std_vector.insert (it , "STL_2");
+	std_vector.insert (it, 2, "STL_3");
+	// "it" no longer valid, get a new one:
+	it = std_vector.begin();
+	std::vector<std::string> std_anothervector (2, "STL_4");
+	std_vector.insert(it + 2, std_anothervector.begin(), std_anothervector.end());
+	std::string myarray [] = {"STL_717", "STL_707", "STL_777"};
+	std_vector.insert (std_vector.begin(), myarray, myarray + 3);
+	std::cout << "STD::vector contains:";
+	for (it = std_vector.begin(); it < std_vector.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << std::endl;
+
+	std_vector.erase(std_vector.begin() + 4);
+	std_vector.erase(std_vector.begin(), std_vector.begin() + 3);
+	std::cout << "STD::vector contains after erase:";
+	for (unsigned int i = 0; i < std_vector.size(); ++i)
+		std::cout << ' ' << std_vector[i];
+	std::cout << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD TIME = " << diff_time << std::endl;
+
+	std::cout << "------------------------------------------" << std::endl;
+
+	unsigned int ft_start_time = clock();
+	std::vector<std::string> ft_vector (3, "STL");
+	std::vector<std::string>::iterator ft_it;
+	ft_it = ft_vector.begin();
+	ft_it = ft_vector.insert (ft_it , "STL_2");
+	ft_vector.insert (ft_it, 2, "STL_3");
+	// "it" no longer valid, get a new one:
+	ft_it = ft_vector.begin();
+	std::vector<std::string> ft_anothervector (2, "STL_4");
+	ft_vector.insert(ft_it + 2, ft_anothervector.begin(), ft_anothervector.end());
+	std::string ft_myarray [] = {"STL_717", "STL_707", "STL_777"};
+	ft_vector.insert (ft_vector.begin(), ft_myarray, ft_myarray + 3);
+	std::cout << "FTV::vector contains:";
+	for (ft_it = ft_vector.begin(); ft_it < ft_vector.end(); ft_it++)
+		std::cout << ' ' << *ft_it;
+	std::cout << std::endl;
+
+	ft_vector.erase(ft_vector.begin() + 4);
+	ft_vector.erase(ft_vector.begin(), ft_vector.begin() + 3);
+	std::cout << "FTV::vector contains after erase:";
+	for (unsigned int i = 0; i < ft_vector.size(); ++i)
+		std::cout << ' ' << ft_vector[i];
+	std::cout << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FTV TIME = " << ft_diff_time << std::endl;
 }

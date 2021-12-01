@@ -275,7 +275,7 @@ namespace ft {
 			difference_type typePos = position - begin();
 			difference_type distanceType = ft::distance(first, last);
 			if (m_capacity < m_size + distanceType)
-					reserve(std::max(m_size * 2, m_size + distanceType));
+					reserve(ft::max(m_size * 2, m_size + distanceType));
 			position = begin() + typePos;
 			vector::iterator iter_1 = end() - 1;
 			vector::iterator iter_2 = position;
@@ -288,7 +288,7 @@ namespace ft {
 				first++;
 				iter_2++;
 			}
-			m_size += distanceType;
+			m_size = size() + distanceType;
 		}
 
 		iterator erase(iterator position) {
@@ -296,23 +296,19 @@ namespace ft {
 		}
 
 		iterator erase (iterator first, iterator last) {
-
 			if (last <= first)
 				return (last);
-
-			difference_type dist = last - first;
-			iterator i = first;
-			iterator j = last;
-			while (i != last) {
-				m_alloc.destroy(i.operator->());
-				i++;
+			difference_type differenceType = last - first;
+			while (first != last) {
+				m_alloc.destroy(first.operator->());
+				first++;
 			}
-			while (j != end()) {
-				m_alloc.construct((i - dist).operator->(), *i);
-				m_alloc.destroy(i.operator->());
-				j++;
+			while (last != end()) {
+				m_alloc.construct((last - differenceType).operator->(), *last);
+				m_alloc.destroy(last.operator->());
+				last++;
 			}
-			m_size -= dist;
+			m_size = size() - differenceType;
 			return (first);
 		}
 
