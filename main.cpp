@@ -37,30 +37,6 @@ void ft_print_vector(const ft::vector<T> &ft_vector) {
 	std::cout << std::endl;
 }
 
-//template<typename T>
-//void print_vector(const ft::vector<T> &vct) {
-//    typename ft::vector<T>::const_iterator it;
-//    for (it = vct.begin(); it != vct.end(); it++) {
-//        std::cout << *it << " ";
-//    }
-//    std::cout << std::endl;
-//}
-//
-//template<typename T>
-//void print_vector_reverse(const ft::vector<T> &vct) {
-//    typename ft::vector<T>::const_reverse_iterator it;
-//    for (it = vct.rbegin(); it != vct.rend(); it++) {
-//        std::cout << *it << " ";
-//    }
-//    std::cout << std::endl;
-//}
-
-void stack_test() {
-	std::cout << "========================= STACK ========================" << std::endl;
-	stack_constructor_test();
-	stack_empty_test();
-}
-
 void vector_test() {
 	std::cout << "======================== VECTOR ========================" << std::endl;
 	/*int*/
@@ -120,6 +96,14 @@ void vector_test() {
 //	 test12.push_back(7);
 }
 
+void stack_test() {
+	std::cout << "========================= STACK ========================" << std::endl;
+	stack_constructor_test();
+	stack_empty_test();
+	stack_top_test();
+	stack_push_pop_test();
+}
+
 int main()
 {
 //	std::string container = argv[1];
@@ -129,9 +113,9 @@ int main()
 //	if (container == "vector")
 //	{
 
-		//vector_test();
+		vector_test();
 		stack_test();
-		//system ("leaks a.out");
+		system ("leaks ft_containers");
 		return (0);
 //	}
 }

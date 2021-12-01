@@ -70,7 +70,7 @@ namespace ft {
 		}
 
 		/*	range constructor
-			Constructs a container with as many elements as the range [first,last),
+			Constructs a container with as many elements as the range [first,last],
 			with each element constructed from its corresponding element in that range, in the same order. */
 
 		template<class InputIterator>
@@ -120,7 +120,7 @@ namespace ft {
 			return (*this);
 		}
 
-		//destuctor
+		//destructor
 		~vector () {
 			for (size_type i = 0; i < m_size; i++)
 				m_alloc.destroy(m_array + i);

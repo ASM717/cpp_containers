@@ -43,5 +43,7 @@ void vector_string_insert_erase_test();
 /*STACK*/
 void stack_constructor_test();
 void stack_empty_test();
+void stack_top_test();
+void stack_push_pop_test();
 
 #endif
