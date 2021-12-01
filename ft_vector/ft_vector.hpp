@@ -249,7 +249,7 @@ namespace ft {
 
 			if (typePos < 0 || n == 0)
 				return;
-			if (m_capacity < m_size + n)
+			if (m_size + n > m_capacity)
 				reserve(ft::max(m_size * 2, m_size + n));
 			position = begin() + typePos;
 			iterator iter_1 = end() + n - 1;
