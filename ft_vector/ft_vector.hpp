@@ -25,8 +25,7 @@
 
 namespace ft {
 	template <typename T, typename Allocator = std::allocator<T> >
-	class vector
-	{
+	class vector {
 	public:
 		typedef T value_type;
 		typedef Allocator allocator_type;
@@ -39,8 +38,7 @@ namespace ft {
 		typedef ft::VectorRandomAccessIterator<const T> const_iterator;
 		typedef ft::VectorReverseIterator<iterator> reverse_iterator;
 		typedef ft::VectorReverseIterator<const_iterator> const_reverse_iterator;
-		//typedef typename allocator_type::difference_type difference_type;
-        typedef typename iterator_traits<iterator>::difference_type difference_type;
+        typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 
 	private:
 		Allocator m_alloc;
