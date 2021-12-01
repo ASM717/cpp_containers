@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <vector>
+#include <stack>
 #include <string>
 #include <ctime>
 #include <iomanip>
 #include "../ft_vector/ft_vector.hpp"
+#include "../ft_stack/ft_stack.hpp"
 
 /*prototype test vector integer */
 void vector_swap_rela_test();
@@ -37,5 +39,9 @@ void vector_string_begin_end_test();
 void vector_string_swap_test();
 void vector_string_resize_reserve_test();
 void vector_string_insert_erase_test();
+
+/*STACK*/
+void stack_constructor_test();
+void stack_empty_test();
 
 #endif

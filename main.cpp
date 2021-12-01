@@ -14,10 +14,10 @@
 #include <vector>
 //#include "ft_vector/ft_vector.hpp"
 #include "ft_tester/tester_vector.cpp"
+#include "ft_tester/tester_stack.cpp"
 #include <string>
 #include <ctime>
 #include <iomanip>
-
 
 template<typename T>
 void std_print_vector(const std::vector<T> &std_vector) {
@@ -55,6 +55,12 @@ void ft_print_vector(const ft::vector<T> &ft_vector) {
 //    std::cout << std::endl;
 //}
 
+void stack_test() {
+	std::cout << "========================= STACK ========================" << std::endl;
+	stack_constructor_test();
+	stack_empty_test();
+}
+
 void vector_test() {
 	std::cout << "======================== VECTOR ========================" << std::endl;
 	/*int*/
@@ -87,6 +93,20 @@ void vector_test() {
 	vector_string_swap_test();
 	vector_string_insert_erase_test();
 
+	//stack
+
+
+
+
+//	ft::vector<std::string> ft_vector;
+//	for (int i = 0; i < 10; i++)
+//	{
+//		ft_vector.push_back("test");
+//	}
+//	ft_vector.push_back("test2");
+//
+//	std::cout << *ft_vector.rbegin() << std::endl;
+
 //	 std::vector<const int> test;
 //	 std::vector<const int>::iterator i = test.begin();
 //
@@ -109,7 +129,8 @@ int main()
 //	if (container == "vector")
 //	{
 
-		vector_test();
+		//vector_test();
+		stack_test();
 		//system ("leaks a.out");
 		return (0);
 //	}
