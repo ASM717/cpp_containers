@@ -115,7 +115,7 @@ int main()
 
 		vector_test();
 		stack_test();
-		//system ("leaks ft_containers");
+		system ("leaks ft_containers");
 
 		return (0);
 //	}
