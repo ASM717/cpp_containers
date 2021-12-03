@@ -269,7 +269,6 @@ namespace ft {
 		template <class InputIterator>
 		void insert(iterator position, InputIterator first, InputIterator last,
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0) {
-
 			difference_type typePos = position - begin();
 			difference_type distanceType = ft::distance(first, last);
 			if (m_capacity < m_size + distanceType)
@@ -277,11 +276,11 @@ namespace ft {
 			position = begin() + typePos;
 			vector::iterator iter_1 = end() - 1;
 			vector::iterator iter_2 = position;
-			while (iter_1 >= position) {
+			while (position <= iter_1) {
 				*(iter_1 + distanceType) = *iter_1;
 				iter_1--;
 			}
-			while (iter_2 < position + distanceType) {
+			while (position + distanceType > iter_2) {
 				m_alloc.construct(iter_2.base(), *first);
 				first++;
 				iter_2++;
