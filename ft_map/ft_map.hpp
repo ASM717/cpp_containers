@@ -9,7 +9,7 @@ namespace ft {
 	template <class Key,                                     // map::key_type
 			class T,                                       // map::mapped_type
 			class Compare = ft::less<Key>,                     // map::key_compare
-			class Alloc = allocator<ft::pair<const Key,T> >    // map::allocator_type
+			class Alloc = std::allocator<ft::pair<const Key,T> >    // map::allocator_type
 	> class map {
 		typedef Key                                       key_type;
 		typedef T                                         mapped_type;
