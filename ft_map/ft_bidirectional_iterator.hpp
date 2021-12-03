@@ -34,6 +34,3 @@ namespace ft {
 }
 
 #endif
-
-
-
