@@ -30,7 +30,9 @@ namespace ft {
 
         class value_compare {
             //key_compare m_key_compare;
+        private:
             Compare value_compare;
+        public:
             value_compare(const Compare &compare) {
                 value_compare = compare;
             }
