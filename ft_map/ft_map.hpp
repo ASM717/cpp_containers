@@ -29,13 +29,13 @@ namespace ft {
 		typedef ft::VectorReverseIterator<const_iterator> const_reverse_iterator;
 
         class value_compare {
-            key_compare m_key_compare;
-
-            value_compare(const key_compare &compare) {
-                m_key_compare = compare;
+            //key_compare m_key_compare;
+            Compare value_compare;
+            value_compare(const Compare &compare) {
+                value_compare = compare;
             }
             bool operator() (const value_type &_x, const value_type &_y) const {
-                return (m_key_compare(_x.first, _y.first));
+                return (value_compare(_x.first, _y.first));
             }
         };
 
