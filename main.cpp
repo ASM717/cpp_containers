@@ -104,6 +104,8 @@ void stack_test() {
 	stack_push_pop_test();
 }
 
+#include <map>
+
 int main()
 {
 //	std::string container = argv[1];
@@ -113,9 +115,11 @@ int main()
 //	if (container == "vector")
 //	{
 
-		vector_test();
-		stack_test();
+		//vector_test();
+		//stack_test();
 		//system ("leaks ft_containers");
+		
+		std::map<int, std::string> std_map;
 
 		return (0);
 //	}

@@ -6,6 +6,7 @@
 namespace ft {
 	template <class Iterator>
 	class BidirectionalIterator : public ft::iterator<ft::bidirectional_iterator_tag, T> {
+		
 		typedef T value_type;
 		typedef T *pointer;
 		typedef T &reference;
