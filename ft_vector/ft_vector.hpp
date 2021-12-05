@@ -122,9 +122,11 @@ namespace ft {
 
 		//destructor
 		~vector () {
-			for (size_type i = 0; i < m_size; i++)
-				m_alloc.destroy(m_array + i);
-			m_alloc.deallocate(m_array, m_capacity);
+			if (m_array) {
+				for (size_type i = 0; i < m_size; i++)
+					m_alloc.destroy(m_array + i);
+				m_alloc.deallocate(m_array, m_capacity);
+			}
 		}
 
 		// Iterators
@@ -143,15 +145,19 @@ namespace ft {
 
 		size_type max_size() const {return (m_alloc.max_size());}
 
-		void resize (size_type n, value_type val = value_type()) {
+		void resize (size_type n, value_type valueType = value_type()) {
+//            if (n < 0)
+//                throw(std::out_of_range("vector"));
 			if (n > m_capacity) {
 				if (n < m_capacity * 2)
 					reserve(m_capacity * 2);
 				else
 					reserve(n);
 			}
-			for (size_type i = m_size; i < n; i++)
-				m_alloc.construct(&m_array[i], val);
+            for (; m_size < m_capacity; m_size++)
+                m_alloc.construct(&m_array[m_size], valueType);
+//			for (size_type i = m_size; i < n; i++)
+//				m_alloc.construct(&m_array[i], valueType);
 			for (size_type i = n; i < m_size; i++)
 				m_alloc.destroy(&m_array[i]);
 			m_size = n;
@@ -169,7 +175,6 @@ namespace ft {
 		{
 			if (n > m_capacity) {
 				pointer new_array = m_alloc.allocate(n);
-
 				size_type i = 0;
 				while (i < m_size) {
 					m_alloc.construct(&new_array[i], m_array[i]);

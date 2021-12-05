@@ -12,7 +12,7 @@
 
 #include <iostream>
 #include <vector>
-//#include "ft_vector/ft_vector.hpp"
+
 #include "ft_tester/tester_vector.cpp"
 #include "ft_tester/tester_stack.cpp"
 #include <string>
@@ -62,16 +62,13 @@ void vector_test() {
 	vector_get_allocator_test();
 	vector_relational_operators_test();
 	vector_swap_rela_test();
+//    vector_resize_yard_test();
 
 	/*string*/
 	vector_string_begin_end_test();
 	vector_string_resize_reserve_test();
 	vector_string_swap_test();
 	vector_string_insert_erase_test();
-
-	//stack
-
-
 
 
 //	ft::vector<std::string> ft_vector;
@@ -105,6 +102,7 @@ void stack_test() {
 }
 
 #include <map>
+#include <vector>
 
 int main()
 {
@@ -118,9 +116,32 @@ int main()
 		//vector_test();
 		//stack_test();
 		//system ("leaks ft_containers");
-		
-		std::map<int, std::string> std_map;
 
-		return (0);
+	unsigned long start = clock();
+	std::vector<int> std_vector(10);
+	std_vector.resize(2000000000);
+	std::cout << std_vector.capacity() << std::endl;
+	// std_vector.resize(10);
+	// std::cout << std_vector.capacity() << std::endl;
+	std_vector.~vector();
+	unsigned long finish = clock();
+	unsigned long diff = finish - start;
+	std::cout << "STD TIME = " << diff << std::endl;
+
+	// unsigned long ft_start = clock();
+	// ft::vector<int> ft_vector(10);
+	// ft_vector.resize(2000000000);
+	// std::cout << ft_vector.capacity() << std::endl;
+	// ft_vector.resize(10);
+	// std::cout << std_vector.capacity() << std::endl;
+	// ft_vector.~vector();
+	// unsigned long ft_finish = clock();
+	// unsigned long ft_diff = ft_finish - ft_start;
+	// std::cout << "FTV TIME = " << ft_diff << std::endl;
+
+	// unsigned long res = ft_diff / diff;
+	// std::cout << "RESULT TIME = " << res << std::endl;
+
+	return (0);
 //	}
 }

@@ -835,6 +835,34 @@ void vector_swap_rela_test() {
 		std::cout << ' ' << *it;
 	std::cout << std::endl;
 }
+
+void vector_resize_yard_test() {
+    unsigned long start = clock();
+    std::vector<int> std_vector(10);
+    std_vector.resize(2000000000);
+    std::cout << std_vector.capacity() << std::endl;
+    std_vector.resize(10);
+    std::cout << std_vector.capacity() << std::endl;
+    std_vector.~vector();
+    unsigned long finish = clock();
+    unsigned long diff = finish - start;
+    std::cout << "STD TIME = " << diff << std::endl;
+
+    unsigned long ft_start = clock();
+    ft::vector<int> ft_vector(10);
+    ft_vector.resize(2000000000);
+    std::cout << ft_vector.capacity() << std::endl;
+    ft_vector.resize(10);
+    std::cout << std_vector.capacity() << std::endl;
+    ft_vector.~vector();
+    unsigned long ft_finish = clock();
+    unsigned long ft_diff = ft_finish - ft_start;
+    std::cout << "FTV TIME = " << ft_diff << std::endl;
+
+    unsigned long res = ft_diff / diff;
+    std::cout << "RESULT TIME = " << res << std::endl;
+}
+
 // STRING
 void vector_string_begin_end_test() {
 	std::cout << "=================== STRING BEGIN END ===================" << std::endl;
@@ -955,8 +983,8 @@ void vector_string_resize_reserve_test() {
 	std::cout << std::endl;
 	//std::cout << ' ' << ft_vector[1048575];
 	std::cout << "FTV::vector capacity: " << ft_vector.capacity() << std::endl;
-	std::cout << "FTV::vector size: " << std_vector.size() << std::endl;
-	std::cout << "FTV::vector max_size: " << std_vector.max_size() << std::endl;
+	std::cout << "FTV::vector size: " << ft_vector.size() << std::endl;
+	std::cout << "FTV::vector max_size: " << ft_vector.max_size() << std::endl;
 	ft_vector.resize(2000000);
 	std::cout << "FTV::vector capacity after resize: " << ft_vector.capacity() << std::endl;
 	std::cout << "FTV::vector empty: " << ft_vector.empty() << std::endl;

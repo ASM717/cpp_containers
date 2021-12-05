@@ -33,6 +33,7 @@ void vector_operator_equel_test();
 void vector_constructor_test();
 void vector_size_test();
 void vector_max_size_test();
+void vector_resize_yard_test();
 
 /*prototype test vector string*/
 void vector_string_begin_end_test();
