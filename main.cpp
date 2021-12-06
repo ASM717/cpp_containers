@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 04:50:06 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/29 10:47:52 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/06 15:46:00 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void vector_test() {
 	vector_get_allocator_test();
 	vector_relational_operators_test();
 	vector_swap_rela_test();
-//    vector_resize_yard_test();
+	//vector_resize_yard_test();
 
 	/*string*/
 	vector_string_begin_end_test();
@@ -103,6 +103,8 @@ void stack_test() {
 
 #include <map>
 #include <vector>
+#include "ft_map/ft_bidirectional_iterator.hpp"
+#include "ft_map/ft_less.hpp"
 
 int main()
 {
@@ -117,31 +119,26 @@ int main()
 		//stack_test();
 		//system ("leaks ft_containers");
 
-	unsigned long start = clock();
-	std::vector<int> std_vector(10);
-	std_vector.resize(2000000000);
-	std::cout << std_vector.capacity() << std::endl;
-	// std_vector.resize(10);
-	// std::cout << std_vector.capacity() << std::endl;
-	std_vector.~vector();
-	unsigned long finish = clock();
-	unsigned long diff = finish - start;
-	std::cout << "STD TIME = " << diff << std::endl;
+    std::map<int, int> gquiz1;
 
-	// unsigned long ft_start = clock();
-	// ft::vector<int> ft_vector(10);
-	// ft_vector.resize(2000000000);
-	// std::cout << ft_vector.capacity() << std::endl;
-	// ft_vector.resize(10);
-	// std::cout << std_vector.capacity() << std::endl;
-	// ft_vector.~vector();
-	// unsigned long ft_finish = clock();
-	// unsigned long ft_diff = ft_finish - ft_start;
-	// std::cout << "FTV TIME = " << ft_diff << std::endl;
+    // insert elements in random order
+    gquiz1.insert(std::pair<int, int>(1, 40));
+    gquiz1.insert(std::pair<int, int>(2, 30));
+    gquiz1.insert(std::pair<int, int>(3, 60));
+    gquiz1.insert(std::pair<int, int>(4, 20));
+    gquiz1.insert(std::pair<int, int>(5, 50));
+    gquiz1.insert(std::pair<int, int>(6, 50));
+    gquiz1.insert(std::pair<int, int>(7, 10));
 
-	// unsigned long res = ft_diff / diff;
-	// std::cout << "RESULT TIME = " << res << std::endl;
-
+    // printing map gquiz1
+    ft::map<int, int>::iterator itr;
+    std::cout << "\nThe map gquiz1 is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (itr = gquiz1.begin(); itr != gquiz1.end(); ++itr) {
+        std::cout << '\t' << itr->first
+             << '\t' << itr->second << '\n';
+    }
+    std::cout << std::endl;
 	return (0);
 //	}
 }
