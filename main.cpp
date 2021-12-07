@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 04:50:06 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/06 15:46:00 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/07 14:01:04 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void stack_test() {
 #include <vector>
 #include "ft_map/ft_bidirectional_iterator.hpp"
 #include "ft_map/ft_less.hpp"
+#include "ft_map/ft_map.hpp"
 
 int main()
 {
@@ -122,23 +123,23 @@ int main()
     std::map<int, int> gquiz1;
 
     // insert elements in random order
-    gquiz1.insert(std::pair<int, int>(1, 40));
-    gquiz1.insert(std::pair<int, int>(2, 30));
-    gquiz1.insert(std::pair<int, int>(3, 60));
-    gquiz1.insert(std::pair<int, int>(4, 20));
-    gquiz1.insert(std::pair<int, int>(5, 50));
-    gquiz1.insert(std::pair<int, int>(6, 50));
-    gquiz1.insert(std::pair<int, int>(7, 10));
+    // gquiz1.insert(std::pair<int, int>(1, 40));
+    // gquiz1.insert(std::pair<int, int>(2, 30));
+    // gquiz1.insert(std::pair<int, int>(3, 60));
+    // gquiz1.insert(std::pair<int, int>(4, 20));
+    // gquiz1.insert(std::pair<int, int>(5, 50));
+    // gquiz1.insert(std::pair<int, int>(6, 50));
+    // gquiz1.insert(std::pair<int, int>(7, 10));
 
     // printing map gquiz1
-    ft::map<int, int>::iterator itr;
-    std::cout << "\nThe map gquiz1 is : \n";
-    std::cout << "\tKEY\tELEMENT\n";
-    for (itr = gquiz1.begin(); itr != gquiz1.end(); ++itr) {
-        std::cout << '\t' << itr->first
-             << '\t' << itr->second << '\n';
-    }
-    std::cout << std::endl;
-	return (0);
+    // ft::map<int, int>::iterator itr;
+    // std::cout << "\nThe map gquiz1 is : \n";
+    // std::cout << "\tKEY\tELEMENT\n";
+    // for (itr = gquiz1.begin(); itr != gquiz1.end(); ++itr) {
+    //     std::cout << '\t' << itr->first
+    //          << '\t' << itr->second << '\n';
+    // }
+    // std::cout << std::endl;
+	// return (0);
 //	}
 }

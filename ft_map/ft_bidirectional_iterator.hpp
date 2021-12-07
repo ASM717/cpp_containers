@@ -3,86 +3,70 @@
 
 #include "../ft_vector/ft_iterator_utils.hpp"
 
+#define Col_RED		"\e[31m"
+#define Col_BLACK	"\e[30m\e[47m"
+
 // # include <type_traits>
 namespace ft {
-	template <class T>
-	struct Node
-	{
-		//typedef T value_type;
 
-		int        color;
-		value_type value_data;
-		Node*      parent;
-		Node*      left;
-		Node*      right;
+	//template <class Iterator, class Node>
+	template <typename T, typename N>
+	// : public ft::iterator<ft::bidirectional_iterator_tag>
+	class BidirectionalIterator {
+		typedef T value_type;
+		// typedef ft::Node<T>* pointer;
+		// typedef T& reference;
+		// typedef ft::Node<T>* const_pointer;
+		// typedef T& const_reference;
+		// typedef std::bidirectional_iterator_tag iterator_category;
+		// typedef typename ft::iterator_traits<T>::difference_type difference_type;
 
-		Node() : value_data(value_type()) {}
-		Node(const value_type &value) : value_data(value) {}
-		Node(const Node &ref) : value_data(ref.value_data), parent(ref.parent), left(ref.left), right(ref.right), color(ref.color) {}
-		~Node() {}
+		typedef typename ft::iterator_traits<T>::size_type size_type;
+		typedef typename ft::iterator_traits<T>::pointer pointer;
+		typedef typename ft::iterator_traits<T>::reference reference;
+		typedef typename ft::iterator_traits<T>::const_reference const_reference;
+		typedef typename ft::iterator_traits<T>::const_pointer const_pointer;
+		typedef typename ft::iterator_traits<T>::difference_type difference_type;
+		typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
+		//typedef typename std::bidirectional_iterator_tag iterator_category;
+		typedef N  node_type;
+		typedef N* node_pointer;
+	private:
+		node_pointer node_point;
+	public:
+		BidirectionalIterator() : node_point(NULL) {}
 
-		Node &operator=(const Node& ref)
+		BidirectionalIterator(node_pointer ptr) : node_point(ptr) {}
+
+		BidirectionalIterator(const BidirectionalIterator &ref) : node_point(ref.node_point) {}
+
+		BidirectionalIterator &operator=(BidirectionalIterator const &ref)
 		{
-			if (this != &ref)
+			if (this !=&ref)
 			{
-				value_data = ref.value_data;
-				parent = ref.parent;
-				left = ref.left;
-				right = ref.right;
-				color = ref.color;
+				node_point = ref.node_point;
 			}
 			return (*this);
 		}
-	};
 
-	template <class Iterator, class Node>
-	class BidirectionalIterator {
-		typedef T value_type;
-		typedef typename ft::iterator_traits<Iterator>::size_type size_type;
-		typedef typename ft::iterator_traits<Iterator>::pointer pointer;
-		typedef typename ft::iterator_traits<Iterator>::reference reference;
-		typedef typename ft::iterator_traits<Iterator>::const_reference const_reference;
-		typedef typename ft::iterator_traits<Iterator>::const_pointer const_pointer;
-		typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
-		// typedef std::bidirectional_iterator_tag iterator_category;
-		typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
-		// typedef N  node_type;
-		// typedef N* node_pointer;
-	private:
-		pointer node_pointer;
-	public:
-		BidirectionalIterator() : node_pointer(NULL) {}
+		// operator BidirectionalIterator<const value_type, const node_type>()const
+		// {
+		// 	return BidirectionalIterator<const value_type, const node_type>(_ptr, _root, _nill);
+		// }
 
-		BidirectionalIterator(pointer ptr) {
-			node_pointer(ptr);
-		}
-
-		template <class Iterator>
-		BidirectionalIterator(const BidirectionalIterator<Iterator> &ref) {
-			node_pointer = ref.node_pointer;
-		}
-
-		BidirectionalIterator& operator=(const BidirectionalIterator &ref) {
-			if (this != &ref)
-				node_pointer = ref.node_pointer;
-			return (*this);
-		}
-
-		virtual ~BidirectionalIterator() {
-			node_pointer = NULL;
-		}
+		virtual ~BidirectionalIterator(){} //destructor
 
 		reference operator*() {
-			return (node_pointer->value_data);
+			return (node_point->data_node);
 		}
 		const_reference operator*() const {
-			return (node_pointer->value_data);
+			return (node_point->data_node);
 		}
 		pointer operator->() {
-			return (&node_pointer->value_data);
+			return (&node_point->data_node);
 		}
 		const_pointer operator->() const {
-			return (&node_pointer->value_data);
+			return (&node_point->data_node);
 		}
 
 		BidirectionalIterator operator++(int) {
@@ -108,55 +92,52 @@ namespace ft {
 			BidirectionalIterator tmp(*this);
 			return (tmp += value);
 		}
-		BidirectionalIterator &operator-=(int value) {
-			operator+=(-value);
-			return (*this);
-		}
+
 		BidirectionalIterator operator-(int value) const {
 			BidirectionalIterator tmp(*this);
 			return (tmp -= value);
 		}
 
 		bool operator==(BidirectionalIterator const &ref) const {
-			return (this->node_pointer == ref.node_pointer);
+			return (this->node_point == ref.node_point);
 		}
 		bool operator!=(BidirectionalIterator const &ref) const {
-			return (this->node_pointer != ref.node_pointer);
+			return (this->node_point != ref.node_point);
 		}
 		bool operator<(BidirectionalIterator const &ref) const {
-			return (this->node_pointer < ref.node_pointer);
+			return (this->node_point < ref.node_point);
 		}
 		bool operator<=(BidirectionalIterator const &ref) const {
-			return (this->node_pointer <= ref.node_pointer);
+			return (this->node_point <= ref.node_point);
 		}
 		bool operator>(BidirectionalIterator const &ref) const {
-			return (this->node_pointer > ref.node_pointer);
+			return (this->node_point > ref.node_point);
 		}
 		bool operator>=(BidirectionalIterator const &ref) const {
-			return (this->node_pointer >= ref.node_pointer);
+			return (this->node_point >= ref.node_point);
 		}
 
 		void dec() {
-		if (this->node_pointer->left) {
-			this->node_pointer = this->node_pointer->left;
-			while (this->node_pointer->right)
-				this->node_pointer = this->node_pointer->right;
+		if (this->node_point->m_left) {
+			this->node_point = this->node_point->m_left;
+			while (this->node_point->m_right)
+				this->node_point = this->node_point->m_right;
 		} else
-			this->node_pointer = this->node_pointer->parent;
+			this->node_point = this->node_point->m_parent;
 		}
 
 		void inc() {
-			if (this->node_pointer->right) {
-				this->node_pointer = this->node_pointer->right;
-				while (this->node_pointer->left)
-					this->node_pointer = this->node_pointer->left;
+			if (this->node_point->m_right) {
+				this->node_point = this->node_point->m_right;
+				while (this->node_point->m_left)
+					this->node_point = this->node_point->m_left;
 			} else {
-				pointer tmp = this->node_pointer;
-				this->node_pointer = this->node_pointer->parent;
-				while (this->node_pointer->left != tmp)
+				pointer tmp = this->node_point;
+				this->node_point = this->node_point->m_parent;
+				while (this->node_point->m_left != tmp)
 				{
-					tmp = this->node_pointer;
-					this->node_pointer = this->node_pointer->parent;
+					tmp = this->node_point;
+					this->node_point = this->node_point->m_parent;
 				}
 			}
 		}

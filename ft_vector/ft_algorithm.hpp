@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 04:49:34 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/27 04:49:35 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/07 12:32:26 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ namespace ft {
 		size_t i = 0;
 		for (InputIterator it = first; it != second; ++it)
 			i++;
-		return i;
+		return (i);
 	}
 }
 
