@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:02:34 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 14:02:35 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/09 15:49:57 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 namespace ft {
 	enum Color {
-		BLACK,
-		RED
+		black,
+		red
 	};
 
 	template <class T>
