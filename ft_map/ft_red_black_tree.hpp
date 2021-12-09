@@ -458,6 +458,6 @@ namespace ft {
 				parentElem->parent = elem;
 			}
 	};
-}
+};
 
 #endif
