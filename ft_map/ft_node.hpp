@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:02:34 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 15:49:57 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/09 16:41:08 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ namespace ft {
 		this->m_parent = NULL;
 		this->m_left = NULL;
 		this->m_right = NULL;
-		this->color = RED;
+		this->color = red;
 		}
 
 		~Node() {}

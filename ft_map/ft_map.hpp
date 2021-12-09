@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:02:26 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 14:02:27 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/09 17:06:39 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include "ft_bidirectional_iterator.hpp"
 #include "../ft_vector/ft_vector_reverse_iterator.hpp"
 #include "ft_red_black_tree.hpp"
+
+class RBTree;
 
 namespace ft {
 	template <class Key,                                     // map::key_type
@@ -45,6 +47,10 @@ namespace ft {
 		typedef ft::VectorReverseIterator<iterator>                          reverse_iterator;
 		typedef ft::VectorReverseIterator<const_iterator>                    const_reverse_iterator;
 
+	private:
+		ft::RBTree rb_tree;
+	public:
+		typename Allocator = std::allocator<Pair>, typename Compare = ft::less<Key> >
 		class value_compare {
 			//key_compare m_key_compare;
 		private:
@@ -58,31 +64,31 @@ namespace ft {
 			}
 		};
 
-		// explicit map (const key_compare& comp = key_compare(),
-		// 			  const allocator_type& alloc = allocator_type()) {
+		explicit map (const key_compare& comp = key_compare(),
+					const allocator_type& alloc = allocator_type()) {
 
-		// }
+		}
 
-		// //range constructor
-		// template <class InputIterator>
-		// map (InputIterator first, InputIterator last,
-		// 	 const key_compare& comp = key_compare(),
-		// 	 const allocator_type& alloc = allocator_type()) {
+		//range constructor
+		template <class InputIterator>
+		map (InputIterator first, InputIterator last,
+			const key_compare& comp = key_compare(),
+			const allocator_type& alloc = allocator_type()) {
+			insert(first, last);
+		}
 
-		// }
+		map (const map &ref) {
 
-		// map (const map &ref) {
+		}
 
-		// }
+		map &operator=(const map &ref) {
 
-		// map &operator=(const map& x) {
+		}
 
-		// }
-
-		// ~map() {}
+		~map() {}
 
 		// iterator begin() {
-
+		// 	return (iterator(rb_tree.min(), rb_tree.getRoot(), rb_tree.getNill()));
 		// }
 		// const_iterator begin() const {
 
