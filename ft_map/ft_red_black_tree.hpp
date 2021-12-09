@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:02:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 16:03:59 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/09 16:07:15 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,7 +386,7 @@ namespace ft {
 				displayTree(root, "", true);
 			}
 
-			void displayTree(Node *root, std::string indent, bool last) {
+			void displayTree(node *root, std::string indent, bool last) {
 				if (root != NULL) {
 					std::cout << indent;
 					if (last) {
