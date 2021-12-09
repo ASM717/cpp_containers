@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 04:49:55 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/27 04:49:56 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/09 13:45:08 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ namespace ft {
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference reference;
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type difference_type;
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category iterator_category;
-//		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::const_reference const_reference;
-//		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::const_pointer const_pointer;
 
 	private:
 		pointer m_arr_ptr;
@@ -48,9 +46,8 @@ namespace ft {
 		pointer const &base() const { return (this->m_arr_ptr); }
 
 		reference operator*() {return(*m_arr_ptr);}
-//		const_reference operator*() const {return(*m_arr_ptr);}
+
 		pointer operator->() {return (m_arr_ptr);}
-//		const_pointer operator->() const {return (m_arr_ptr);}
 
 		VectorRandomAccessIterator operator+(difference_type n) const {return (m_arr_ptr + n);}
 		VectorRandomAccessIterator &operator++() {
@@ -63,8 +60,6 @@ namespace ft {
 			return (result);
 		}
 
-//		difference_type operator-(VectorRandomAccessIterator it) const {return (m_arr_ptr - it.m_arr_ptr);}
-
 		VectorRandomAccessIterator operator-(difference_type n) const {return (m_arr_ptr - n);}
 		VectorRandomAccessIterator &operator--() {
 			m_arr_ptr--;
@@ -76,13 +71,6 @@ namespace ft {
 			return (result);
 		}
 
-//		bool operator==(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr == ref.m_arr_ptr);}
-//		bool operator!=(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr != ref.m_arr_ptr);}
-//		bool operator>=(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr >= ref.m_arr_ptr);}
-//		bool operator<=(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr <= ref.m_arr_ptr);}
-//		bool operator>(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr > ref.m_arr_ptr);}
-//		bool operator<(VectorRandomAccessIterator const &ref) const {return (m_arr_ptr < ref.m_arr_ptr);}
-
 		VectorRandomAccessIterator &operator+=(difference_type n) {
 			m_arr_ptr += n;
 			return (*this);
@@ -92,7 +80,7 @@ namespace ft {
 			m_arr_ptr -= n;
 			return (*this);
 		}
-		//operator VectorRandomAccessIterator<const T> () const {return (VectorRandomAccessIterator<const T>(m_arr_ptr));}
+
 		reference operator[](difference_type i) const {return (*(m_arr_ptr + i));}
 	};
 

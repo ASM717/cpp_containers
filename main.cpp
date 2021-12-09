@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 04:50:06 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/07 14:01:04 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/09 13:55:02 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ void stack_test() {
 	stack_push_pop_test();
 }
 
-#include <map>
-#include <vector>
-#include "ft_map/ft_bidirectional_iterator.hpp"
-#include "ft_map/ft_less.hpp"
-#include "ft_map/ft_map.hpp"
+// #include <map>
+// #include <vector>
+// #include "ft_map/ft_bidirectional_iterator.hpp"
+// #include "ft_map/ft_less.hpp"
+// #include "ft_map/ft_map.hpp"
 
 int main()
 {
@@ -116,11 +116,11 @@ int main()
 //	if (container == "vector")
 //	{
 
-		//vector_test();
-		//stack_test();
-		//system ("leaks ft_containers");
+		// vector_test();
+		// stack_test();
+		// system ("leaks ft_containers");
 
-    std::map<int, int> gquiz1;
+    // std::map<int, int> gquiz1;
 
     // insert elements in random order
     // gquiz1.insert(std::pair<int, int>(1, 40));
