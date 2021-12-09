@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bidirectional_iterator.hpp                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/09 14:02:14 by amuriel           #+#    #+#             */
+/*   Updated: 2021/12/09 14:02:15 by amuriel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_BIDIRECTIONAL_ITERATOR_HPP
 #define FT_BIDIRECTIONAL_ITERATOR_HPP
 
