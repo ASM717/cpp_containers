@@ -62,16 +62,16 @@ namespace ft {
 		virtual ~BidirectionalIterator(){} //destructor
 
 		reference operator*() {
-			return (node_point->data_node);
+			return (node_point->data);
 		}
 		const_reference operator*() const {
-			return (node_point->data_node);
+			return (node_point->data);
 		}
 		pointer operator->() {
-			return (&node_point->data_node);
+			return (&node_point->data);
 		}
 		const_pointer operator->() const {
-			return (&node_point->data_node);
+			return (&node_point->data);
 		}
 
 		BidirectionalIterator operator++(int) {
@@ -123,26 +123,26 @@ namespace ft {
 		}
 
 		void dec() {
-		if (this->node_point->m_left) {
-			this->node_point = this->node_point->m_left;
-			while (this->node_point->m_right)
-				this->node_point = this->node_point->m_right;
+		if (this->node_point->left) {
+			this->node_point = this->node_point->left;
+			while (this->node_point->right)
+				this->node_point = this->node_point->right;
 		} else
-			this->node_point = this->node_point->m_parent;
+			this->node_point = this->node_point->parent;
 		}
 
 		void inc() {
-			if (this->node_point->m_right) {
-				this->node_point = this->node_point->m_right;
-				while (this->node_point->m_left)
-					this->node_point = this->node_point->m_left;
+			if (this->node_point->right) {
+				this->node_point = this->node_point->right;
+				while (this->node_point->left)
+					this->node_point = this->node_point->left;
 			} else {
 				pointer tmp = this->node_point;
-				this->node_point = this->node_point->m_parent;
-				while (this->node_point->m_left != tmp)
+				this->node_point = this->node_point->parent;
+				while (this->node_point->left != tmp)
 				{
 					tmp = this->node_point;
-					this->node_point = this->node_point->m_parent;
+					this->node_point = this->node_point->parent;
 				}
 			}
 		}

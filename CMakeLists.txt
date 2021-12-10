@@ -12,4 +12,13 @@ add_executable(cpp_containers
         ft_vector/ft_vector.hpp
         ft_vector/ft_vector_iterator.hpp
         ft_vector/ft_vector_reverse_iterator.hpp
+
+        ft_stack/ft_stack.hpp
+
+        ft_map/ft_bidirectional_iterator.hpp
+        ft_map/ft_less.hpp
+        ft_map/ft_map.hpp
+        ft_map/ft_pair.hpp
+        ft_map/ft_red_black_tree.hpp
+        ft_map/ft_node.hpp
         main.cpp)

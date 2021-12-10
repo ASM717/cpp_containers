@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:02:26 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 17:06:39 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/10 10:05:12 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ namespace ft {
 	template <class Key,                                     // map::key_type
 			class T,                                       // map::mapped_type
 			class Compare = ft::less<Key>,                     // map::key_compare
-			class Allocator = std::allocator<ft::pair<const Key,T> >    // map::allocator_type
+			class Allocator = std::allocator<ft::pair<const Key,T> > // map::allocator_type
 	> class map {
 		typedef Key                                       key_type;
 		typedef T                                         mapped_type;

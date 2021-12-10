@@ -27,23 +27,24 @@ namespace ft {
 	template<typename Key, typename Value, typename Pair = ft::pair<const Key, Value>,
 		typename Allocator = std::allocator<Pair>, typename Compare = ft::less<Key> >
 	class RBTree {
-		typedef Node<ft::pair<const Key,T> > node;
-		typedef typename Allocator::template rebind<Node>::other node_alloc_type;
+		typedef Node<ft::pair<const Key, Value> > node;
+		typedef typename Allocator::template rebind<node>::other node_alloc_type;
 
 		private:
 			node_alloc_type _alloc;
-			Node *root;
-			Node *elem;
+			node *root;
+			node *elem;
 			Compare _comp;
 		public:
-			RBTree() : _alloc(std::allocator<Node>()), root(NULL), elem(NULL), _comp(ft::less<Key >()) {}
+			RBTree() : _alloc(std::allocator<node>()), root(NULL), elem(NULL), _comp(ft::less<Key >()) {}
 
-			RBTree(Pair pair_data) : _alloc(std::allocator<Node>()), root(_alloc.allocate(1)), elem(NULL), _comp(ft::less<Key >()) {
-				_alloc.construct(root, Node(pair_data));
+			RBTree(Pair data) : _alloc(std::allocator<node>()), root(_alloc.allocate(1)), elem(NULL),
+								_comp(ft::less<Key >()) {
+				_alloc.construct(root, node(data));
 				root->color = black;
 			}
 
-			RBTree(const RBTree &ref) _alloc(ref._alloc), root(NULL), elem(NULL), _comp(ft::less<Key >()) {
+			RBTree(const RBTree &ref) : _alloc(ref._alloc), root(NULL), elem(NULL), _comp(ft::less<Key >()) {
 				*this = ref;
 			}
 
@@ -65,7 +66,7 @@ namespace ft {
 				return (root);
 			}
 
-			void printTreeHelper(Node *root, int space)
+			void printTreeHelper(node *root, int space)
 			{
 				int i;
 				if(root != NULL)
@@ -128,7 +129,7 @@ namespace ft {
 
 			node *createElem(const Pair data) {
 				elem = _alloc.allocate(1);
-				_alloc.construct(elem, Node(data));
+				_alloc.construct(elem, node(data));
 				return elem;
 			}
 
@@ -458,6 +459,6 @@ namespace ft {
 				parentElem->parent = elem;
 			}
 	};
-};
+}
 
 #endif
