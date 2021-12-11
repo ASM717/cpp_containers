@@ -66,8 +66,7 @@ namespace ft {
 				return (root);
 			}
 
-			void printTreeHelper(node *root, int space)
-			{
+			void printTreeHelper(node *root, int space) {
 				int i;
 				if(root != NULL)
 				{
@@ -94,7 +93,7 @@ namespace ft {
 				printTreeHelper(this->root, 0);
 			}
 
-			node *find(Key key, node *start){
+			node *find(Key key, node *start) {
 				if (start == NULL)
 					return (NULL);
 				else if (key == start->data.first)
@@ -105,7 +104,7 @@ namespace ft {
 					return (find(key, start->right));
 			}
 
-			bool notExist(Pair data, node *start){
+			bool notExist(Pair data, node *start) {
 				if (start == NULL)
 					return(true);
 				else if (data.first == start->data.first)
@@ -183,7 +182,7 @@ namespace ft {
 				return (elem);
 			}
 
-			node *insert(Pair data){
+			node *insert(Pair data) {
 				if (notExist(data, root))
 					return (insertElem(createElem(data), root));
 				return (findKey(data, root));
@@ -318,6 +317,7 @@ namespace ft {
 			bool isBlack(node *ptr) {
 				return ((ptr == NULL) || (ptr && ptr->color == black));
 			}
+
 			void deleteFix(node* x, node * parent) {
 				node *s;
 				while (parent && x != root && isBlack(x)) {
