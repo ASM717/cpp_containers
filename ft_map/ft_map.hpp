@@ -47,7 +47,7 @@ namespace ft {
 		typedef ft::VectorReverseIterator<iterator>                          reverse_iterator;
 		typedef ft::VectorReverseIterator<const_iterator>                    const_reverse_iterator;
 
-        typedef ft::RBTree<key_type, value_type, key_type> key_compare> tree_type;
+        typedef ft::RBTree<Key, T, Compare, Allocator> rb_tree;
 
 	public:
 		//typename Allocator = std::allocator<Pair>, typename Compare = ft::less<Key> >
@@ -64,27 +64,37 @@ namespace ft {
 			}
 		};
 	private:
-		//RBTree<
+        rb_tree m_rbTree;
+        allocator_type m_alloc;
+        key_compare m_comp;
 	public:
 		explicit map (const key_compare& comp = key_compare(),
-					const allocator_type& alloc = allocator_type()) {
-
+					const allocator_type& alloc = allocator_type()) : m_rbTree() {
+            this->m_alloc = alloc;
+            this->m_comp = comp;
 		}
 
 		//range constructor
 		template <class InputIterator>
 		map (InputIterator first, InputIterator last,
-			const key_compare& comp = key_compare(),
-			const allocator_type& alloc = allocator_type()) {
+			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+                : m_alloc(alloc), m_comp(comp), m_rbTree() {
 			insert(first, last);
 		}
 
 		map (const map &ref) {
-
+            insert(ref.begin(), ref.end()); //перепроверить
 		}
 
 		map &operator=(const map &ref) {
-
+//            if(this != &ref)
+//            {
+//                clear();
+//                m_alloc = ref._alloc;
+//                m_comp = ref._comp;
+//                this->insert(ref.begin(), ref.end());
+//            }
+//            return *this;
 		}
 
 		~map() {}
