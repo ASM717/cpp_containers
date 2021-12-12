@@ -18,9 +18,7 @@
 #define Col_RED		"\e[31m"
 #define Col_BLACK	"\e[30m\e[47m"
 
-// # include <type_traits>
 namespace ft {
-
 	//template <class Iterator, class Node>
 	template <typename T, typename N>
 	// : public ft::iterator<ft::bidirectional_iterator_tag>

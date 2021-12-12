@@ -47,8 +47,10 @@ namespace ft {
 		typedef ft::VectorReverseIterator<iterator>                          reverse_iterator;
 		typedef ft::VectorReverseIterator<const_iterator>                    const_reverse_iterator;
 
+        typedef ft::RBTree<key_type, value_type, key_type> key_compare> tree_type;
+
 	public:
-		typename Allocator = std::allocator<Pair>, typename Compare = ft::less<Key> >
+		//typename Allocator = std::allocator<Pair>, typename Compare = ft::less<Key> >
 		class value_compare {
 			//key_compare m_key_compare;
 		private:

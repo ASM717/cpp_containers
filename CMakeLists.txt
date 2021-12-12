@@ -6,6 +6,10 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(ft_vector)
 
 add_executable(cpp_containers
+        ft_tester/tester_headers.hpp
+        ft_tester/tester_stack.cpp
+        ft_tester/tester_vector.cpp
+
         ft_vector/ft_algorithm.hpp
         ft_vector/ft_iterator_utils.hpp
         ft_vector/ft_type_traits.hpp
