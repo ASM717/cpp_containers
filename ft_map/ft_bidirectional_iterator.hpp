@@ -23,15 +23,19 @@ namespace ft {
 	template <typename T, typename N>
 	// : public ft::iterator<ft::bidirectional_iterator_tag>
 	class BidirectionalIterator {
+//		typedef T value_type;
+//		typedef typename ft::iterator_traits<T>::size_type size_type;
+//		typedef typename ft::iterator_traits<T>::pointer pointer;
+//		typedef typename ft::iterator_traits<T>::reference reference;
+//		typedef typename ft::iterator_traits<T>::const_reference const_reference;
+//		typedef typename ft::iterator_traits<T>::const_pointer const_pointer;
+//		typedef typename ft::iterator_traits<T>::difference_type difference_type;
+//		typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
+//		//typedef typename std::bidirectional_iterator_tag iterator_category;
 		typedef T value_type;
-		typedef typename ft::iterator_traits<T>::size_type size_type;
-		typedef typename ft::iterator_traits<T>::pointer pointer;
-		typedef typename ft::iterator_traits<T>::reference reference;
-		typedef typename ft::iterator_traits<T>::const_reference const_reference;
-		typedef typename ft::iterator_traits<T>::const_pointer const_pointer;
-		typedef typename ft::iterator_traits<T>::difference_type difference_type;
-		typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
-		//typedef typename std::bidirectional_iterator_tag iterator_category;
+		typedef T* pointer;
+		typedef T& reference;
+
 		typedef N  node_type;
 		typedef N* node_pointer;
 	private:
@@ -62,15 +66,15 @@ namespace ft {
 		reference operator*() {
 			return (node_point->data);
 		}
-		const_reference operator*() const {
-			return (node_point->data);
-		}
+//		const_reference operator*() const {
+//			return (node_point->data);
+//		}
 		pointer operator->() {
 			return (&node_point->data);
 		}
-		const_pointer operator->() const {
-			return (&node_point->data);
-		}
+//		const_pointer operator->() const {
+//			return (&node_point->data);
+//		}
 
 		BidirectionalIterator operator++(int) {
 			BidirectionalIterator tmp(*this);

@@ -140,17 +140,11 @@ namespace ft {
 				copyElem(toCopy->left);
 			}
 
-			node *getParent(node *elem) {
-				return (elem->parent);
-			}
+			node *getParent(node *elem) {return (elem->parent);}
 
-			node *getLeft(node *elem) {
-				return (elem->left);
-			}
+			node *getLeft(node *elem) {return (elem->left);}
 
-			node *getRight(node *elem) {
-				return (elem->right);
-			}
+			node *getRight(node *elem) {return (elem->right);}
 
 			node *insertElem(node *elem, node *start) {
 				if (elem == NULL) {
@@ -244,7 +238,7 @@ namespace ft {
 					v->parent = u->parent;
 			}
 
-			node *maximum() {
+			node *maximum(node *root) {
 				return (maximumRec(root));
 			}
 
@@ -253,7 +247,7 @@ namespace ft {
 					return (maximumRec(start->right));
 				return (start);
 			}
-
+			//node *minimum(node *root)
 			node *minimum(node *root) {
 				return (minimumRec(root));
 			}

@@ -67,11 +67,13 @@ namespace ft {
         rb_tree m_rbTree;
         allocator_type m_alloc;
         key_compare m_comp;
+		size_type m_size;
 	public:
 		explicit map (const key_compare& comp = key_compare(),
 					const allocator_type& alloc = allocator_type()) : m_rbTree() {
             this->m_alloc = alloc;
             this->m_comp = comp;
+			this->m_size = 0;
 		}
 
 		//range constructor
@@ -83,7 +85,7 @@ namespace ft {
 		}
 
 		map (const map &ref) {
-            insert(ref.begin(), ref.end()); //перепроверить
+            //insert(ref.begin(), ref.end()); //перепроверить
 		}
 
 		map &operator=(const map &ref) {
@@ -99,19 +101,19 @@ namespace ft {
 
 		~map() {}
 
-		// iterator begin() {
-		// 	return (iterator(rb_tree.min(), rb_tree.getRoot(), rb_tree.getNill()));
-		// }
-		// const_iterator begin() const {
+		 iterator begin() {
+		 	return (iterator(m_rbTree.minimum(m_rbTree.getRoot())));
+		 }
+		 const_iterator begin() const {
+			return (const_iterator(m_rbTree.minimum(m_rbTree.getRoot())));
+		 }
 
-		// }
-
-		// iterator end() {
-
-		// }
-		// const_iterator end() const {
-
-		// }
+		 iterator end() {
+			 return (iterator(m_rbTree.maximum(m_rbTree.getRoot())));
+		 }
+		 const_iterator end() const {
+			 return (const_iterator(m_rbTree.maximum(m_rbTree.getRoot())));
+		 }
 
 		// reverse_iterator rbegin() {
 
@@ -127,98 +129,144 @@ namespace ft {
 
 		// }
 
-		// bool empty() const {
+		 bool empty() const {
+			if (m_size == 0)
+				return (true);
+			else (false);
+		 }
 
-		// }
+		 size_type size() const {
+			 return m_size;
+		 }
 
-		// size_type size() const {
-
-		// }
-
-		// size_type max_size() const {
-
-		// }
+		 size_type max_size() const {
+			 return (m_alloc.max_size());
+		 }
 
 		// // https://www.cplusplus.com/reference/map/map/operator[]/
 		// mapped_type& operator[] (const key_type& k) {
 
 		// }
 
-		// pair<iterator,bool> insert (const value_type& val) {
+		 pair<iterator,bool> insert (const value_type& val) {
+			 bool el = m_rbTree.insert(val);
+			 iterator iter = find(val.first);
+			 return (ft::pair<iterator, bool>(iter, el));
+		 }
 
-		// }
+		 iterator insert (iterator position, const value_type& val) {
+			 return insert(val).first;
+		 }
 
-		// iterator insert (iterator position, const value_type& val) {
+		 template <class InputIterator>
+		 void insert (InputIterator first, InputIterator last) {
+			 while(first != last)
+			 {
+				 m_rbTree.insert(*(first++));
+				 m_size++;
+			 }
+		 }
 
-		// }
+		 void erase (iterator position) {
+			 erase((*position).first);
+		 }
 
-		// template <class InputIterator>
-		// void insert (InputIterator first, InputIterator last) {
-
-		// }
-
-		// void erase (iterator position) {
-
-		// }
-		// size_type erase (const key_type& k) {
-
-		// }
-		// void erase (iterator first, iterator last) {
-
-		// }
+		 size_type erase (const key_type& k) {
+			 if(m_rbTree.deleteElem(k))
+				 return (1);
+			 else return (0);
+		 }
+		 void erase (iterator first, iterator last) {
+			 while(first != last)
+			 {
+				 erase(first++);
+				 m_size--;
+			 }
+		 }
 
 		// void swap (map& x) {
 
 		// }
 
-		// void clear() {
+		 void clear() {
+			 erase(begin(), end());
+			 m_size = 0;
+		 }
 
-		// }
+		 key_compare key_comp() const {
+			 return m_comp;
+		 }
 
-		// key_compare key_comp() const {
+		 value_compare value_comp() const {
+			 return m_comp;
+		 }
 
-		// }
-
-		// value_compare value_comp() const {
-
-		// }
-
-		// iterator find (const key_type& k) {
-
-		// }
-		// const_iterator find (const key_type& k) const {
-
-		// }
+//		 iterator find (const key_type& k) {
+//			m_rbTree.find(k);
+//		 }
+//
+//		 const_iterator find (const key_type& k) const {
+//			 m_rbTree.find(k);
+//		 }
 
 		// size_type count (const key_type& k) const {
 
 		// }
 
-		// iterator lower_bound (const key_type& k) {
+		 iterator lower_bound (const key_type& k) {
+			 const_iterator it = begin();
+			 while(it != end())
+			 {
+				 if (m_comp((*it).first, k) == false)
+					 break;
+				 it++;
+			 }
+			 return (it);
+		 }
 
-		// }
+		 const_iterator lower_bound (const key_type& k) const {
+			 const_iterator it = begin();
+			 while(it != end())
+			 {
+				 if (m_comp((*it).first, k) == false)
+					 break;
+				 it++;
+			 }
+			 return (it);
+		 }
 
-		// const_iterator lower_bound (const key_type& k) const {
+		 iterator upper_bound (const key_type& k) {
+			 iterator it = begin();
+			 while(it != end())
+			 {
+				 if (m_comp(k, (*it).first) == true)
+					 break;
+				 it++;
+			 }
+			 return (it);
+		 }
 
-		// }
+		 const_iterator upper_bound (const key_type& k) const {
+			 iterator it = begin();
+			 while(it != end())
+			 {
+				 if (m_comp(k, (*it).first) == true)
+					 break;
+				 it++;
+			 }
+			 return (it);
+		 }
 
-		// iterator upper_bound (const key_type& k) {
+		 pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			 return (ft::pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
+		 }
+		 pair<iterator,iterator> equal_range (const key_type& k) {
+			 return (ft::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
+		 }
 
-		// }
-		// const_iterator upper_bound (const key_type& k) const {
-
-		// }
-
-		// pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
-
-		// }
-		// pair<iterator,iterator> equal_range (const key_type& k) {
-
-		// }
-
-		// allocator_type get_allocator() const {
-
-		// }
+		 allocator_type get_allocator() const {
+			 return m_alloc;
+		 }
 	};
 }
 
