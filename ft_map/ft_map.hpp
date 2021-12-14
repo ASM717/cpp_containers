@@ -46,39 +46,46 @@ namespace ft {
 
         typedef ft::RBTree<Key, T, Compare, Allocator> rb_tree;
 
-	public:
+
 		//typename Allocator = std::allocator<Pair>, typename Compare = ft::less<Key> >
-		class value_compare {
+		class value_compare : public std::binary_function<value_type,value_type,bool>{
 			//key_compare m_key_compare;
-		private:
+            class map;
+
+        protected:
 			Compare m_value_compare;
-		public:
+            value_compare(Compare compare) : m_value_compare(compare) {}
+        public:
+            Compare getMValueCompare() const {
+                return m_value_compare;
+            }
+
+        public:
 			value_compare(const Compare &compare) {
 				m_value_compare = compare;
 			}
 			bool operator() (const value_type &_x, const value_type &_y) const {
 				return (m_value_compare(_x.first, _y.first));
 			}
+
 		};
 	private:
         rb_tree m_rbTree;
-//        allocator_type m_alloc;
-        //key_compare m_comp;
-//		value_compare m_value_comp;
 		size_type m_size;
+        //key_compare m_com;
+        //value_type valueType;
 	public:
 		explicit map (const key_compare& comp = key_compare(),
-					const allocator_type& alloc = allocator_type()) : m_rbTree() {
-//            this->m_alloc = alloc;
-//            this->m_comp = comp;
+					const allocator_type& alloc = allocator_type()) : m_rbTree(comp, alloc) {
 			this->m_size = 0;
 		}
 
 		//range constructor
 		template <class InputIterator>
 		map (InputIterator first, InputIterator last,
-			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-                : m_rbTree() {
+			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type(),
+//            typename enable_if<is_iterator<InputIterator>::value>::type* = 0)
+        : m_rbTree(comp, alloc) {
 			insert(first, last);
 		}
 
@@ -157,12 +164,16 @@ namespace ft {
 
 		// }
 
-		 pair<iterator,bool> insert (const value_type& val) {
-			 bool boolVal = m_rbTree.insert(val.first, val.second);
-			 if (boolVal)
-				 std::cout << "MУСОР\n";
-			 iterator iter = find(val.first);
-			 return (ft::pair<iterator, bool>(iter, boolVal));
+		 pair<iterator, bool> insert (const value_type& val) {
+//			 bool boolVal = m_rbTree.insert(val);
+//			 if (boolVal)
+//				 std::cout << "MУСОР\n";
+//			 iterator iter = find(val.first);
+//			 return (ft::pair<iterator, bool>(iter, boolVal));
+
+             bool succes = m_rbTree.insert(val);
+             iterator it = m_rbTree.find(val.first);
+             return (ft::pair<iterator, bool>(it, succes));
 		 }
 
 		 iterator insert (iterator position, const value_type& val) {
@@ -215,14 +226,18 @@ namespace ft {
 		 }
 
 		 key_compare key_comp() const {
-			 return m_rbTree._comp;
+			 return m_rbTree.getComp();
 		 }
+
+        value_compare value_comp() const {
+            return (value_compare(key_compare()));
+        }
 
 		 iterator find (const key_type& k) {
 			m_rbTree.find(k, m_rbTree.getRoot());
 
 		 }
-//
+
 		 const_iterator find (const key_type& k) const {
 			m_rbTree.find(k, m_rbTree.getRoot());
 		 }
@@ -292,7 +307,7 @@ namespace ft {
 		 }
 
 		 allocator_type get_allocator() const {
-			 return m_rbTree._alloc;
+			 return m_rbTree.getAlloc();
 		 }
 	};
 }
