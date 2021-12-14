@@ -31,7 +31,8 @@
 //};
 
 namespace ft {
-	template<typename Key, typename V, typename P = ft::pair<const Key, V>,  typename Alloc = std::allocator<P>, typename Compare = std::less<Key> >
+	template<typename Key, typename V, typename P = ft::pair<const Key, V>,  typename Alloc = std::allocator<P>,
+	        typename Compare = std::less<Key> >
 	class RBTree
 	{
 	public:
@@ -46,7 +47,8 @@ namespace ft {
 		/// Constructor ///
 		RBTree() : _alloc(std::allocator<node >()), root(NULL), elem(NULL), _comp(std::less<Key >())  {}
 
-		explicit RBTree(P data) : _alloc(std::allocator<node >()), root(_alloc.allocate(1)), elem(NULL), _comp(std::less<Key >()) {
+		explicit RBTree(P data) : _alloc(std::allocator<node >()), root(_alloc.allocate(1)), elem(NULL), _comp
+		(std::less<Key>()) {
 			_alloc.construct(root, node(data));
 			root->color = black;
 		}
@@ -113,15 +115,16 @@ namespace ft {
 				return (find(key, start->right));
 		}
 
-		bool notExist(P data, node *start){
+		bool notExist(P data, node *start) {
 			if (start == NULL)
 				return(true);
-			else if (data.first == start->data.first)
-				return (false);
-			else if (_comp(data.first, start->data.first))
-				return (notExist(data, start->left));
-			else
-				return (notExist(data, start->right));
+			return (false);
+//			else if (data.first == start->data.first)
+//				return (false);
+//			else if (_comp(data.first, start->data.first))
+//				return (notExist(data, start->left));
+//			else
+//				return (notExist(data, start->right));
 		}
 
 		node *findKey(P data, node *start) {
@@ -191,7 +194,8 @@ namespace ft {
 			return (elem);
 		}
 
-		node *insert(P data){
+		node *insert(Key key, V v) {
+			P data = ft::pair<Key, V>(key, v);
 			if (notExist(data, root))
 				return (insertElem(createElem(data), root));
 			return (findKey(data, root));

@@ -21,9 +21,8 @@
 #include "ft_red_black_tree.hpp"
 #include "map_iter.hpp"
 
-class RBTree;
-
 namespace ft {
+
 	template <class Key,                                     // map::key_type
 			class T,                                       // map::mapped_type
 			class Compare = std::less<Key>,                     // map::key_compare
@@ -40,8 +39,8 @@ namespace ft {
 
 		typedef ft::node<value_type>                      node_type;
 
-		typedef ft::MapIterator<value_type, node_type>             iterator;
-		typedef ft::MapIterator<const value_type, const node_type> const_iterator;
+		typedef ft::BidirectionalIterator<value_type, node_type>             iterator;
+		typedef ft::BidirectionalIterator<const value_type, const node_type> const_iterator;
 //		typedef ft::VectorReverseIterator<iterator>                          reverse_iterator;
 //		typedef ft::VectorReverseIterator<const_iterator>                    const_reverse_iterator;
 
@@ -99,7 +98,7 @@ namespace ft {
 		}
 
 		~map() {
-			m_rbTree.deleteTree();
+			m_rbTree.deleteTree(m_rbTree.getRoot());
 		}
 
 		 iterator begin() {
@@ -141,7 +140,7 @@ namespace ft {
 		 bool empty() const {
 			if (m_rbTree.getLeft() == 0)
 				return (true);
-			else (false);
+			 return (false);
 		 }
 
 		 size_type size() const {
@@ -159,7 +158,9 @@ namespace ft {
 		// }
 
 		 pair<iterator,bool> insert (const value_type& val) {
-			 bool boolVal = m_rbTree.insert(val);
+			 bool boolVal = m_rbTree.insert(val.first, val.second);
+			 if (boolVal)
+				 std::cout << "MУСОР\n";
 			 iterator iter = find(val.first);
 			 return (ft::pair<iterator, bool>(iter, boolVal));
 		 }
