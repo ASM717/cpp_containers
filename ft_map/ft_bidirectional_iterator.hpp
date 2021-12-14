@@ -14,27 +14,19 @@
 #define FT_BIDIRECTIONAL_ITERATOR_HPP
 
 #include "../ft_vector/ft_iterator_utils.hpp"
-
+#include "ft_pair.hpp"
+#include "ft_node.hpp"
 #define Col_RED		"\e[31m"
 #define Col_BLACK	"\e[30m\e[47m"
 
 namespace ft {
 	//template <class Iterator, class Node>
-	template <typename T, typename N>
+	template <typename V, typename N>
 	// : public ft::iterator<ft::bidirectional_iterator_tag>
 	class BidirectionalIterator {
-//		typedef T value_type;
-//		typedef typename ft::iterator_traits<T>::size_type size_type;
-//		typedef typename ft::iterator_traits<T>::pointer pointer;
-//		typedef typename ft::iterator_traits<T>::reference reference;
-//		typedef typename ft::iterator_traits<T>::const_reference const_reference;
-//		typedef typename ft::iterator_traits<T>::const_pointer const_pointer;
-//		typedef typename ft::iterator_traits<T>::difference_type difference_type;
-//		typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
-//		//typedef typename std::bidirectional_iterator_tag iterator_category;
-		typedef T value_type;
-		typedef T* pointer;
-		typedef T& reference;
+		typedef V value_type;
+		typedef V* pointer;
+		typedef V& reference;
 
 		typedef N  node_type;
 		typedef N* node_pointer;
@@ -55,11 +47,6 @@ namespace ft {
 			}
 			return (*this);
 		}
-
-		// operator BidirectionalIterator<const value_type, const node_type>()const
-		// {
-		// 	return BidirectionalIterator<const value_type, const node_type>(_ptr, _root, _nill);
-		// }
 
 		virtual ~BidirectionalIterator(){} //destructor
 

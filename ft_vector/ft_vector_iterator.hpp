@@ -16,7 +16,7 @@
 #include "ft_iterator_utils.hpp"
 
 namespace ft {
-//	: public ft::iterator<ft::random_access_iterator_tag, T>
+//	: public ft::iterator<ft::random_access_iterator_tag, V>
 	template <typename T>
 	class VectorRandomAccessIterator {
 	public:

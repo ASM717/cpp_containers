@@ -62,13 +62,13 @@ namespace ft {
 
 	// static class nullptr_t {
 	// 	public:
-	// 	template < class T >
-	// 	operator T*() const {
+	// 	template < class V >
+	// 	operator V*() const {
 	// 		return (0);
 	// 	}
 
-	// 	template < class C, class T >
-	// 	operator T C::*() const {
+	// 	template < class C, class V >
+	// 	operator V C::*() const {
 	// 		return (0);
 	// 	}
 
