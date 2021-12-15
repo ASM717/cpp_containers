@@ -253,7 +253,7 @@ namespace ft {
 			}
 			root->color = black;
 		}
-
+ 
 		void transplant(node *u, node *v) {
 			if (u->parent == nullptr)
 				root = v;
