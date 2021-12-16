@@ -24,8 +24,6 @@ add_executable(cpp_containers
         ft_map/ft_less.hpp
         ft_map/ft_map.hpp
         ft_map/ft_pair.hpp
-#        ft_map/ft_red_black_tree.hpp
         ft_map/ft_node.hpp
-#        map_main.cpp)
 
         main.cpp)
