@@ -26,8 +26,8 @@ namespace ft {
 	template <class T> struct is_integral {static const bool value = false;};
 	template<> struct is_integral<bool> {static const bool value = true;};
 	template<> struct is_integral<char> {static const bool value = true;};
-	template<> struct is_integral<char16_t> {static const bool value = true;};
-	template<> struct is_integral<char32_t> {static const bool value = true;};
+	// template<> struct is_integral<char16_t> {static const bool value = true;};
+	// template<> struct is_integral<char32_t> {static const bool value = true;};
 	template<> struct is_integral<wchar_t> {static const bool value = true;};
 	template<> struct is_integral<signed char> {static const bool value = true;};
 	template<> struct is_integral<short int> {static const bool value = true;};
@@ -42,8 +42,8 @@ namespace ft {
 	// for const
 	template<> struct is_integral<const bool> {static const bool value = true;};
 	template<> struct is_integral<const char> {static const bool value = true;};
-	template<> struct is_integral<const char16_t> {static const bool value = true;};
-	template<> struct is_integral<const char32_t> {static const bool value = true;};
+	// template<> struct is_integral<const char16_t> {static const bool value = true;};
+	// template<> struct is_integral<const char32_t> {static const bool value = true;};
 	template<> struct is_integral<const wchar_t> {static const bool value = true;};
 	template<> struct is_integral<const signed char> {static const bool value = true;};
 	template<> struct is_integral<const short int> {static const bool value = true;};

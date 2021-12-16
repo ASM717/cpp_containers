@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <iostream>
+#include <limits>
 //#include "../ft_vector/ft_iterator_utils.hpp"
 #include "../ft_vector/ft_algorithm.hpp"
 #include "ft_pair.hpp"
@@ -518,7 +519,7 @@ namespace ft {
 			root->color = BLACK;
 		}
 		void transplant(node *u, node *v) {
-			if (u->parent == nullptr)
+			if (u->parent == NULL)
 				root = v;
 			else if (u == u->parent->left)
 				u->parent->left = v;
