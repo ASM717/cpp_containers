@@ -15,6 +15,7 @@
 
 #include "ft_tester/tester_vector.cpp"
 #include "ft_tester/tester_stack.cpp"
+#include "ft_tester/tester_map.cpp"
 #include <string>
 #include <ctime>
 #include <iomanip>
@@ -70,27 +71,6 @@ void vector_test() {
 	vector_string_swap_test();
 	vector_string_insert_erase_test();
 
-
-//	ft::vector<std::string> ft_vector;
-//	for (int i = 0; i < 10; i++)
-//	{
-//		ft_vector.push_back("test");
-//	}
-//	ft_vector.push_back("test2");
-//
-//	std::cout << *ft_vector.rbegin() << std::endl;
-
-//	 std::vector<const int> test;
-//	 std::vector<const int>::iterator i = test.begin();
-//
-//	 std::vector<const int> test1;
-//	 test1.push_back(8);
-//
-//	 ft::vector<const int> test2;
-//	 ft::vector<const int>::iterator it = test2.begin();
-//
-//	 ft::vector<const int> test12;
-//	 test12.push_back(7);
 }
 
 void stack_test() {
@@ -101,11 +81,10 @@ void stack_test() {
 	stack_push_pop_test();
 }
 
-// #include <map>
-// #include <vector>
-// #include "ft_map/ft_bidirectional_iterator.hpp"
-// #include "ft_map/ft_less.hpp"
-// #include "ft_map/ft_map.hpp"
+void map_test() {
+	std::cout << "========================== MAP =========================" << std::endl;
+	map_all_test();
+}
 
 int main()
 {
@@ -118,28 +97,31 @@ int main()
 
 		// vector_test();
 		// stack_test();
+		map_test();
 		// system ("leaks ft_containers");
 
-    // std::map<int, int> gquiz1;
-
-    // insert elements in random order
-    // gquiz1.insert(std::pair<int, int>(1, 40));
-    // gquiz1.insert(std::pair<int, int>(2, 30));
-    // gquiz1.insert(std::pair<int, int>(3, 60));
-    // gquiz1.insert(std::pair<int, int>(4, 20));
-    // gquiz1.insert(std::pair<int, int>(5, 50));
-    // gquiz1.insert(std::pair<int, int>(6, 50));
-    // gquiz1.insert(std::pair<int, int>(7, 10));
-
-    // printing map gquiz1
-    // ft::map<int, int>::iterator itr;
-    // std::cout << "\nThe map gquiz1 is : \n";
-    // std::cout << "\tKEY\tELEMENT\n";
-    // for (itr = gquiz1.begin(); itr != gquiz1.end(); ++itr) {
-    //     std::cout << '\t' << itr->first
-    //          << '\t' << itr->second << '\n';
-    // }
-    // std::cout << std::endl;
-	// return (0);
-//	}
+	 return (0);
+	// 	}
 }
+
+
+// std::map<int, int> gquiz1;
+
+// insert elements in random order
+// gquiz1.insert(std::pair<int, int>(1, 40));
+// gquiz1.insert(std::pair<int, int>(2, 30));
+// gquiz1.insert(std::pair<int, int>(3, 60));
+// gquiz1.insert(std::pair<int, int>(4, 20));
+// gquiz1.insert(std::pair<int, int>(5, 50));
+// gquiz1.insert(std::pair<int, int>(6, 50));
+// gquiz1.insert(std::pair<int, int>(7, 10));
+
+// printing map gquiz1
+// ft::map<int, int>::iterator itr;
+// std::cout << "\nThe map gquiz1 is : \n";
+// std::cout << "\tKEY\tELEMENT\n";
+// for (itr = gquiz1.begin(); itr != gquiz1.end(); ++itr) {
+//     std::cout << '\t' << itr->first
+//          << '\t' << itr->second << '\n';
+// }
+// std::cout << std::endl;

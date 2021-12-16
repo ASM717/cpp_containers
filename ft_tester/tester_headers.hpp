@@ -16,11 +16,13 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <map>
 #include <string>
 #include <ctime>
 #include <iomanip>
 #include "../ft_vector/ft_vector.hpp"
 #include "../ft_stack/ft_stack.hpp"
+#include "../ft_map/ft_map.hpp"
 
 /*prototype test vector integer */
 void vector_swap_rela_test();
@@ -58,5 +60,8 @@ void stack_constructor_test();
 void stack_empty_test();
 void stack_top_test();
 void stack_push_pop_test();
+
+/* MAP */
+void map_all_test();
 
 #endif

@@ -25,11 +25,6 @@
 
 #include <functional>
 
-//enum e_color
-//{
-//	black, red
-//};
-
 namespace ft {
 	template<typename Key, typename V, typename P = ft::pair<const Key, V>, typename Alloc = std::allocator<P>,
 	        typename Compare = std::less<Key> >
@@ -404,26 +399,26 @@ namespace ft {
 				x->color = black;
 		}
 
-		void display(void) {
-			displayTree(root, "", true);
-		}
-
-		void displayTree(node *root, std::string indent, bool last) {
-			if (root != NULL) {
-				std::cout << indent;
-				if (last) {
-					std::cout << "R----";
-					indent += "   ";
-				} else {
-					std::cout << "L----";
-					indent += "|  ";
-				}
-				std::string sColor = root->color ? REDC : BLACKC;
-				std::cout << sColor << root->data.first << RESETC << std::endl;
-				displayTree(root->left, indent, false);
-				displayTree(root->right, indent, true);
-			}
-		}
+//		void display(void) {
+//			displayTree(root, "", true);
+//		}
+//
+//		void displayTree(node *root, std::string indent, bool last) {
+//			if (root != NULL) {
+//				std::cout << indent;
+//				if (last) {
+//					std::cout << "R----";
+//					indent += "   ";
+//				} else {
+//					std::cout << "L----";
+//					indent += "|  ";
+//				}
+//				std::string sColor = root->color ? REDC : BLACKC;
+//				std::cout << sColor << root->data.first << RESETC << std::endl;
+//				displayTree(root->left, indent, false);
+//				displayTree(root->right, indent, true);
+//			}
+//		}
 
 		void ft_delete(node *toDel) {
 			_alloc.destroy(toDel);
