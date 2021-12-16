@@ -1,4 +1,0 @@
-C:\Windows\system32\wsl.exe --distribution Ubuntu --exec /bin/bash -c "export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd /home/ubuntu_laptop/desktop/ft_map/cmake-build-debug && /usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' /home/ubuntu_laptop/desktop/ft_map"
--- Configuring done
--- Generating done
--- Build files have been written to: /home/ubuntu_laptop/desktop/ft_map/cmake-build-debug

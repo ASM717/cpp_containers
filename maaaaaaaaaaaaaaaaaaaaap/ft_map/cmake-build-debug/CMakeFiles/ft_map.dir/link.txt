@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/ft_map.dir/map.cpp.o  -o ft_map 
