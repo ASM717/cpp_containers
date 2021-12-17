@@ -132,12 +132,12 @@ namespace ft {
 			return (const_iterator(tmp));
 		}
 
-		// iterator end() {
-		// 	return(iterator(this->last));
-		// }
-		// const_iterator end() const {
-		// 	return(const_iterator(this->last));
-		// }
+		iterator end() {
+			return(iterator(this->last));
+		}
+		const_iterator end() const {
+			return(const_iterator(this->last));
+		}
 
 		// reverse_iterator rbegin() {
 		// 	return reverse_iterator(this->last);
