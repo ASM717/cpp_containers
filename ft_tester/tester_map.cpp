@@ -165,6 +165,28 @@ void map_count_test() {
 	}
 }
 
+void map_bound_test() {
+	std::cout << "========================= BOUND ========================" << std::endl;
+	ft::map<char, int> mymap;
+	ft::map<char, int>::iterator itlow,itup;
+
+	mymap['a']=50;
+	mymap['b']=60;
+	mymap['c']=40;
+	mymap['d']=70;
+	mymap['e']=90;
+
+	itlow = mymap.lower_bound ('b');  // itlow points to b
+	itup = mymap.upper_bound ('d');   // itup points to e (not d!)
+
+	mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+	// print content:
+	for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
+
+}
+
 void map_speed_test() {
 	std::cout << "====================== SPEED TEST ======================" << std::endl;
 	unsigned int ft_start_time = clock();

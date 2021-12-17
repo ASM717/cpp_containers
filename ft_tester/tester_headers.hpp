@@ -64,6 +64,7 @@ void stack_push_pop_test();
 /* MAP */
 void map_all_test();
 void map_swap_test();
+void map_bound_test();
 void map_count_test();
 void map_speed_test();
 
