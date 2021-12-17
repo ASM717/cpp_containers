@@ -33,8 +33,8 @@ void map_all_test() {
     std::cout << "STD::end() = " << (*(--std_map.end())).first << " " << (*(--std_map.end())).second  << std::endl;
 
 	std::cout << "======================= REV BEGIN ======================" << std::endl;
-//	std::cout << "FTM::begin() = " << (*ft_map.rbegin()).first << " " << (*ft_map.rbegin()).second << std::endl;
-//	std::cout << "STD::begin() = " << (*std_map.rbegin()).first << " " <<  (*std_map.rbegin()).second << std::endl;
+	// std::cout << "FTM::begin() = " << (*ft_map.rbegin()).first << " " << (*ft_map.rbegin()).second << std::endl;
+	// std::cout << "STD::begin() = " << (*std_map.rbegin()).first << " " <<  (*std_map.rbegin()).second << std::endl;
 
 	std::cout << "======================== REV END =======================" << std::endl;
 //	std::cout << "FTM::end() = " << (*(--ft_map.rend())).first << " " << (*(--ft_map.rend())).second << std::endl;
@@ -70,11 +70,9 @@ void map_all_test() {
 
 	std::cout << "======================= ERASE - 1 ======================" << std::endl;
 
-//	ft::map<std::string, int>::iterator ft_it;
 	ft_it = ft_map.find("Agent Smith");
 	ft_map.erase(ft_it);
 
-//	std::map<std::string, int>::iterator std_it;
 	std_it = std_map.find("Agent Smith");
 	std_map.erase(std_it);
 
@@ -111,21 +109,21 @@ void map_swap_test() {
 
 	std::cout << "ft_first_map contains:\n";
 	for (ft::map<int, std::string>::iterator it = ft_first_map.begin(); it != ft_first_map.end(); ++it)
-		std::cout << it->first << " => " << it->second << std::endl;
+		std::cout << "\t" << it->first << " => " << it->second << std::endl;
 
 	std::cout << "ft_second_map contains:\n";
 	for (ft::map<int, std::string>::iterator it = ft_second_map.begin(); it != ft_second_map.end(); ++it)
-		std::cout << it->first << " => " << it->second << std::endl;
+		std::cout << "\t" << it->first << " => " << it->second << std::endl;
 
 	ft_second_map.swap(ft_first_map);
 
 	std::cout << "ft_first_map contains:\n";
 	for (ft::map<int, std::string>::iterator it = ft_first_map.begin(); it != ft_first_map.end(); ++it)
-		std::cout << it->first << " => " << it->second << std::endl;
+		std::cout << "\t" << it->first << " => " << it->second << std::endl;
 
 	std::cout << "ft_second_map contains:\n";
 	for (ft::map<int, std::string>::iterator it = ft_second_map.begin(); it != ft_second_map.end(); ++it)
-		std::cout << it->first << " => " << it->second << std::endl;
+		std::cout << "\t" << it->first << " => " << it->second << std::endl;
 }
 
 void map_count_test() {
@@ -167,23 +165,43 @@ void map_count_test() {
 
 void map_bound_test() {
 	std::cout << "========================= BOUND ========================" << std::endl;
-	ft::map<char, int> mymap;
-	ft::map<char, int>::iterator itlow,itup;
+	ft::map<std::string, int> ft_map;
+	ft::map<std::string, int>::iterator ft_itlow, ft_itup;
 
-	mymap['a']=50;
-	mymap['b']=60;
-	mymap['c']=40;
-	mymap['d']=70;
-	mymap['e']=90;
+    ft_map.insert(ft::pair<std::string, int>("Vector", 100));
+    ft_map.insert(ft::pair<std::string, int>("Stack", 120));
+    ft_map.insert(ft::pair<std::string, int>("Deque", 140));
+    ft_map.insert(ft::pair<std::string, int>("Map", 160));
+    ft_map.insert(ft::pair<std::string, int>("Set", 180));
+    ft_map.insert(ft::pair<std::string, int>("MultiSet", 200));
 
-	itlow = mymap.lower_bound ('b');  // itlow points to b
-	itup = mymap.upper_bound ('d');   // itup points to e (not d!)
+	ft_itlow = ft_map.lower_bound("Stack");
+	ft_itup = ft_map.upper_bound("Set");
 
-	mymap.erase(itlow,itup);        // erases [itlow,itup)
+	ft_map.erase(ft_itlow, ft_itup);
+    std::cout << "FT MAP contains:" << std::endl;
+	for (ft::map<std::string, int>::iterator it = ft_map.begin(); it != ft_map.end(); ++it)
+		std::cout << "\t" << it->first << " => " << it->second << std::endl;
 
-	// print content:
-	for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-		std::cout << it->first << " => " << it->second << '\n';
+    std::cout << "--------------------------------------------------------" << std::endl;
+
+	std::map<std::string, int> std_map;
+	std::map<std::string, int>::iterator std_itlow, std_itup;
+
+    std_map.insert(std::pair<std::string, int>("Vector", 100));
+    std_map.insert(std::pair<std::string, int>("Stack", 120));
+    std_map.insert(std::pair<std::string, int>("Deque", 140));
+    std_map.insert(std::pair<std::string, int>("Map", 160));
+    std_map.insert(std::pair<std::string, int>("Set", 180));
+    std_map.insert(std::pair<std::string, int>("MultiSet", 200));
+
+	std_itlow = std_map.lower_bound("Stack");
+	std_itup = std_map.upper_bound("Set");
+
+	std_map.erase(std_itlow, std_itup);
+    std::cout << "STD MAP contains:" << std::endl;
+	for (std::map<std::string, int>::iterator it = std_map.begin(); it != std_map.end(); ++it)
+		std::cout << "\t" << it->first << " => " << it->second << std::endl;
 
 }
 
