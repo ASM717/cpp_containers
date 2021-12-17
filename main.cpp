@@ -84,6 +84,9 @@ void stack_test() {
 void map_test() {
 	std::cout << "========================== MAP =========================" << std::endl;
 	map_all_test();
+	map_swap_test();
+	map_count_test();
+	map_speed_test();
 }
 
 int main()
