@@ -14,6 +14,7 @@
 #define FT_BIDIRECTIONAL_ITERATOR_HPP
 
 #include "../ft_vector/ft_iterator_utils.hpp"
+#include "../ft_vector/ft_type_traits.hpp"
 #include "ft_pair.hpp"
 #include "ft_node.hpp"
 
@@ -134,122 +135,96 @@
 //	};
 //}
 
-
-namespace ft
-{
+namespace ft {
 	template<class K, class T>
-	class BidirectionalIterator
-	{
+	class BidirectionalIterator {
 	public:
 		typedef ft::pair<K, T> value_type;
-		typedef value_type &reference;
 		typedef Node<value_type> *pointer;
-//		typedef value_type &const_reference;
-//		typedef Node<value_type> *const_pointer;
+    private:
+        pointer node_pointer;
+    public:
+        BidirectionalIterator() : node_pointer(NULL) {};
 
-	protected:
-		pointer node_pointer;
-	private:
-		pointer inc(pointer ptr)
-		{
+        BidirectionalIterator(const pointer ptr) : node_pointer(ptr){};
+
+        BidirectionalIterator(const BidirectionalIterator &ref) {*this = ref;}
+
+        BidirectionalIterator &operator=(const BidirectionalIterator &ref) {
+            node_pointer = ref.node_pointer;
+            return (*this);
+        }
+
+        value_type &operator*() {
+            return (node_pointer->data);
+        }
+
+        value_type *operator->() {
+            return (&node_pointer->data);
+        }
+
+        bool operator==(const BidirectionalIterator<K, T> &ref) {
+            return (node_pointer == ref.node_pointer);
+        }
+
+        bool operator!=(const BidirectionalIterator<K, T> &ref) {
+            return (!(*this == ref));
+        }
+
+        BidirectionalIterator &operator++() {
+            node_pointer = inc(node_pointer);
+            return (*this);
+        }
+
+        BidirectionalIterator &operator--() {
+            node_pointer = dec(node_pointer);
+            return (*this);
+        }
+
+        BidirectionalIterator operator++(int)
+        {
+            BidirectionalIterator tmp(*this);
+            this->operator++();
+            return (tmp);
+        }
+
+        BidirectionalIterator operator--(int)
+        {
+            BidirectionalIterator tmp(*this);
+            this->operator--();
+            return (tmp);
+        }
+
+		pointer inc(pointer ptr) {
 			pointer next;
 			if (!ptr->right)
 			{
 				next = ptr;
-				while (next->parent && next == next->parent->right)
+				while (next == next->parent->right && next->parent)
 					next = next->parent;
 				next = next->parent;
-			} else
-			{
+			} else {
 				next = ptr->right;
 				while (next->left)
 					next = next->left;
 			}
 			return (next);
-		};
 
-		pointer dec(pointer ptr)
-		{
-			pointer next;
+		}
 
-			if (!ptr->left)
-			{
-				next = ptr;
-				while (next->parent && next == next->parent->left)
-					next = next->parent;
-				next = next->parent;
+		pointer dec(pointer ptr) {
+			pointer prev;
+			if (!ptr->left) {
+                prev = ptr;
+				while (prev == prev->parent->left && prev->parent)
+                    prev = prev->parent;
+                prev = prev->parent;
 			} else {
-				next = ptr->left;
-				while (next->right)
-					next = next->right;
+                prev = ptr->left;
+				while (prev->right)
+                    prev = prev->right;
 			}
-			return (next);
-		};
-	public:
-		BidirectionalIterator(void) : node_pointer(0) {};
-
-		BidirectionalIterator(const pointer ptr) : node_pointer(ptr){};
-
-		BidirectionalIterator(const BidirectionalIterator &ref)
-		{
-			*this = ref;
-		}
-
-		BidirectionalIterator &operator=(const BidirectionalIterator &ref)
-		{
-			node_pointer = ref.node_pointer;
-			return (*this);
-		}
-
-		pointer node(void)
-		{
-			return (node_pointer);
-		}
-
-		value_type &operator*(void)
-		{
-			return (node_pointer->data);
-		}
-
-		value_type *operator->(void)
-		{
-			return (&node_pointer->data);
-		}
-
-		bool operator==(const BidirectionalIterator<K, T> &ref)
-		{
-			return (node_pointer == ref.node_pointer);
-		}
-
-		bool operator!=(const BidirectionalIterator<K, T> &ref)
-		{
-			return (!(*this == ref));
-		}
-
-		BidirectionalIterator &operator++(void)
-		{
-			node_pointer = inc(node_pointer);
-			return (*this);
-		}
-
-		BidirectionalIterator &operator--(void)
-		{
-			node_pointer = dec(node_pointer);
-			return (*this);
-		}
-
-		BidirectionalIterator operator++(int)
-		{
-			BidirectionalIterator tmp(*this);
-			this->operator++();
-			return (tmp);
-		}
-
-		BidirectionalIterator operator--(int)
-		{
-			BidirectionalIterator tmp(*this);
-			this->operator--();
-			return (tmp);
+			return (prev);
 		}
 
 		bool operator==(BidirectionalIterator const &ref) const {
@@ -271,5 +246,114 @@ namespace ft
 			return (this->node_point >= ref.node_point);
 		}
 	};
+
+
+//    template<class K, class T>
+//    class ConstBidirectionalIterator {
+//    public:
+//        typedef ft::pair<K, T> value_type;
+//        typedef Node<value_type> *pointer;
+//
+//    private:
+//        pointer node_pointer;
+//    public:
+//        ConstBidirectionalIterator() : node_pointer(0) {};
+//
+//        ConstBidirectionalIterator(const pointer ptr) : node_pointer(ptr){};
+//
+//        ConstBidirectionalIterator(const ConstBidirectionalIterator &ref) {*this = ref;}
+//
+//        ConstBidirectionalIterator &operator=(const ConstBidirectionalIterator &ref) {
+//            node_pointer = ref.node_pointer;
+//            return (*this);
+//        }
+//
+//        value_type &operator*() {
+//            return (node_pointer->data);
+//        }
+//
+//        value_type *operator->() {
+//            return (&node_pointer->data);
+//        }
+//
+//        bool operator==(const BidirectionalIterator<K, T> &ref) {
+//            return (node_pointer == ref.node_pointer);
+//        }
+//
+//        bool operator!=(const BidirectionalIterator<K, T> &ref) {
+//            return (!(*this == ref));
+//        }
+//
+//        ConstBidirectionalIterator &operator++() {
+//            node_pointer = inc(node_pointer);
+//            return (*this);
+//        }
+//
+//        ConstBidirectionalIterator &operator--() {
+//            node_pointer = dec(node_pointer);
+//            return (*this);
+//        }
+//
+//        ConstBidirectionalIterator operator++(int) {
+//            ConstBidirectionalIterator tmp(*this);
+//            this->operator++();
+//            return (tmp);
+//        }
+//
+//        ConstBidirectionalIterator operator--(int) {
+//            ConstBidirectionalIterator tmp(*this);
+//            this->operator--();
+//            return (tmp);
+//        }
+//    private:
+//        pointer inc(pointer ptr) {
+//            pointer next;
+//            if (!ptr->right) {
+//                next = ptr;
+//                while (next == next->parent->right && next->parent)
+//                    next = next->parent;
+//                next = next->parent;
+//            } else {
+//                next = ptr->right;
+//                while (next->left)
+//                    next = next->left;
+//            }
+//            return (next);
+//        }
+//
+//        pointer dec(pointer ptr) {
+//            pointer prev;
+//            if (!ptr->left) {
+//                prev = ptr;
+//                while (prev == prev->parent->left && prev->parent)
+//                    prev = prev->parent;
+//                prev = prev->parent;
+//            } else {
+//                prev = ptr->left;
+//                while (prev->right)
+//                    prev = prev->right;
+//            }
+//            return (prev);
+//        }
+//    public:
+//        bool operator==(ConstBidirectionalIterator const &ref) const {
+//            return (this->node_point == ref.node_point);
+//        }
+//        bool operator!=(ConstBidirectionalIterator const &ref) const {
+//            return (this->node_point != ref.node_point);
+//        }
+//        bool operator<(ConstBidirectionalIterator const &ref) const {
+//            return (this->node_point < ref.node_point);
+//        }
+//        bool operator<=(ConstBidirectionalIterator const &ref) const {
+//            return (this->node_point <= ref.node_point);
+//        }
+//        bool operator>(ConstBidirectionalIterator const &ref) const {
+//            return (this->node_point > ref.node_point);
+//        }
+//        bool operator>=(ConstBidirectionalIterator const &ref) const {
+//            return (this->node_point >= ref.node_point);
+//        }
+//    };
 }
 #endif
