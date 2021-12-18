@@ -74,27 +74,27 @@ namespace ft {
 
     public:
         node *getRootTree() const {
-            return root_tree;
+            return (root_tree);
         }
 
         node *getLastElem() const {
-            return last_elem;
+            return (last_elem);
         }
 
         node *getElem() const {
-            return elem;
+            return (elem);
         }
 
         Compare getMCompare() const {
-            return m_compare;
+            return (m_compare);
         }
 
         allocator_type getMAlloc() const {
-            return m_alloc;
+            return (m_alloc);
         }
 
         size_type getMSize() const {
-            return m_size;
+            return (m_size);
         }
 
 	public:
