@@ -64,20 +64,22 @@ namespace ft {
             return (*this);
         }
 
-        BidirectionalIterator operator++(int)
-        {
+        BidirectionalIterator operator++(int) {
             BidirectionalIterator tmp(*this);
             this->operator++();
             return (tmp);
         }
 
-        BidirectionalIterator operator--(int)
-        {
+        BidirectionalIterator operator--(int) {
             BidirectionalIterator tmp(*this);
             this->operator--();
             return (tmp);
         }
 
+        pointer node(void)
+        {
+            return (node_pointer);
+        };
 		pointer inc(pointer ptr) {
 			pointer nextPtr;
 			if (!ptr->right)
@@ -110,22 +112,22 @@ namespace ft {
 		}
 
 		bool operator==(BidirectionalIterator const &ref) const {
-			return (this->node_point == ref.node_point);
+			return (this->node_pointer == ref.node_pointer);
 		}
 		bool operator!=(BidirectionalIterator const &ref) const {
-			return (this->node_point != ref.node_point);
+			return (this->node_pointer != ref.node_pointer);
 		}
 		bool operator<(BidirectionalIterator const &ref) const {
-			return (this->node_point < ref.node_point);
+			return (this->node_pointer < ref.node_pointer);
 		}
 		bool operator<=(BidirectionalIterator const &ref) const {
-			return (this->node_point <= ref.node_point);
+			return (this->node_pointer <= ref.node_pointer);
 		}
 		bool operator>(BidirectionalIterator const &ref) const {
-			return (this->node_point > ref.node_point);
+			return (this->node_pointer > ref.node_pointer);
 		}
 		bool operator>=(BidirectionalIterator const &ref) const {
-			return (this->node_point >= ref.node_point);
+			return (this->node_pointer >= ref.node_pointer);
 		}
 	};
 
@@ -237,4 +239,5 @@ namespace ft {
         }
     };
 }
+
 #endif

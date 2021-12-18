@@ -70,7 +70,7 @@ namespace ft {
 		}
 
 		/*	range constructor
-			Constructs a container with as many elements as the range [first,last],
+			Constructs a container with as many elements as the range [first,last_elem],
 			with each element constructed from its corresponding element in that range, in the same order. */
 
 		template<class InputIterator>

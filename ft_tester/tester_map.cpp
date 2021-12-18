@@ -33,12 +33,12 @@ void map_all_test() {
     std::cout << "STD::end() = " << (*(--std_map.end())).first << " " << (*(--std_map.end())).second  << std::endl;
 
 	std::cout << "======================= REV BEGIN ======================" << std::endl;
-	// std::cout << "FTM::begin() = " << (*ft_map.rbegin()).first << " " << (*ft_map.rbegin()).second << std::endl;
-	// std::cout << "STD::begin() = " << (*std_map.rbegin()).first << " " <<  (*std_map.rbegin()).second << std::endl;
+	 std::cout << "FTM::begin() = " << (*ft_map.rbegin()).first << " " << (*ft_map.rbegin()).second << std::endl;
+	 std::cout << "STD::begin() = " << (*std_map.rbegin()).first << " " <<  (*std_map.rbegin()).second << std::endl;
 
 	std::cout << "======================== REV END =======================" << std::endl;
-//	std::cout << "FTM::end() = " << (*(--ft_map.rend())).first << " " << (*(--ft_map.rend())).second << std::endl;
-//	std::cout << "STD::end() = " << (*(--std_map.rend())).first << " " << (*(--std_map.rend())).second  << std::endl;
+	std::cout << "FTM::end() = " << (*(--ft_map.rend())).first << " " << (*(--ft_map.rend())).second << std::endl;
+	std::cout << "STD::end() = " << (*(--std_map.rend())).first << " " << (*(--std_map.rend())).second  << std::endl;
 
 	std::cout << "======================= MAX SIZE =======================" << std::endl;
 	std::cout << "FTM::max_size() = " << ft_map.max_size() << std::endl;
@@ -135,9 +135,10 @@ void map_count_test() {
 	ft_map['c'] = 202;
 	ft_map['f'] = 303;
 
+    std::cout << "FT MAP contains:" << std::endl;
 	for (ch = 'a'; ch < 'h'; ch++)
 	{
-		std::cout << ch;
+		std::cout << "\t" << ch;
 		if (ft_map.count(ch) > 0)
 			std::cout << " is an element of ft_map.\n";
 		else
@@ -153,9 +154,10 @@ void map_count_test() {
 	std_map['c'] = 202;
 	std_map['f'] = 303;
 
+    std::cout << "STD MAP contains:" << std::endl;
 	for (c = 'a'; c < 'h'; c++)
 	{
-		std::cout << c;
+		std::cout << "\t" << c;
 		if (std_map.count(c) > 0)
 			std::cout << " is an element of std_map.\n";
 		else

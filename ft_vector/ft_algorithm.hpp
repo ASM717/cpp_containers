@@ -78,9 +78,9 @@ namespace ft {
 	// 	} u_nullptr = {};
 
 	// template <typename InputIterator>
-	// typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last) {
+	// typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last_elem) {
 	// 	typename ft::iterator_traits<InputIterator>::difference_type dist = 0;
-	// 	while (first != last) {
+	// 	while (first != last_elem) {
 	// 		first++;
 	// 		dist++;
 	// 	}
@@ -88,9 +88,9 @@ namespace ft {
 	// }
 
 	// template <typename InputIterator>
-	// typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last) {
+	// typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last_elem) {
 	// 	typename ft::iterator_traits<InputIterator>::difference_type diff = 0;
-	// 	return (last - first);
+	// 	return (last_elem - first);
 	// }
 
 	template <class InputIterator>

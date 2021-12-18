@@ -15,7 +15,7 @@
 
 #include "../ft_vector/ft_vector.hpp"
 
-// last-in first-out (LIFO)
+// last_elem-in first-out (LIFO)
 namespace ft {
 	template <class T, class Container = ft::vector<T> >
 	class stack {
