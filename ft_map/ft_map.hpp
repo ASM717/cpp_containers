@@ -110,10 +110,9 @@ namespace ft {
 
 		template <class InputIterator>
 		map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(),
-			const allocator_type alloc = allocator_type()) : m_alloc(alloc), m_compare(comp), m_size(0), elem(NULL) {
+			const allocator_type alloc = allocator_type()) : m_alloc(alloc), m_compare(comp), m_size(0), elem(NULL),
+                                        root_tree(m_alloc.allocate(1), m_compare = std::less<Key >()) {
 			last = NULL;
-            root_tree = m_alloc.allocate(1);
-            m_compare = std::less<Key >();
 			insert(first, last);
 		};
 
@@ -126,7 +125,7 @@ namespace ft {
 			deleteTree(root_tree);
 		}
 
-		map& operator=(const map &val) {
+		map &operator=(const map &val) {
 			if (val.getRootTree() == NULL || this == &val)
 				return (*this);
 			deleteTree(this->getRootTree());
@@ -157,21 +156,22 @@ namespace ft {
 			return(const_iterator(this->getLastElem()));
 		}
 
-		 reverse_iterator rbegin() {
-             iterator i = end();
-             i--;
-             return (reverse_iterator(i.node()));
+        reverse_iterator rbegin() {
+            iterator i = end();
+            i--;
+            return (reverse_iterator(i.node()));
 		 }
-		 const_reverse_iterator rbegin() const {
-		 	return const_reverse_iterator(rbegin());
-		 }
+        const_reverse_iterator rbegin() const {
+        return const_reverse_iterator(rbegin());
+        }
 
-		 reverse_iterator rend() {
-             return (reverse_iterator(this->getRootTree()));
-		 }
-		 const_reverse_iterator rend() const {
-             return (const_reverse_iterator(this->getRootTree()));
-		 }
+        reverse_iterator rend() {
+         return (reverse_iterator(this->getRootTree()));
+        }
+
+        const_reverse_iterator rend() const {
+         return (const_reverse_iterator(this->getRootTree()));
+        }
 
 		bool empty() const {
 			if (this->getRootTree() == NULL)
@@ -721,16 +721,9 @@ namespace ft {
 	template<class Key, class T, class Compare, class Allocator>
 	bool operator==(const ft::map<Key,T,Compare,Allocator>& lhs,
 					 const ft::map<Key,T,Compare,Allocator>& rhs) {
-		if (lhs.size() != rhs.size())
-			return (false);
-		size_t i = 0;
-		while (i < lhs.size())
-		{
-			if (lhs[i] != rhs[i])
-				return (false);
-			i++;
-		}
-		return (true);
+        if (lhs.size() != rhs.size())
+            return (false);
+        return equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 
 	template<class Key, class T, class Compare, class Allocator>
@@ -768,7 +761,6 @@ namespace ft {
 			   ft::map<Key,T,Compare,Allocator>& rhs) {
 		lhs.swap(rhs);
 	}
-
 }
 
 #endif

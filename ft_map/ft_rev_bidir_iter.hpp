@@ -220,7 +220,6 @@ namespace ft {
             return (this->node_pointer >= ref.node_pointer);
         }
     };
-
 }
 
 #endif

@@ -250,21 +250,95 @@ void map_key_compare_test() {
     std::cout << "====================== KEY COMPARE =====================" << std::endl;
     ft::map<char, int> ft_map;
     ft::map<char, int>::key_compare my_comp = ft_map.key_comp();
-
-    ft_map['a']=100;
-    ft_map['b']=200;
-    ft_map['c']=300;
-
-    std::cout << "ft_map contains:\n";
-
+    ft_map['a'] = 100;
+    ft_map['b'] = 200;
+    ft_map['c'] = 300;
+    std::cout << "FT MAP contains:\n";
     char highest = ft_map.rbegin()->first; // key value of last element
-
     ft::map<char,int>::iterator it = ft_map.begin();
     do {
-        std::cout << it->first << " => " << it->second << std::endl;
+        std::cout << "\t" << it->first << " => " << it->second << std::endl;
     } while (my_comp((*it++).first, highest));
-
     std::cout << std::endl;
+
+    std::cout << "--------------------------------------------------------" << std::endl;
+
+    std::map<char, int> std_map;
+    std::map<char, int>::key_compare std_comp = std_map.key_comp();
+    std_map['a'] = 100;
+    std_map['b'] = 200;
+    std_map['c'] = 300;
+    std::cout << "STD MAP contains:\n";
+    char _highest = std_map.rbegin()->first; // key value of last element
+    std::map<char,int>::iterator iter = std_map.begin();
+    do {
+        std::cout << "\t" << iter->first << " => " << iter->second << std::endl;
+    } while (std_comp((*iter++).first, _highest));
+    std::cout << std::endl;
+}
+
+void map_get_allocator_test() {
+    std::cout << "===================== GET ALLOCATOR ====================" << std::endl;
+    int psize;
+    ft::map<char, int> ft_map;
+    ft::pair<const char, int>* p;
+    // allocate an array of 5 elements using ft_map's allocator:
+    p = reinterpret_cast<ft::pair<const char, int> *>(ft_map.get_allocator().allocate(10));
+    // assign some values to array
+    psize = sizeof(ft::map<char, int>::value_type) * 10;
+    std::cout << "FT MAP::The allocated array has a size of " << psize << " bytes.\n";
+    ft_map.get_allocator().deallocate(reinterpret_cast<ft::Node<ft::pair<const char, int> > *>(p), 10);
+
+    std::cout << "--------------------------------------------------------" << std::endl;
+
+    int _psize;
+    std::map<char, int> std_map;
+    std::pair<const char, int>* po;
+    // allocate an array of 5 elements using ft_map's allocator:
+    po = reinterpret_cast<std::pair<const char, int> *>(std_map.get_allocator().allocate(10));
+    // assign some values to array
+    _psize = sizeof(ft::map<char, int>::value_type) * 10;
+    std::cout << "STD MAP::The allocated array has a size of " << _psize << " bytes.\n";
+    std_map.get_allocator().deallocate(po, 10);
+}
+
+void map_comparison_operator_test() {
+    std::cout << "================== COMPARISON OPERATOR =================" << std::endl;
+    ft::map<int, char> ft_map_1;
+    ft_map_1.insert(ft::pair<char, int>('a', 1));
+    ft_map_1.insert(ft::pair<char, int>('b', 2));
+    ft_map_1.insert(ft::pair<char, int>('c', 3));
+    ft_map_1.insert(ft::pair<char, int>('d', 4));
+    ft_map_1.insert(ft::pair<char, int>('e', 5));
+
+    ft::map<int, char> ft_map_2;
+    ft_map_2.insert(ft::pair<char, int>('S', 6));
+    ft_map_2.insert(ft::pair<char, int>('T', 7));
+    ft_map_2.insert(ft::pair<char, int>('E', 8));
+    ft_map_2.insert(ft::pair<char, int>('P', 9));
+    ft_map_2.insert(ft::pair<char, int>('A', 10));
+    ft_map_2.insert(ft::pair<char, int>('N', 11));
+
+    ft::map<int, char> ft_map_3;
+    ft_map_3.insert(ft::pair<char, int>('a', 1));
+    ft_map_3.insert(ft::pair<char, int>('b', 2));
+    ft_map_3.insert(ft::pair<char, int>('c', 3));
+    ft_map_3.insert(ft::pair<char, int>('d', 4));
+    ft_map_3.insert(ft::pair<char, int>('e', 5));
+
+    std::cout << "ft_map_1 == ft_map_2 return " << (ft_map_1 == ft_map_2) << std::endl;
+    std::cout << "ft_map_1 != ft_map_2 return " << (ft_map_1 != ft_map_2) << std::endl;
+    std::cout << "ft_map_1 <  ft_map_2 return " << (ft_map_1 < ft_map_2) << std::endl;
+    std::cout << "ft_map_1 <= ft_map_2 return " << (ft_map_1 <= ft_map_2) << std::endl;
+    std::cout << "ft_map_1 >  ft_map_2 return " << (ft_map_1 > ft_map_2) << std::endl;
+    std::cout << "ft_map_1 >= ft_map_2 return " << (ft_map_1 >= ft_map_2) << std::endl;
+    std::cout << "--------------------------------------------------------" << std::endl;
+    std::cout << "ft_map_1 == ft_map_3 return " << (ft_map_1 == ft_map_3) << std::endl;
+    std::cout << "ft_map_1 != ft_map_3 return " << (ft_map_1 != ft_map_3) << std::endl;
+    std::cout << "ft_map_1 <  ft_map_3 return " << (ft_map_1 < ft_map_3) << std::endl;
+    std::cout << "ft_map_1 <= ft_map_3 return " << (ft_map_1 <= ft_map_3) << std::endl;
+    std::cout << "ft_map_1 >  ft_map_3 return " << (ft_map_1 > ft_map_3) << std::endl;
+    std::cout << "ft_map_1 >= ft_map_3 return " << (ft_map_1 >= ft_map_3) << std::endl;
 }
 
 void map_speed_test() {
