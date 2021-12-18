@@ -329,10 +329,10 @@ namespace ft {
 		}
 
 		pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
-			return (ft::pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
+            return (ft::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
 		}
 		pair<iterator,iterator> equal_range (const key_type& k) {
-			return (ft::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
+            return (ft::pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
 		}
 
 		allocator_type get_allocator() const {

@@ -87,6 +87,7 @@ void map_test() {
 	map_swap_test();
 	map_bound_test();
 	map_count_test();
+    map_equal_range_test();
 	map_speed_test();
 }
 

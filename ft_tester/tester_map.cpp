@@ -207,7 +207,65 @@ void map_bound_test() {
 
 }
 
+void map_equal_range_test() {
+    std::cout << "====================== EQUAL RANGE =====================" << std::endl;
+    ft::map<int, const char*> ft_map;
+    ft_map.insert(ft::pair<int, const char*>(0, "zero"));
+    ft_map.insert(ft::pair<int, const char*>(1, "one"));
+    ft_map.insert(ft::pair<int, const char*>(2, "two"));
+    ft_map.insert(ft::pair<int, const char*>(3, "three"));
+    ft_map.insert(ft::pair<int, const char*>(4, "four"));
+    ft_map.insert(ft::pair<int, const char*>(5, "five"));
 
+    ft::pair<ft::map<int, const char*>::iterator, ft::map<int, const char*>::iterator> ret;
+    ret = ft_map.equal_range(4);
+    std::cout << "FT MAP contains:" << std::endl;
+    std::cout << "\tlower bound points to: ";
+    std::cout << ret.first->first << " => " << ret.first->second << std::endl;
+
+    std::cout << "\tupper bound points to: ";
+    std::cout << ret.second->first << " => " << ret.second->second << std::endl;
+
+    std::cout << "--------------------------------------------------------" << std::endl;
+
+    std::map<int, const char*> std_map;
+    std_map.insert(std::pair<int, const char*>(0, "zero"));
+    std_map.insert(std::pair<int, const char*>(1, "one"));
+    std_map.insert(std::pair<int, const char*>(2, "two"));
+    std_map.insert(std::pair<int, const char*>(3, "three"));
+    std_map.insert(std::pair<int, const char*>(4, "four"));
+    std_map.insert(std::pair<int, const char*>(5, "five"));
+
+    std::pair<std::map<int, const char*>::iterator, std::map<int, const char*>::iterator> std_ret;
+    std_ret = std_map.equal_range(4);
+    std::cout << "STD MAP contains:" << std::endl;
+    std::cout << "\tlower bound points to: ";
+    std::cout << std_ret.first->first << " => " << std_ret.first->second << std::endl;
+
+    std::cout << "\tupper bound points to: ";
+    std::cout << std_ret.second->first << " => " << std_ret.second->second << std::endl;
+}
+
+void map_key_compare_test() {
+    std::cout << "====================== KEY COMPARE =====================" << std::endl;
+    ft::map<char, int> ft_map;
+    ft::map<char, int>::key_compare my_comp = ft_map.key_comp();
+
+    ft_map['a']=100;
+    ft_map['b']=200;
+    ft_map['c']=300;
+
+    std::cout << "ft_map contains:\n";
+
+    char highest = ft_map.rbegin()->first; // key value of last element
+
+    ft::map<char,int>::iterator it = ft_map.begin();
+    do {
+        std::cout << it->first << " => " << it->second << std::endl;
+    } while (my_comp((*it++).first, highest));
+
+    std::cout << std::endl;
+}
 
 void map_speed_test() {
 	std::cout << "====================== SPEED TEST ======================" << std::endl;
