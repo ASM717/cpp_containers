@@ -207,6 +207,8 @@ void map_bound_test() {
 
 }
 
+
+
 void map_speed_test() {
 	std::cout << "====================== SPEED TEST ======================" << std::endl;
 	unsigned int ft_start_time = clock();

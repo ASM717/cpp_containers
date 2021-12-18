@@ -397,15 +397,15 @@ namespace ft {
 		}
 
 		node *createElem(const value_type data) {
-			elem = m_alloc.allocate(1);
-			m_alloc.construct(elem, node(data));
-			return (elem);
+			elem = this->getMAlloc().allocate(1);
+            this->getMAlloc().construct(this->getElem(), node(data));
+			return (this->getElem());
 		}
 
 		void copyElem(node *toCopy) {
 			if (toCopy == NULL)
 				return ;
-			insertElem(createElem(toCopy->data), root_tree);
+			insertElem(createElem(toCopy->data), this->getRootTree());
 			copyElem(toCopy->right);
 			copyElem(toCopy->left);
 		}
@@ -416,26 +416,22 @@ namespace ft {
 			}
 			if (start == NULL) {
                 root_tree = elem;
-                last_elem = m_alloc.allocate(1);
-				m_alloc.construct(last_elem, node(elem->data));
-                root_tree->right = last_elem;
-                last_elem->parent = root_tree;
-				return (root_tree);
+                last_elem = this->getMAlloc().allocate(1);
+                this->getMAlloc().construct(this->getLastElem(), node(elem->data));
+                this->getRootTree()->right = last_elem;
+                this->getLastElem()->parent = root_tree;
+				return (this->getRootTree());
 			} else {
 				node *tmp;
 				tmp = last_elem->parent;
 				tmp->right = NULL;
-				if (m_compare(elem->data.first, start->data.first))
-				{
+				if (m_compare(elem->data.first, start->data.first)) {
 					if (start->left)
 						insertElem(elem, start->left);
-					else
-					{
+					else {
 						elem->parent = start;
 						start->left = elem;
 						insertFix(elem);
-
-
                         last_elem->parent = tmp;
 						tmp->right = last_elem;
 					}
@@ -464,54 +460,53 @@ namespace ft {
 		}
 
 		node *_insert(value_type data) {
-			if (notExist(data, root_tree)) {
+			if (notExist(data, this->getRootTree())) {
 				m_size++;
-				return (insertElem(createElem(data), root_tree));
+				return (insertElem(createElem(data), this->getRootTree()));
 			}
-
-			return (findKey(data, root_tree));
+			return (findKey(data, this->getRootTree()));
 		}
 
-		void insertFix(node *elem) {
-			if (elem == NULL || elem->parent == NULL)
+		void insertFix(node *element) {
+			if (element == NULL || element->parent == NULL)
 				return;
-			while (elem->parent->color == RED) {
-				if (elem->parent->parent && elem->parent == elem->parent->parent->left) {
-					if (elem->parent->parent->right && elem->parent->parent->right->color == RED) {
-						elem->parent->parent->right->color = BLACK;
-						elem->parent->color = BLACK;
-						elem->parent->parent->color = RED;
-						elem = elem->parent->parent;
+			while (element->parent->color == RED) {
+				if (element->parent->parent && element->parent == element->parent->parent->left) {
+					if (element->parent->parent->right && element->parent->parent->right->color == RED) {
+                        element->parent->parent->right->color = BLACK;
+                        element->parent->color = BLACK;
+                        element->parent->parent->color = RED;
+                        element = element->parent->parent;
 					} else {
-						if (elem == elem->parent->right) {
-							node *tmp = elem->parent;
-							rotateLeft(elem);
-							elem = tmp;
+						if (element == element->parent->right) {
+							node *tmp = element->parent;
+							rotateLeft(element);
+                            element = tmp;
 						}
-						elem->parent->color = BLACK;
-						if (elem->parent->parent)
-							elem->parent->parent->color = RED;
-						rotateRight(elem->parent);
+                        element->parent->color = BLACK;
+						if (element->parent->parent)
+                            element->parent->parent->color = RED;
+						rotateRight(element->parent);
 					}
 				} else {
-					if (elem->parent->parent && elem->parent->parent->left && elem->parent->parent->left->color == RED) {
-						elem->parent->parent->left->color = BLACK;
-						elem->parent->color = BLACK;
-						elem->parent->parent->color = RED;
-						elem = elem->parent->parent;
+					if (element->parent->parent && element->parent->parent->left && element->parent->parent->left->color == RED) {
+                        element->parent->parent->left->color = BLACK;
+                        element->parent->color = BLACK;
+                        element->parent->parent->color = RED;
+                        element = element->parent->parent;
 					} else {
-						if (elem == elem->parent->left) {
-							node *tmp = elem->parent;
-							rotateRight(elem);
-							elem = tmp;
+						if (element == element->parent->left) {
+							node *tmp = element->parent;
+							rotateRight(element);
+                            element = tmp;
 						}
-						elem->parent->color = BLACK;
-						if (elem->parent->parent)
-							elem->parent->parent->color = RED;
-						rotateLeft(elem->parent);
+                        element->parent->color = BLACK;
+						if (element->parent->parent)
+                            element->parent->parent->color = RED;
+						rotateLeft(element->parent);
 					}
 				}
-				if (elem == root_tree)
+				if (element == root_tree)
 					break;
 			}
             root_tree->color = BLACK;
@@ -528,7 +523,7 @@ namespace ft {
 		}
 
 		node *maximum() {
-			return (maximumRec(root_tree));
+			return (maximumRec(this->getRootTree()));
 		}
 
 		node *maximumRec(node *start) {
@@ -741,7 +736,7 @@ namespace ft {
 	template<class Key, class T, class Compare, class Allocator>
 	bool operator!=(const ft::map<Key,T,Compare,Allocator>& lhs,
 					 const ft::map<Key,T,Compare,Allocator>& rhs) {
-		return (!(lhs == rhs)) ? true : false;
+		return (!(lhs == rhs)) ? (true) : (false);
 	}
 
 	template<class Key, class T, class Compare, class Allocator>
@@ -753,19 +748,19 @@ namespace ft {
 	template<class Key, class T, class Compare, class Allocator>
 	bool operator<=(const ft::map<Key,T,Compare,Allocator>& lhs,
 					 const ft::map<Key,T,Compare,Allocator>& rhs) {
-		return (lhs.size() <= rhs.size()) ? true : false;
+		return (lhs.size() <= rhs.size()) ? (true) : (false);
 	}
 
 	template<class Key, class T, class Compare, class Allocator>
 	bool operator>(const ft::map<Key,T,Compare,Allocator>& lhs,
 					const ft::map<Key,T,Compare,Allocator>& rhs) {
-		return (lhs.size() > rhs.size()) ? true : false;
+		return (lhs.size() > rhs.size()) ? (true) : (false);
 	}
 
 	template<class Key, class T, class Compare, class Allocator>
 	bool operator>=(const ft::map<Key,T,Compare,Allocator>& lhs,
 					 const ft::map<Key,T,Compare,Allocator>& rhs) {
-		return (lhs.size() >= rhs.size()) ? true : false;
+		return (lhs.size() >= rhs.size()) ? (true) : (false);
 	}
 
 	template<class Key, class T, class Compare, class Allocator>
