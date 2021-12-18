@@ -36,18 +36,18 @@ namespace ft {
 		typedef T                                                 mapped_type;
 		typedef Compare                                           key_compare;
 		typedef ft::pair<const Key, T>                            value_type;
-		typedef ft::Node<ft::pair<const Key, T> >                 node;
-		typedef typename Allocator::template rebind<node >::other allocator_type;
+		typedef ft::Node<value_type>                              node;
+		typedef typename Allocator::template rebind<node>::other  allocator_type;
 		typedef typename Allocator::reference			          reference;
 		typedef typename Allocator::const_reference	              const_reference;
 		typedef typename Allocator::pointer                       pointer;
 		typedef typename Allocator::const_pointer		          const_pointer;
 		typedef ft::BidirectionalIterator<const Key, T>           iterator;
-		typedef ft::BidirectionalIterator<const Key, T>           const_iterator;
+		typedef ft::ConstBidirectionalIterator<const Key, T>      const_iterator;
 		typedef ft::VectorReverseIterator<iterator>               reverse_iterator;
 		typedef ft::VectorReverseIterator<const_iterator>         const_reverse_iterator;
 		typedef ptrdiff_t								          difference_type;
-		typedef size_t									size_type;
+		typedef size_t									          size_type;
 
 
 		class value_compare: public std::binary_function <value_type, value_type, bool> {
