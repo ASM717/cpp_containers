@@ -246,6 +246,31 @@ void map_equal_range_test() {
     std::cout << std_ret.second->first << " => " << std_ret.second->second << std::endl;
 }
 
+void map_value_compare_test() {
+    std::cout << "===================== VALUE COMPARE ====================" << std::endl;
+    ft::map<char,int> ft_map;
+    ft_map['x'] = 1001;
+    ft_map['y'] = 2002;
+    ft_map['z'] = 3003;
+    std::cout << "STD MAP contains:" << std::endl;
+    ft::pair<char,int> ft_highest = *ft_map.rbegin();          // last element
+    ft::map<char,int>::iterator ft_it = ft_map.begin();
+    do {
+        std::cout << "\t" << ft_it->first << " => " << ft_it->second << std::endl;
+    } while ( ft_map.value_comp()(*ft_it++, ft_highest) );
+    std::cout << "--------------------------------------------------------" << std::endl;
+    std::map<char,int> std_map;
+    std_map['x'] = 1001;
+    std_map['y'] = 2002;
+    std_map['z'] = 3003;
+    std::cout << "STD MAP contains:" << std::endl;
+    std::pair<char,int> highest = *std_map.rbegin();          // last element
+    std::map<char,int>::iterator it = std_map.begin();
+    do {
+        std::cout << "\t" << it->first << " => " << it->second << std::endl;
+    } while ( std_map.value_comp()(*it++, highest) );
+}
+
 void map_key_compare_test() {
     std::cout << "====================== KEY COMPARE =====================" << std::endl;
     ft::map<char, int> ft_map;
@@ -339,6 +364,30 @@ void map_comparison_operator_test() {
     std::cout << "ft_map_1 <= ft_map_3 return " << (ft_map_1 <= ft_map_3) << std::endl;
     std::cout << "ft_map_1 >  ft_map_3 return " << (ft_map_1 > ft_map_3) << std::endl;
     std::cout << "ft_map_1 >= ft_map_3 return " << (ft_map_1 >= ft_map_3) << std::endl;
+}
+
+void map_make_pair_test() {
+    std::cout << "======================= MAKE PAIR ======================" << std::endl;
+
+    ft::pair <int, int> ft_foo;
+    ft::pair <int, int> ft_bar;
+
+    ft_foo = ft::make_pair (100, 200);
+    ft_bar = ft::make_pair (100.5, 'W'); // ok: implicit conversion from pair<double,char>
+
+    std::cout << "ft_foo: " << ft_foo.first << ", " << ft_foo.second << std::endl;
+    std::cout << "ft_bar: " << ft_bar.first << ", " << ft_bar.second << std::endl;
+
+    std::cout << "--------------------------------------------------------" << std::endl;
+
+    std::pair <int, int> std_foo;
+    std::pair <int, int> std_bar;
+
+    std_foo = std::make_pair (100, 200);
+    std_bar = std::make_pair (100.5, 'W'); // ok: implicit conversion from pair<double,char>
+
+    std::cout << "std_foo: " << std_foo.first << ", " << std_foo.second << std::endl;
+    std::cout << "std_bar: " << std_bar.first << ", " << std_bar.second << std::endl;
 }
 
 void map_speed_test() {

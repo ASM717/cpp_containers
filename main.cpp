@@ -85,9 +85,11 @@ void map_test() {
 	map_bound_test();
 	map_count_test();
     map_equal_range_test();
+    map_value_compare_test();
     map_key_compare_test();
     map_get_allocator_test();
     map_comparison_operator_test();
+    map_make_pair_test();
 	map_speed_test();
 }
 

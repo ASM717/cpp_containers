@@ -49,11 +49,11 @@ namespace ft {
 		typedef ptrdiff_t								            difference_type;
 		typedef size_t									            size_type;
 
-		class value_compare: public std::binary_function <value_type, value_type, bool> {
-		protected:
-			Compare	comp;
-			value_compare (Compare c): comp(c) {}
+		class value_compare : public std::binary_function <value_type, value_type, bool> {
 		public:
+            Compare	comp;
+            value_compare (Compare c): comp(c) {}
+
 			typedef	bool		result_type;
 			typedef	value_type	first_argument_type;
 			typedef	value_type	second_argument_type;
@@ -265,7 +265,7 @@ namespace ft {
 		}
 
 		value_compare value_comp() const {
-			return (this->value_compare);
+			return (value_compare(getMCompare()));
 		}
 
 		iterator find (const key_type& k) {

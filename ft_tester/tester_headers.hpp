@@ -67,9 +67,11 @@ void map_swap_test();
 void map_bound_test();
 void map_count_test();
 void map_equal_range_test();
+void map_value_compare_test();
 void map_key_compare_test();
 void map_get_allocator_test();
 void map_comparison_operator_test();
+void map_make_pair_test();
 void map_speed_test();
 
 #endif
