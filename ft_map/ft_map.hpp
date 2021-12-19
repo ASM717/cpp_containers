@@ -22,10 +22,6 @@
 #include "../ft_vector/ft_algorithm.hpp"
 #include "../ft_vector/ft_vector_reverse_iterator.hpp"
 
-#define RED_COLOR		"\x1B[31m"
-#define BLACK_COLOR		"\x1B[37m"
-#define RESET_COLOR		"\x1B[0m"
-
 namespace ft {
 	template < typename Key, typename T,
 			typename Compare = std::less<Key>,
@@ -62,10 +58,8 @@ namespace ft {
 			}
 		};
 
-	private:
-		node				*root_tree;
-
     private:
+        node				*root_tree;
         node				*last_elem;
 		node				*elem;
 		Compare				m_compare;
@@ -116,28 +110,29 @@ namespace ft {
 			insert(first, last);
 		};
 
-		map(const map &val) : m_alloc(val.m_alloc), m_size(0), last_elem(NULL),
+		map(const map &ref) : m_alloc(ref.m_alloc), m_size(0), last_elem(NULL),
                               root_tree(NULL), elem(NULL), m_compare(std::less<Key >()) {
-			*this = val;
+			*this = ref;
 		}
 
 		~map () {
 			deleteTree(root_tree);
 		}
 
-		map &operator=(const map &val) {
-			if (val.getRootTree() == NULL || this == &val)
+		map &operator=(const map &ref) {
+			if (ref.getRootTree() == NULL || this == &ref)
 				return (*this);
 			deleteTree(this->getRootTree());
-			copyElem(val.getRootTree());
+			copyElem(ref.getRootTree());
 			return (*this);
 		}
 
 		iterator begin() {
 			if(this->getRootTree() != NULL)
-				return(iterator(minimum(this->getRootTree())));
+				return(iterator(min(this->getRootTree())));
 			return(NULL);
 		}
+
 		const_iterator begin() const {
 			node *tmp = getRootTree();
 			if (!tmp->left && !tmp->right)
@@ -195,7 +190,7 @@ namespace ft {
 				node *tmp = insert_for_map_func(tmp_pair);
 				return(tmp->data.second);
 			} else {
-				node *tmp = _find(k, this->getRootTree());
+				node *tmp = find_need_elem(k, this->getRootTree());
 				if(!tmp)
 				{
 					ft::pair<key_type, mapped_type> tmp_pair;
@@ -271,7 +266,7 @@ namespace ft {
 		iterator find (const key_type& k) {
 			if (empty())
 				return (end());
-			node *tmp = _find(k, this->getRootTree());
+			node *tmp = find_need_elem(k, this->getRootTree());
 			if (tmp == NULL)
 				return (end());
 			return (iterator(tmp));
@@ -280,7 +275,7 @@ namespace ft {
 		const_iterator find (const key_type& k) const {
 			if (empty())
 				return (end());
-			node *tmp = _find(k, this->getRootTree());
+			node *tmp = find_need_elem(k, this->getRootTree());
 			if (tmp == NULL)
 				return (end());
 			return (const_iterator(tmp));
@@ -339,61 +334,38 @@ namespace ft {
 			return (this->getMAlloc());
 		}
 
-		// RED BLACK TREE FUNC //
-
-		void display(void) {
-			displayTree(root_tree, "", true);
-		}
-
-		void displayTree(node *root, std::string indent, bool last) {
-			if (root != NULL) {
-				std::cout << indent;
-				if (last) {
-					std::cout << "R----";
-					indent += "   ";
-				} else {
-					std::cout << "L----";
-					indent += "|  ";
-				}
-				std::string sColor = root->color ? RED_COLOR : BLACK_COLOR;
-				std::cout << sColor << root->data.first << RESET_COLOR << std::endl;
-				displayTree(root->left, indent, false);
-				displayTree(root->right, indent, true);
-			}
-		}
-
 	private:
-		node *_find(Key key, node *start){
-			if (start == NULL)
+		node *find_need_elem(Key key, node *entry_pos){
+			if (entry_pos == NULL)
 				return (NULL);
-			else if (key == start->data.first)
-				return (start);
-			else if (m_compare(key, start->data.first))
-				return (_find(key, start->left));
+			else if (key == entry_pos->data.first)
+				return (entry_pos);
+			else if (m_compare(key, entry_pos->data.first))
+				return (find_need_elem(key, entry_pos->left));
 			else
-				return (_find(key, start->right));
+				return (find_need_elem(key, entry_pos->right));
 		}
 
-		bool notExist(value_type data, node *start){
-			if (start == NULL)
+		bool notExist(value_type data, node *entry_pos){
+			if (entry_pos == NULL)
 				return(true);
-			else if (data.first == start->data.first)
+			else if (data.first == entry_pos->data.first)
 				return (false);
-			else if (m_compare(data.first, start->data.first))
-				return (notExist(data, start->left));
+			else if (m_compare(data.first, entry_pos->data.first))
+				return (notExist(data, entry_pos->left));
 			else
-				return (notExist(data, start->right));
+				return (notExist(data, entry_pos->right));
 		}
 
-		node *findKey(value_type data, node *start) {
-			if (start == NULL)
+		node *findKey(value_type data, node *entry_pos) {
+			if (entry_pos == NULL)
 				return (NULL);
-			else if (data.first == start->data.first)
-				return (start);
-			else if (m_compare(data.first, start->data.first))
-				return (findKey(data, start->left));
+			else if (data.first == entry_pos->data.first)
+				return (entry_pos);
+			else if (m_compare(data.first, entry_pos->data.first))
+				return (findKey(data, entry_pos->left));
 			else
-				return (findKey(data, start->right));
+				return (findKey(data, entry_pos->right));
 		}
 
 		node *createElem(const value_type data) {
@@ -410,67 +382,66 @@ namespace ft {
 			copyElem(toCopy->left);
 		}
 
-        void *insert_1(node *elem) {
-            root_tree = elem;
+        void *insert_1(node *node_elem) {
+            root_tree = node_elem;
             last_elem = this->getMAlloc().allocate(1);
-            this->getMAlloc().construct(this->getLastElem(), node(elem->data));
+            this->getMAlloc().construct(this->getLastElem(), node(node_elem->data));
             this->getRootTree()->right = last_elem;
             this->getLastElem()->parent = root_tree;
             return (this->getRootTree());
         }
 
-        void *insert_2(node *elem, node *start, node *tmp) {
-            if (start->left)
-                insertElem(elem, start->left);
+        void *insert_2(node *node_elem, node *entry_pos, node *tmp) {
+            if (entry_pos->left)
+                insertElem(node_elem, entry_pos->left);
             else {
-                elem->parent = start;
-                start->left = elem;
-                insertFix(elem);
-                last_elem->parent = tmp;
+                node_elem->parent = entry_pos;
+                entry_pos->left = node_elem;
+                insert_node_fix(node_elem);
+                this->getLastElem()->parent = tmp;
                 tmp->right = last_elem;
             }
-            return (elem);
+            return (node_elem);
         }
 
-        void *insert_3(node *elem, node *start, node *tmp) {
-            elem->parent = start;
-            start->right = elem;
-            insertFix(elem);
-            if (elem->data.first > tmp->data.first) {
-                elem->right = last_elem;
-                last_elem->parent = elem;
+        void *insert_3(node *node_elem, node *entry_pos, node *tmp) {
+            node_elem->parent = entry_pos;
+            entry_pos->right = node_elem;
+            insert_node_fix(node_elem);
+            if (node_elem->data.first > tmp->data.first) {
+                node_elem->right = last_elem;
+                this->getLastElem()->parent = node_elem;
             } else {
                 tmp->right = last_elem;
-                last_elem->parent = tmp;
+                this->getLastElem()->parent = tmp;
             }
-            return (elem);
+            return (node_elem);
         }
 
-        node *insertElem(node *elem, node *start) {
-
-			if (elem == NULL)
+        node *insertElem(node *node_elem, node *entry_pos) {
+			if (node_elem == NULL)
 				return (NULL);
-			if (start == NULL) {
-                insert_1(elem);
+			if (entry_pos == NULL) {
+                insert_1(node_elem);
 			} else {
 				node *tmp;
-				tmp = last_elem->parent;
+				tmp = this->getLastElem()->parent;
 				tmp->right = NULL;
-				if (m_compare(elem->data.first, start->data.first)) {
-                    insert_2(elem, start, tmp);
-				} else if (elem->data.first == start->data.first) {
-                    last_elem->parent = tmp;
+				if (m_compare(node_elem->data.first, entry_pos->data.first)) {
+                    insert_2(node_elem, entry_pos, tmp);
+				} else if (node_elem->data.first == entry_pos->data.first) {
+                    this->getLastElem()->parent = tmp;
 					tmp->right = last_elem;
 					return (NULL);
 				} else {
-					if (start->right)
-						insertElem(elem, start->right);
+					if (entry_pos->right)
+						insertElem(node_elem, entry_pos->right);
 					else {
-                        insert_3(elem, start, tmp);
+                        insert_3(node_elem, entry_pos, tmp);
 					}
 				}
 			}
-			return (elem);
+			return (node_elem);
 		}
 
 		node *insert_for_map_func(value_type data) {
@@ -481,128 +452,120 @@ namespace ft {
 			return (findKey(data, this->getRootTree()));
 		}
 
-		void insertFix(node *element) {
-			if (element == NULL || element->parent == NULL)
+        void change(node *u, node *v) {
+            if (u->parent == NULL)
+                root_tree = v;
+            else if (u == u->parent->left)
+                u->parent->left = v;
+            else
+                u->parent->right = v;
+            if (v)
+                v->parent = u->parent;
+        }
+
+		void insert_node_fix(node *node_elem) {
+			if (node_elem == NULL || node_elem->parent == NULL)
 				return;
-			while (element->parent->color == RED) {
-				if (element->parent->parent && element->parent == element->parent->parent->left) {
-					if (element->parent->parent->right && element->parent->parent->right->color == RED) {
-                        element->parent->parent->right->color = BLACK;
-                        element->parent->color = BLACK;
-                        element->parent->parent->color = RED;
-                        element = element->parent->parent;
+			while (node_elem->parent->color == RED) {
+				if (node_elem->parent->parent && node_elem->parent == node_elem->parent->parent->left) {
+					if (node_elem->parent->parent->right && node_elem->parent->parent->right->color == RED) {
+                        node_elem->parent->parent->right->color = BLACK;
+                        node_elem->parent->color = BLACK;
+                        node_elem->parent->parent->color = RED;
+                        node_elem = node_elem->parent->parent;
 					} else {
-						if (element == element->parent->right) {
-							node *tmp = element->parent;
-							rotateLeft(element);
-                            element = tmp;
+						if (node_elem == node_elem->parent->right) {
+							node *tmp = node_elem->parent;
+                            leftRotate(node_elem);
+                            node_elem = tmp;
 						}
-                        element->parent->color = BLACK;
-						if (element->parent->parent)
-                            element->parent->parent->color = RED;
-						rotateRight(element->parent);
+                        node_elem->parent->color = BLACK;
+						if (node_elem->parent->parent)
+                            node_elem->parent->parent->color = RED;
+                        rightRotate(node_elem->parent);
 					}
 				} else {
-					if (element->parent->parent && element->parent->parent->left && element->parent->parent->left->color == RED) {
-                        element->parent->parent->left->color = BLACK;
-                        element->parent->color = BLACK;
-                        element->parent->parent->color = RED;
-                        element = element->parent->parent;
+					if (node_elem->parent->parent && node_elem->parent->parent->left
+                        && node_elem->parent->parent->left->color == RED) {
+                        node_elem->parent->parent->left->color = BLACK;
+                        node_elem->parent->color = BLACK;
+                        node_elem->parent->parent->color = RED;
+                        node_elem = node_elem->parent->parent;
 					} else {
-						if (element == element->parent->left) {
-							node *tmp = element->parent;
-							rotateRight(element);
-                            element = tmp;
+						if (node_elem == node_elem->parent->left) {
+							node *tmp = node_elem->parent;
+                            rightRotate(node_elem);
+                            node_elem = tmp;
 						}
-                        element->parent->color = BLACK;
-						if (element->parent->parent)
-                            element->parent->parent->color = RED;
-						rotateLeft(element->parent);
+                        node_elem->parent->color = BLACK;
+						if (node_elem->parent->parent)
+                            node_elem->parent->parent->color = RED;
+                        leftRotate(node_elem->parent);
 					}
 				}
-				if (element == root_tree)
+				if (node_elem == root_tree)
 					break;
 			}
-            root_tree->color = BLACK;
-		}
-		void transplant(node *u, node *v) {
-			if (u->parent == NULL)
-                root_tree = v;
-			else if (u == u->parent->left)
-				u->parent->left = v;
-			else
-				u->parent->right = v;
-			if (v)
-				v->parent = u->parent;
+            getRootTree()->color = BLACK;
 		}
 
-//		node *maximum() {
-//			return (maximumRec(this->getRootTree()));
-//		}
-
-//		node *maximumRec(node *start) {
-//			if (start->right)
-//				return (maximumRec(start->right));
-//			return (start);
-//		}
-
-		node *minimum(node *root) {
-			return (minimumRec(root));
+		node *min(node *root) {
+			return (recursiveMin(root));
 		}
 
-		node *minimumRec(node *start) {
+		node *recursiveMin(node *start) {
 			if (start->left)
-				return (minimumRec(start->left));
+				return (recursiveMin(start->left));
 			return (start);
 		}
 
 		void deleteElementTree(value_type data) {
+            node *del = getRootTree();
+            rb_tree_color rbTreeColor;
+            node *parent = NULL;
 			node *x;
 			node *y;
-			node *toDel = getRootTree();
-			node *parent = NULL;
-			rb_tree_color rbTreeColor;
-			while (toDel != NULL) {
-				if (toDel->data.first == data.first)
+			while (del != NULL) {
+				if (del->data.first == data.first)
 					break;
-				if (!m_compare(toDel->data.first, data.first))
-					toDel = toDel->left;
+				if (!m_compare(del->data.first, data.first))
+                    del = del->left;
 				else
-					toDel = toDel->right;
+                    del = del->right;
 			}
-			if (toDel == NULL)
+			if (del == NULL)
 				return;
-            rbTreeColor = toDel->color;
-			if (toDel->left == NULL) {
-				x = toDel->right;
-				parent = toDel->parent;
-				transplant(toDel, x);
+            rbTreeColor = del->color;
+			if (del->left == NULL) {
+				x = del->right;
+				parent = del->parent;
+                change(del, x);
 			}
-			else if (toDel->right == NULL) {
-				x = toDel->left;
-				parent = toDel->parent;
-				transplant(toDel, x);
+			else if (del->right == NULL) {
+				x = del->left;
+				parent = del->parent;
+                change(del, x);
 			}
 			else {
-				y = minimum(toDel->right);
+				y = min(del->right);
                 rbTreeColor = y->color;
 				x = y->right;
-				if (y->parent == toDel)
+				if (y->parent == del)
 					parent = y;
 				else {
 					parent = y->parent;
-					transplant(y, y->right);
-					y->right = toDel->right;
+                    change(y, y->right);
+					y->right = del->right;
 					y->right->parent = y;
 				}
-				transplant(toDel, y);
-				y->left = toDel->left;
+                change(del, y);
+				y->left = del->left;
 				y->left->parent = y;
-				y->color = toDel->color;
+				y->color = del->color;
 			}
-            ft_clear_rbtree(toDel);
+            destroy_deallocate_tree(del);
 			if (rbTreeColor == BLACK && parent) {
-				deleteFix(x, parent);
+                delete_node_fix(x, parent);
 			}
 		}
 
@@ -610,7 +573,7 @@ namespace ft {
 			return ((ptr == NULL) || (ptr && ptr->color == BLACK));
 		}
 
-		void deleteFix(node* x, node *parent) {
+		void delete_node_fix(node* x, node *parent) {
 			node *s;
 			while (parent && x != root_tree && nodeIsBlack(x)) {
 				if (x == parent->left) {
@@ -618,7 +581,7 @@ namespace ft {
 					if (s && s->color == RED) {
 						s->color = BLACK;
 						parent->color = RED;
-						rotateLeft(s);
+                        leftRotate(s);
 						s = parent->right;
 					}
 					if (s && nodeIsBlack(s->left) && nodeIsBlack(s->right)) {
@@ -630,7 +593,7 @@ namespace ft {
 							if (s->left)
 								s->left->color = BLACK;
 							s->color = RED;
-							rotateRight(s->left);
+                            rightRotate(s->left);
 							s = parent->right;
 						}
 						if (s)
@@ -638,7 +601,7 @@ namespace ft {
 						parent->color = BLACK;
 						if (s && s->right)
 							s->right->color = BLACK;
-						rotateLeft(parent->right);
+                        leftRotate(parent->right);
 						x = root_tree;
 					}
 				} else {
@@ -646,7 +609,7 @@ namespace ft {
 					if (s && s->color == RED) {
 						s->color = BLACK;
 						parent->color = RED;
-						rotateRight(s);
+                        rightRotate(s);
 						s = parent->left;
 					}
 					if (s && nodeIsBlack(s->left) && nodeIsBlack(s->right)) {
@@ -658,7 +621,7 @@ namespace ft {
 							if (s->right)
 								s->right->color = BLACK;
 							s->color = RED;
-							rotateLeft(s->right);
+                            leftRotate(s->right);
 							s = parent->left;
 						}
 						if (s)
@@ -666,7 +629,7 @@ namespace ft {
 						parent->color = BLACK;
 						if (s && s->left)
 							s->left->color = BLACK;
-						rotateRight(parent->left);
+                        rightRotate(parent->left);
 						x = root_tree;
 					}
 				}
@@ -675,9 +638,9 @@ namespace ft {
 				x->color = BLACK;
 		}
 
-		void ft_clear_rbtree(node *toDel) {
-			m_alloc.destroy(toDel);
-			m_alloc.deallocate(toDel, 1);
+		void destroy_deallocate_tree(node *del) {
+			m_alloc.destroy(del);
+			m_alloc.deallocate(del, 1);
 		}
 
 		void deleteTree(node *root) {
@@ -685,50 +648,50 @@ namespace ft {
 				return;
 			deleteTree(root->left);
 			deleteTree(root->right);
-            ft_clear_rbtree(root);
-			root = NULL;
+            destroy_deallocate_tree(root);
+			root = (NULL);
 		}
 
-		void rotateLeft(node *elem) {
-			if (elem == NULL || elem->parent == NULL || elem->parent->left == elem)
+		void leftRotate(node *node_elem) {
+			if (node_elem == NULL || node_elem->parent == NULL || node_elem->parent->left == node_elem)
 				return;
-			node *parentElem = elem->parent;
-			node *gparentElem = elem->parent->parent;
-			parentElem->right = elem->left;
-			if (elem->left) {
-				elem->left->parent = parentElem;
-				elem->left = NULL;
+			node *parent_element = node_elem->parent;
+			node *grand_par_element = node_elem->parent->parent;
+            parent_element->right = node_elem->left;
+			if (node_elem->left) {
+                node_elem->left->parent = parent_element;
+                node_elem->left = NULL;
 			}
-			elem->parent = gparentElem;
-			if (gparentElem == NULL)
-                root_tree = elem;
-			else if (gparentElem->left == parentElem)
-				gparentElem->left = elem;
+            node_elem->parent = grand_par_element;
+			if (grand_par_element == NULL)
+                root_tree = node_elem;
+			else if (grand_par_element->left == parent_element)
+                grand_par_element->left = node_elem;
 			else
-				gparentElem->right = elem;
-			elem->left = parentElem;
-			parentElem->parent = elem;
+                grand_par_element->right = node_elem;
+            node_elem->left = parent_element;
+            parent_element->parent = node_elem;
 		}
 
-		void rotateRight(node *elem) {
-			if (elem == NULL || elem->parent == NULL || elem->parent->right == elem)
+		void rightRotate(node *node_elem) {
+			if (node_elem == NULL || node_elem->parent == NULL || node_elem->parent->right == node_elem)
 				return;
-			node *parentElem = elem->parent;
-			node *gparentElem = elem->parent->parent;
-			parentElem->left = elem->right;
-			if (elem->right) {
-				elem->right->parent = parentElem;
-				elem->right = NULL;
+			node *parent_element = node_elem->parent;
+			node *grand_par_element = node_elem->parent->parent;
+            parent_element->left = node_elem->right;
+			if (node_elem->right) {
+                node_elem->right->parent = parent_element;
+                node_elem->right = NULL;
 			}
-			elem->parent = gparentElem;
-			if (gparentElem == NULL)
-                root_tree = elem;
-			else if (gparentElem->left == parentElem)
-				gparentElem->left = elem;
+            node_elem->parent = grand_par_element;
+			if (grand_par_element == NULL)
+                root_tree = node_elem;
+			else if (grand_par_element->left == parent_element)
+                grand_par_element->left = node_elem;
 			else
-				gparentElem->right = elem;
-			elem->right = parentElem;
-			parentElem->parent = elem;
+                grand_par_element->right = node_elem;
+            node_elem->right = parent_element;
+            parent_element->parent = node_elem;
 		}
 	};
 

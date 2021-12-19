@@ -420,3 +420,40 @@ void map_speed_test() {
 	unsigned int std_diff_time = std_finish_time - std_start_time;
 	std::cout << "STD TIME = " << std_diff_time << std::endl;
 }
+
+// https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
+void map_red_black_tree_test() {
+//    std::cout << "================= VISUALISATION RB TREE ================" << std::endl;
+//    ft::map<int, std::string> ft_map;
+//    ft_map.insert(ft::pair<int, std::string>(99, "test"));
+//    ft_map.insert(ft::pair<int, std::string>(2, "test"));
+//    ft_map.insert(ft::pair<int, std::string>(10, "test"));
+//    ft_map.insert(ft::pair<int, std::string>(77, "test"));
+//    ft_map.insert(ft::pair<int, std::string>(17, "test"));
+//    ft_map.insert(ft::pair<int, std::string>(5, "test"));
+//    ft_map.insert(ft::pair<int, std::string>(9, "test"));
+//    ft_map.insert(ft::pair<int, std::string>(10, "test"));
+//    ft_map.insert(ft::pair<int, std::string>(81, "test"));
+//    ft_map.display();
+}
+
+//void display(void) {
+//    displayTree(root_tree, "", true);
+//}
+//
+//void displayTree(node *root, std::string indent, bool last) {
+//    if (root != NULL) {
+//        std::cout << indent;
+//        if (last) {
+//            std::cout << "R----";
+//            indent += "   ";
+//        } else {
+//            std::cout << "L----";
+//            indent += "|  ";
+//        }
+//        std::string nodeColor = root->color ? RED_COLOR : BLACK_COLOR;
+//        std::cout << nodeColor << root->data.first << RESET_COLOR << std::endl;
+//        displayTree(root->left, indent, false);
+//        displayTree(root->right, indent, true);
+//    }
+//}

@@ -74,4 +74,7 @@ void map_comparison_operator_test();
 void map_make_pair_test();
 void map_speed_test();
 
+/* VISUAL TREE*/
+void map_red_black_tree_test();
+
 #endif

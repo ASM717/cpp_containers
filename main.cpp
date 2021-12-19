@@ -17,23 +17,23 @@
 #include "ft_tester/tester_stack.cpp"
 #include "ft_tester/tester_map.cpp"
 
-template<typename T>
-void std_print_vector(const std::vector<T> &std_vector) {
-	typename std::vector<T>::const_iterator it;
-	for (it = std_vector.begin(); it != std_vector.end(); it++) {
-		std::cout << *it << " ";
-	}
-	std::cout << std::endl;
-}
-
-template<typename T>
-void ft_print_vector(const ft::vector<T> &ft_vector) {
-	typename ft::vector<T>::const_iterator it;
-	for (it = ft_vector.begin(); it != ft_vector.end(); it++) {
-		std::cout << *it << " ";
-	}
-	std::cout << std::endl;
-}
+//template<typename T>
+//void std_print_vector(const std::vector<T> &std_vector) {
+//	typename std::vector<T>::const_iterator it;
+//	for (it = std_vector.begin(); it != std_vector.end(); it++) {
+//		std::cout << *it << " ";
+//	}
+//	std::cout << std::endl;
+//}
+//
+//template<typename T>
+//void ft_print_vector(const ft::vector<T> &ft_vector) {
+//	typename ft::vector<T>::const_iterator it;
+//	for (it = ft_vector.begin(); it != ft_vector.end(); it++) {
+//		std::cout << *it << " ";
+//	}
+//	std::cout << std::endl;
+//}
 
 void vector_test() {
 	std::cout << "======================== VECTOR ========================" << std::endl;
@@ -91,6 +91,8 @@ void map_test() {
     map_comparison_operator_test();
     map_make_pair_test();
 	map_speed_test();
+    /* VISUAL TREE*/
+    map_red_black_tree_test();
 }
 
 int main()
