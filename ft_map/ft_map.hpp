@@ -192,7 +192,7 @@ namespace ft {
 			if(!this->getRootTree()) {
 				ft::pair<key_type, mapped_type> tmp_pair;
 				tmp_pair.first = k;
-				node *tmp = _insert(tmp_pair);
+				node *tmp = insert_for_map_func(tmp_pair);
 				return(tmp->data.second);
 			} else {
 				node *tmp = _find(k, this->getRootTree());
@@ -200,7 +200,7 @@ namespace ft {
 				{
 					ft::pair<key_type, mapped_type> tmp_pair;
 					tmp_pair.first = k;
-					tmp = _insert(tmp_pair);
+					tmp = insert_for_map_func(tmp_pair);
 					return(tmp->data.second);
 				}
 				return (tmp->data.second);
@@ -208,12 +208,12 @@ namespace ft {
 		}
 
 		pair<iterator, bool> insert (const value_type& val) {
-			iterator tmp = _insert(val);
+			iterator tmp = insert_for_map_func(val);
 			return (ft::make_pair(tmp, true));
 		}
 
 		iterator insert (iterator position, const value_type& val) {
-			iterator tmp = _insert(val);
+			iterator tmp = insert_for_map_func(val);
 			if (position)
 				return (tmp);
 		}
@@ -225,7 +225,7 @@ namespace ft {
 		}
 
 		void erase (iterator position) {
-			deleteElem(*position);
+            deleteElementTree(*position);
 			if (this->getMSize() != 0)
 				--m_size;
 		}
@@ -409,32 +409,55 @@ namespace ft {
 			copyElem(toCopy->right);
 			copyElem(toCopy->left);
 		}
-		node *insertElem(node *elem, node *start) {
 
-			if (elem == NULL) {
+        void *insert_1(node *elem) {
+            root_tree = elem;
+            last_elem = this->getMAlloc().allocate(1);
+            this->getMAlloc().construct(this->getLastElem(), node(elem->data));
+            this->getRootTree()->right = last_elem;
+            this->getLastElem()->parent = root_tree;
+            return (this->getRootTree());
+        }
+
+        void *insert_2(node *elem, node *start, node *tmp) {
+            if (start->left)
+                insertElem(elem, start->left);
+            else {
+                elem->parent = start;
+                start->left = elem;
+                insertFix(elem);
+                last_elem->parent = tmp;
+                tmp->right = last_elem;
+            }
+            return (elem);
+        }
+
+        void *insert_3(node *elem, node *start, node *tmp) {
+            elem->parent = start;
+            start->right = elem;
+            insertFix(elem);
+            if (elem->data.first > tmp->data.first) {
+                elem->right = last_elem;
+                last_elem->parent = elem;
+            } else {
+                tmp->right = last_elem;
+                last_elem->parent = tmp;
+            }
+            return (elem);
+        }
+
+        node *insertElem(node *elem, node *start) {
+
+			if (elem == NULL)
 				return (NULL);
-			}
 			if (start == NULL) {
-                root_tree = elem;
-                last_elem = this->getMAlloc().allocate(1);
-                this->getMAlloc().construct(this->getLastElem(), node(elem->data));
-                this->getRootTree()->right = last_elem;
-                this->getLastElem()->parent = root_tree;
-				return (this->getRootTree());
+                insert_1(elem);
 			} else {
 				node *tmp;
 				tmp = last_elem->parent;
 				tmp->right = NULL;
 				if (m_compare(elem->data.first, start->data.first)) {
-					if (start->left)
-						insertElem(elem, start->left);
-					else {
-						elem->parent = start;
-						start->left = elem;
-						insertFix(elem);
-                        last_elem->parent = tmp;
-						tmp->right = last_elem;
-					}
+                    insert_2(elem, start, tmp);
 				} else if (elem->data.first == start->data.first) {
                     last_elem->parent = tmp;
 					tmp->right = last_elem;
@@ -443,23 +466,14 @@ namespace ft {
 					if (start->right)
 						insertElem(elem, start->right);
 					else {
-						elem->parent = start;
-						start->right = elem;
-						insertFix(elem);
-						if (elem->data.first > tmp->data.first) {
-							elem->right = last_elem;
-                            last_elem->parent = elem;
-						} else {
-							tmp->right = last_elem;
-                            last_elem->parent = tmp;
-						}
+                        insert_3(elem, start, tmp);
 					}
 				}
 			}
 			return (elem);
 		}
 
-		node *_insert(value_type data) {
+		node *insert_for_map_func(value_type data) {
 			if (notExist(data, this->getRootTree())) {
 				m_size++;
 				return (insertElem(createElem(data), this->getRootTree()));
@@ -522,15 +536,15 @@ namespace ft {
 				v->parent = u->parent;
 		}
 
-		node *maximum() {
-			return (maximumRec(this->getRootTree()));
-		}
+//		node *maximum() {
+//			return (maximumRec(this->getRootTree()));
+//		}
 
-		node *maximumRec(node *start) {
-			if (start->right)
-				return (maximumRec(start->right));
-			return (start);
-		}
+//		node *maximumRec(node *start) {
+//			if (start->right)
+//				return (maximumRec(start->right));
+//			return (start);
+//		}
 
 		node *minimum(node *root) {
 			return (minimumRec(root));
@@ -542,12 +556,12 @@ namespace ft {
 			return (start);
 		}
 
-		void deleteElem(value_type data) {
+		void deleteElementTree(value_type data) {
 			node *x;
 			node *y;
-			node *toDel = root_tree;
+			node *toDel = getRootTree();
 			node *parent = NULL;
-			rb_tree_color saveColor;
+			rb_tree_color rbTreeColor;
 			while (toDel != NULL) {
 				if (toDel->data.first == data.first)
 					break;
@@ -558,7 +572,7 @@ namespace ft {
 			}
 			if (toDel == NULL)
 				return;
-			saveColor = toDel->color;
+            rbTreeColor = toDel->color;
 			if (toDel->left == NULL) {
 				x = toDel->right;
 				parent = toDel->parent;
@@ -571,7 +585,7 @@ namespace ft {
 			}
 			else {
 				y = minimum(toDel->right);
-				saveColor = y->color;
+                rbTreeColor = y->color;
 				x = y->right;
 				if (y->parent == toDel)
 					parent = y;
@@ -586,19 +600,19 @@ namespace ft {
 				y->left->parent = y;
 				y->color = toDel->color;
 			}
-			ft_delete(toDel);
-			if (saveColor == BLACK && parent) {
+            ft_clear_rbtree(toDel);
+			if (rbTreeColor == BLACK && parent) {
 				deleteFix(x, parent);
 			}
 		}
 
-		bool isBlack(node *ptr) {
+		bool nodeIsBlack(node *ptr) {
 			return ((ptr == NULL) || (ptr && ptr->color == BLACK));
 		}
 
 		void deleteFix(node* x, node *parent) {
 			node *s;
-			while (parent && x != root_tree && isBlack(x)) {
+			while (parent && x != root_tree && nodeIsBlack(x)) {
 				if (x == parent->left) {
 					s = parent->right;
 					if (s && s->color == RED) {
@@ -607,12 +621,12 @@ namespace ft {
 						rotateLeft(s);
 						s = parent->right;
 					}
-					if (s && isBlack(s->left) && isBlack(s->right)) {
+					if (s && nodeIsBlack(s->left) && nodeIsBlack(s->right)) {
 						s->color = RED;
 						x = parent;
 						parent = parent->parent;
 					} else {
-						if (s && isBlack(s->right)) {
+						if (s && nodeIsBlack(s->right)) {
 							if (s->left)
 								s->left->color = BLACK;
 							s->color = RED;
@@ -635,12 +649,12 @@ namespace ft {
 						rotateRight(s);
 						s = parent->left;
 					}
-					if (s && isBlack(s->left) && isBlack(s->right)) {
+					if (s && nodeIsBlack(s->left) && nodeIsBlack(s->right)) {
 						s->color = RED;
 						x = parent;
 						parent = parent->parent;
 					} else {
-						if (s && isBlack(s->left)) {
+						if (s && nodeIsBlack(s->left)) {
 							if (s->right)
 								s->right->color = BLACK;
 							s->color = RED;
@@ -661,7 +675,7 @@ namespace ft {
 				x->color = BLACK;
 		}
 
-		void ft_delete(node *toDel) {
+		void ft_clear_rbtree(node *toDel) {
 			m_alloc.destroy(toDel);
 			m_alloc.deallocate(toDel, 1);
 		}
@@ -671,7 +685,7 @@ namespace ft {
 				return;
 			deleteTree(root->left);
 			deleteTree(root->right);
-			ft_delete(root);
+            ft_clear_rbtree(root);
 			root = NULL;
 		}
 
