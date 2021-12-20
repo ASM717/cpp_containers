@@ -108,7 +108,7 @@ int main()
 //    vector_test();
 //    stack_test();
 //    map_test();
-//	set_test();
+	set_test();
 //    system ("leaks ft_containers");
     return (0);
 }

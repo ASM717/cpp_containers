@@ -7,6 +7,8 @@
 #include "ft_set_iterator.hpp"
 #include "../ft_map/ft_pair.hpp"
 #include "../ft_vector/ft_iterator_utils.hpp"
+#include "ft_set_reverse_iterator.hpp"
+//#include "../ft_vector/ft_vector_reverse_iterator.hpp"
 
 namespace ft {
 	template< class Key,
@@ -15,6 +17,7 @@ namespace ft {
 	> class set {
 	public:
 		typedef Key                                                 value_type;
+        typedef Key key_type;
 		typedef Compare                                             key_compare;
 		typedef ft::Node<value_type>                                node;
 		typedef typename Allocator::template rebind<node>::other    allocator_type;
@@ -22,10 +25,11 @@ namespace ft {
 		typedef typename Allocator::const_reference	                const_reference;
 		typedef typename Allocator::pointer                         pointer;
 		typedef typename Allocator::const_pointer		            const_pointer;
+
 		typedef ft::SetIterator<value_type>                         iterator;
-		typedef ft::SetIterator<const value_type>              const_iterator;
-		typedef ft::ReverseSetIterator<iterator>                    reverse_iterator;
-		typedef ft::ReverseSetIterator<const_iterator>         const_reverse_iterator;
+		typedef ft::ConstSetIterator<const value_type>              const_iterator;
+		typedef ft::ReverseSetIterator<value_type>                  reverse_iterator;
+		typedef ft::ConstReverseSetIterator<const value_type>       const_reverse_iterator;
 		typedef ptrdiff_t								            difference_type;
 		typedef size_t									            size_type;
 
@@ -116,14 +120,18 @@ namespace ft {
 			return(NULL);
 		}
 		const_iterator begin() const {
-			node *tmp = getRootTree();
-			if (!tmp->left && !tmp->right)
-				return (end());
-			if (!tmp->left && tmp->right)
-				tmp = tmp->right;
-			while (tmp->left)
-				tmp = tmp->left;
-			return (const_iterator(tmp));
+//			node *tmp = getRootTree();
+//			if (!tmp->left && !tmp->right)
+//				return (end());
+//			if (!tmp->left && tmp->right)
+//				tmp = tmp->right;
+//			while (tmp->left)
+//				tmp = tmp->left;
+//			return (const_iterator(tmp));
+
+            if(this->getRootTree() != NULL)
+                return(const_iterator(min(this->getRootTree())));
+            return(NULL);
 		}
 
 		iterator end() {
@@ -140,11 +148,13 @@ namespace ft {
             //std::cout << i.node()->data << std::endl;
 			return (reverse_iterator(i.node()));
 		}
+
 		const_reverse_iterator rbegin() const {
 			return (const_reverse_iterator(rbegin()));
 		}
 
 		reverse_iterator rend() {
+//            std::cout << this->getRootTree()->data << std::endl;
 			return (reverse_iterator(this->getRootTree()));
 		}
 

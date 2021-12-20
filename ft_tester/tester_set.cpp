@@ -39,13 +39,13 @@ void set_all_test() {
 	std::cout << "FTS::end() = " << (*(--ft_set.end())) << std::endl;
 	std::cout << "STD::end() = " << (*(--std_set.end())) << std::endl;
 
-//	std::cout << "======================= REV BEGIN ======================" << std::endl;
-//	std::cout << "FTS::begin() = " << (*ft_set.rbegin()) << std::endl;
-//	std::cout << "STD::begin() = " << (*std_set.rbegin()) << std::endl;
-//
-//	std::cout << "======================== REV END =======================" << std::endl;
-//	std::cout << "FTS::end() = " << (*(--ft_set.rend())) << std::endl;
-//	std::cout << "STD::end() = " << (*(--std_set.rend())) << std::endl;
+	std::cout << "======================= REV BEGIN ======================" << std::endl;
+	std::cout << "FTS::begin() = " << (*ft_set.rbegin()) << std::endl;
+	std::cout << "STD::begin() = " << (*std_set.rbegin()) << std::endl;
+
+	std::cout << "======================== REV END =======================" << std::endl;
+	std::cout << "FTS::end() = " << (*(--ft_set.rend())) << std::endl;
+	std::cout << "STD::end() = " << (*(--std_set.rend())) << std::endl;
 
 	std::cout << "======================= MAX SIZE =======================" << std::endl;
 	std::cout << "FTS::max_size() = " << ft_set.max_size() << std::endl;
