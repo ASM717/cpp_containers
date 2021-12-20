@@ -12,8 +12,7 @@
 #include "../ft_vector/ft_iterator_utils.hpp"
 
 namespace ft {
-	template<
-			class Key,
+	template< class Key,
 			class Compare = std::less<Key>,
 			class Allocator = std::allocator<Key>
 	> class set {
@@ -173,8 +172,9 @@ namespace ft {
 			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
 		}
 
-		pair<iterator,bool> insert (const value_type& val) {
-
+		pair<iterator, bool> insert (const value_type& val) {
+			iterator tmp = insert_for_map_func(val);
+			return (ft::make_pair(tmp, true));
 		}
 
 		iterator insert (iterator position, const value_type& val) {
