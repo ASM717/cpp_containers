@@ -28,5 +28,6 @@ add_executable(cpp_containers
         ft_map/ft_node.hpp
 
         ft_set/ft_set.hpp
+        ft_set/ft_set_iterator.hpp
 
         main.cpp)
