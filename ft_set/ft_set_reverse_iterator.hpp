@@ -181,6 +181,7 @@ namespace ft {
         {
             return (node_pointer);
         };
+    private:
         const_pointer inc(const_pointer ptr) {
             const_pointer nextPtr;
             if (!ptr->right)
@@ -212,6 +213,7 @@ namespace ft {
             return (prevPtr);
         }
 
+    public:
         bool operator==(ConstReverseSetIterator const &ref) const {
             return (this->node_pointer == ref.node_pointer);
         }

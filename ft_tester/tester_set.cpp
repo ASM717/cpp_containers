@@ -55,11 +55,11 @@ void set_all_test() {
 	std::cout << "FTS::size() = " << ft_set.size() << std::endl;
 	std::cout << "STD::size() = " << std_set.size() << std::endl;
 
-//	std::cout << "========================= FIND =========================" << std::endl;
-//	ft::set<int>::iterator ft_iter;
-//	ft_iter = ft_set.find(1);
-//	std::set<int>::iterator std_it;
-//	std_it = std_set.find(1);
+	std::cout << "========================= FIND =========================" << std::endl;
+	ft::set<int>::iterator ft_iter;
+	ft_iter = ft_set.find(1);
+	std::set<int>::iterator std_it;
+	std_it = std_set.find(1);
 
 //	std::cout << "======================= ERASE - 1 ======================" << std::endl;
 //	ft_set.erase(ft_iter);

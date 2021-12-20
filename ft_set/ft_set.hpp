@@ -17,7 +17,7 @@ namespace ft {
 	> class set {
 	public:
 		typedef Key                                                 value_type;
-        typedef Key key_type;
+//        typedef Key key_type;
 		typedef Compare                                             key_compare;
 		typedef ft::Node<value_type>                                node;
 		typedef typename Allocator::template rebind<node>::other    allocator_type;
@@ -239,7 +239,7 @@ namespace ft {
 			return (value_compare(getMCompare()));
 		}
 
-		iterator find (const value_type& val) const {
+		iterator find (const value_type& val) const{
 			if (empty())
 				return (end());
 			node *tmp = find_need_elem(val, this->getRootTree());
@@ -287,7 +287,7 @@ namespace ft {
 		}
 
 	private:
-		node *find_need_elem(Key key, node *entry_pos) const {
+		node *find_need_elem(Key key, node *entry_pos) {
 			if (entry_pos == NULL)
 				return (NULL);
 			else if (key == entry_pos->data)

@@ -179,7 +179,7 @@ namespace ft {
         const_pointer node(void)
 		{
 			return (node_pointer);
-		};
+		}
     private:
         const_pointer inc(const_pointer ptr) {
             const_pointer nextPtr;
