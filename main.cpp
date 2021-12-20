@@ -99,8 +99,8 @@ void map_test() {
 void set_test() {
 	std::cout << "========================== SET =========================" << std::endl;
 	set_all_test();
-	set_swap_test();
-	set_count_test();
+//	set_swap_test();
+//	set_count_test();
 }
 
 int main()
@@ -108,7 +108,7 @@ int main()
 //    vector_test();
 //    stack_test();
 //    map_test();
-	set_test();
+//	set_test();
 //    system ("leaks ft_containers");
     return (0);
 }

@@ -23,9 +23,9 @@ namespace ft {
 		typedef typename Allocator::pointer                         pointer;
 		typedef typename Allocator::const_pointer		            const_pointer;
 		typedef ft::SetIterator<value_type>                         iterator;
-		typedef ft::ConstSetIterator<const value_type>              const_iterator;
+		typedef ft::SetIterator<const value_type>              const_iterator;
 		typedef ft::ReverseSetIterator<iterator>                    reverse_iterator;
-		typedef ft::ConstReverseSetIterator<const_iterator>         const_reverse_iterator;
+		typedef ft::ReverseSetIterator<const_iterator>         const_reverse_iterator;
 		typedef ptrdiff_t								            difference_type;
 		typedef size_t									            size_type;
 
@@ -129,6 +129,7 @@ namespace ft {
 		iterator end() {
 			return(iterator(this->getLastElem()));
 		}
+
 		const_iterator end() const {
 			return(const_iterator(this->getLastElem()));
 		}
@@ -136,6 +137,7 @@ namespace ft {
 		reverse_iterator rbegin() {
 			iterator i = end();
 			i--;
+            //std::cout << i.node()->data << std::endl;
 			return (reverse_iterator(i.node()));
 		}
 		const_reverse_iterator rbegin() const {
@@ -236,17 +238,19 @@ namespace ft {
 			return (iterator(tmp));
 		}
 
-		size_type count (const value_type& val) const {
+//		size_type count (const value_type& val) const {
 //			size_type counter = 0;
 //
 //			for (iterator iter = begin(); iter != end(); ++iter) {
-//				if (iter == val)
+//				if (iter.node()->data == val)
 //					++counter;
 //			}
 //			return (counter);
-			iterator it = find(val);
-			return (it == end() ? 0 : 1);
-		}
+
+
+//			iterator it = find(val);
+//			return (it == end() ? 0 : 1);
+//		}
 
 		iterator lower_bound (const value_type& val) const {
 			for (iterator iter = begin(); iter != end(); ++iter) {
@@ -273,7 +277,7 @@ namespace ft {
 		}
 
 	private:
-		node *find_need_elem(Key key, node *entry_pos) {
+		node *find_need_elem(Key key, node *entry_pos) const {
 			if (entry_pos == NULL)
 				return (NULL);
 			else if (key == entry_pos->data)

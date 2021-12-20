@@ -4,7 +4,7 @@
 #include "../ft_map/ft_node.hpp"
 
 namespace ft {
-	template<class T>
+	template<typename T>
 	class SetIterator {
 		typedef T value_type;
 		typedef Node<value_type> *pointer;
@@ -121,15 +121,15 @@ namespace ft {
 	template<class T>
 	class ConstSetIterator {
 		typedef T value_type;
-		typedef Node<value_type> *pointer;
+		typedef Node<value_type> *const_pointer;
 
 	private:
-		pointer node_pointer;
+        const_pointer node_pointer;
 
 	public:
 		ConstSetIterator() : node_pointer(NULL) {};
 
-		ConstSetIterator(const pointer ptr) : node_pointer(ptr){};
+		ConstSetIterator(const const_pointer ptr) : node_pointer(ptr){};
 
 		ConstSetIterator(const ConstSetIterator &ref) {*this = ref;}
 
@@ -176,12 +176,12 @@ namespace ft {
 			return (tmp);
 		}
 
-		pointer node(void)
+        const_pointer node(void)
 		{
 			return (node_pointer);
 		};
-		pointer inc(pointer ptr) {
-			pointer nextPtr;
+        const_pointer inc(const_pointer ptr) {
+            const_pointer nextPtr;
 			if (!ptr->right)
 			{
 				nextPtr = ptr;
@@ -196,8 +196,8 @@ namespace ft {
 			return (nextPtr);
 		}
 
-		pointer dec(pointer ptr) {
-			pointer prevPtr;
+        const_pointer dec(const_pointer ptr) {
+            const_pointer prevPtr;
 			if (!ptr->left) {
 				prevPtr = ptr;
 				while (prevPtr == prevPtr->parent->left && prevPtr->parent)
@@ -348,15 +348,15 @@ namespace ft {
 	template<class T>
 	class ConstReverseSetIterator {
 		typedef T value_type;
-		typedef Node<value_type> *pointer;
+		typedef Node<value_type> *const_pointer;
 
 	private:
-		pointer node_pointer;
+        const_pointer node_pointer;
 
 	public:
 		ConstReverseSetIterator() : node_pointer(NULL) {};
 
-		ConstReverseSetIterator(const pointer ptr) : node_pointer(ptr){};
+		ConstReverseSetIterator(const const_pointer ptr) : node_pointer(ptr){};
 
 		ConstReverseSetIterator(const ConstReverseSetIterator &ref) {*this = ref;}
 
@@ -403,12 +403,12 @@ namespace ft {
 			return (tmp);
 		}
 
-		pointer node(void)
+        const_pointer node(void)
 		{
 			return (node_pointer);
 		};
-		pointer inc(pointer ptr) {
-			pointer nextPtr;
+        const_pointer inc(const_pointer ptr) {
+            const_pointer nextPtr;
 			if (!ptr->right)
 			{
 				nextPtr = ptr;
@@ -423,8 +423,8 @@ namespace ft {
 			return (nextPtr);
 		}
 
-		pointer dec(pointer ptr) {
-			pointer prevPtr;
+        const_pointer dec(const_pointer ptr) {
+            const_pointer prevPtr;
 			if (!ptr->left) {
 				prevPtr = ptr;
 				while (prevPtr == prevPtr->parent->left && prevPtr->parent)
