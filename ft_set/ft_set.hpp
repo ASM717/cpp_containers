@@ -2,11 +2,8 @@
 #define FT_SET_HPP
 
 #include <iostream>
-//#include "../ft_map/ft_less.hpp"
 #include "../ft_map/ft_node.hpp"
 #include "../ft_vector/ft_algorithm.hpp"
-//#include "../ft_map/ft_bidirectional_iterator.hpp"
-//#include "../ft_rev_bidir_iter.hpp"
 #include "ft_set_iterator.hpp"
 #include "../ft_map/ft_pair.hpp"
 #include "../ft_vector/ft_iterator_utils.hpp"
@@ -16,18 +13,17 @@ namespace ft {
 			class Compare = std::less<Key>,
 			class Allocator = std::allocator<Key>
 	> class set {
-//		typedef Key                                                 key_type;
+	public:
 		typedef Key                                                 value_type;
 		typedef Compare                                             key_compare;
 		typedef ft::Node<value_type>                                node;
-//		typedef ft::pair<const Key, Key>                              value_type;
 		typedef typename Allocator::template rebind<node>::other    allocator_type;
 		typedef typename Allocator::reference			            reference;
 		typedef typename Allocator::const_reference	                const_reference;
 		typedef typename Allocator::pointer                         pointer;
 		typedef typename Allocator::const_pointer		            const_pointer;
-		typedef ft::SetIterator<const Key>                          iterator;
-		typedef ft::ConstSetIterator<const Key>                     const_iterator;
+		typedef ft::SetIterator<value_type>                         iterator;
+		typedef ft::ConstSetIterator<const value_type>              const_iterator;
 		typedef ft::ReverseSetIterator<iterator>                    reverse_iterator;
 		typedef ft::ConstReverseSetIterator<const_iterator>         const_reverse_iterator;
 		typedef ptrdiff_t								            difference_type;
@@ -83,10 +79,6 @@ namespace ft {
 		set() : root_tree(NULL), last_elem(NULL), elem(NULL), m_compare(std::less<Key >()),
 				m_alloc(std::allocator<node>()), m_size(0) {}
 
-//		explicit set (const key_compare& comp = key_compare(),
-//					  const allocator_type& alloc = allocator_type()) {
-//
-//		}
 		explicit set(value_type value) : root_tree(m_alloc.allocate(1)), last_elem(NULL),
 		elem(NULL), m_compare(std::less<Key >()), m_alloc(std::allocator<node>()), m_size(0) {
 			m_alloc.construct(root_tree, node(value));
@@ -169,7 +161,8 @@ namespace ft {
 		}
 
 		size_type max_size() const {
-			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
+//			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
+			return (this->getMAlloc().max_size());
 		}
 
 		pair<iterator, bool> insert (const value_type& val) {
@@ -244,13 +237,15 @@ namespace ft {
 		}
 
 		size_type count (const value_type& val) const {
-			size_type counter = 0;
-
-			for (const_iterator iter = begin(); iter != end(); ++iter) {
-				if (iter->first == val)
-					++counter;
-			}
-			return (counter);
+//			size_type counter = 0;
+//
+//			for (iterator iter = begin(); iter != end(); ++iter) {
+//				if (iter == val)
+//					++counter;
+//			}
+//			return (counter);
+			iterator it = find(val);
+			return (it == end() ? 0 : 1);
 		}
 
 		iterator lower_bound (const value_type& val) const {
@@ -278,23 +273,23 @@ namespace ft {
 		}
 
 	private:
-		node *find_need_elem(Key key, node *entry_pos){
+		node *find_need_elem(Key key, node *entry_pos) {
 			if (entry_pos == NULL)
 				return (NULL);
-			else if (key == entry_pos->data.first)
+			else if (key == entry_pos->data)
 				return (entry_pos);
-			else if (m_compare(key, entry_pos->data.first))
+			else if (m_compare(key, entry_pos->data))
 				return (find_need_elem(key, entry_pos->left));
 			else
 				return (find_need_elem(key, entry_pos->right));
 		}
 
-		bool toPass(value_type data, node *entry_pos){
+		bool toPass(value_type data, node *entry_pos) {
 			if (entry_pos == NULL)
 				return(true);
-			else if (data.first == entry_pos->data.first)
+			else if (data == entry_pos->data)
 				return (false);
-			else if (m_compare(data.first, entry_pos->data.first))
+			else if (m_compare(data, entry_pos->data))
 				return (toPass(data, entry_pos->left));
 			else
 				return (toPass(data, entry_pos->right));
@@ -303,9 +298,9 @@ namespace ft {
 		node *keyFound(value_type data, node *entry_pos) {
 			if (entry_pos == NULL)
 				return (NULL);
-			else if (data.first == entry_pos->data.first)
+			else if (data == entry_pos->data)
 				return (entry_pos);
-			else if (m_compare(data.first, entry_pos->data.first))
+			else if (m_compare(data, entry_pos->data))
 				return (keyFound(data, entry_pos->left));
 			else
 				return (keyFound(data, entry_pos->right));
@@ -351,7 +346,7 @@ namespace ft {
 			node_elem->parent = entry_pos;
 			entry_pos->right = node_elem;
 			insert_node_fix(node_elem);
-			if (node_elem->data.first > tmp->data.first) {
+			if (node_elem->data > tmp->data) {
 				node_elem->right = last_elem;
 				this->getLastElem()->parent = node_elem;
 			} else {
@@ -370,9 +365,9 @@ namespace ft {
 				node *tmp;
 				tmp = this->getLastElem()->parent;
 				tmp->right = NULL;
-				if (m_compare(node_elem->data.first, entry_pos->data.first)) {
+				if (m_compare(node_elem->data, entry_pos->data)) {
 					insert_2(node_elem, entry_pos, tmp);
-				} else if (node_elem->data.first == entry_pos->data.first) {
+				} else if (node_elem->data == entry_pos->data) {
 					this->getLastElem()->parent = tmp;
 					tmp->right = last_elem;
 					return (NULL);
@@ -477,9 +472,9 @@ namespace ft {
 			node *x;
 			node *y;
 			while (del != NULL) {
-				if (del->data.first == data.first)
+				if (del->data == data)
 					break;
-				if (!m_compare(del->data.first, data.first))
+				if (!m_compare(del->data, data))
 					del = del->left;
 				else
 					del = del->right;

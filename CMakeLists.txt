@@ -10,6 +10,7 @@ add_executable(cpp_containers
         ft_tester/tester_stack.cpp
         ft_tester/tester_vector.cpp
         ft_tester/tester_map.cpp
+        ft_tester/tester_set.cpp
 
         ft_vector/ft_algorithm.hpp
         ft_vector/ft_iterator_utils.hpp

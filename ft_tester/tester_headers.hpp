@@ -77,4 +77,9 @@ void map_speed_test();
 /* VISUAL TREE*/
 void map_red_black_tree_test();
 
+/* SET */
+void set_all_test();
+void set_swap_test();
+void set_count_test();
+
 #endif

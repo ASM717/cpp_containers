@@ -33,8 +33,8 @@ void map_all_test() {
     std::cout << "STD::end() = " << (*(--std_map.end())).first << " " << (*(--std_map.end())).second  << std::endl;
 
 	std::cout << "======================= REV BEGIN ======================" << std::endl;
-	 std::cout << "FTM::begin() = " << (*ft_map.rbegin()).first << " " << (*ft_map.rbegin()).second << std::endl;
-	 std::cout << "STD::begin() = " << (*std_map.rbegin()).first << " " <<  (*std_map.rbegin()).second << std::endl;
+	std::cout << "FTM::begin() = " << (*ft_map.rbegin()).first << " " << (*ft_map.rbegin()).second << std::endl;
+	std::cout << "STD::begin() = " << (*std_map.rbegin()).first << " " <<  (*std_map.rbegin()).second << std::endl;
 
 	std::cout << "======================== REV END =======================" << std::endl;
 	std::cout << "FTM::end() = " << (*(--ft_map.rend())).first << " " << (*(--ft_map.rend())).second << std::endl;

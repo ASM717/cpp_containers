@@ -65,7 +65,8 @@ namespace ft {
 		pointer node(void)
 		{
 			return (node_pointer);
-		};
+		}
+
 		pointer inc(pointer ptr) {
 			pointer nextPtr;
 			if (!ptr->right)
@@ -291,7 +292,8 @@ namespace ft {
 		pointer node(void)
 		{
 			return (node_pointer);
-		};
+		}
+
 		pointer inc(pointer ptr) {
 			pointer nextPtr;
 			if (!ptr->right)

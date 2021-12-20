@@ -146,6 +146,7 @@ namespace ft {
 		iterator end() {
 			return(iterator(this->getLastElem()));
 		}
+
 		const_iterator end() const {
 			return(const_iterator(this->getLastElem()));
 		}
@@ -156,15 +157,15 @@ namespace ft {
             return (reverse_iterator(i.node()));
 		 }
         const_reverse_iterator rbegin() const {
-        return (const_reverse_iterator(rbegin()));
+        	return (const_reverse_iterator(rbegin()));
         }
 
         reverse_iterator rend() {
-         return (reverse_iterator(this->getRootTree()));
+			return (reverse_iterator(this->getRootTree()));
         }
 
         const_reverse_iterator rend() const {
-         return (const_reverse_iterator(this->getRootTree()));
+			return (const_reverse_iterator(this->getRootTree()));
         }
 
 		bool empty() const {
@@ -179,6 +180,7 @@ namespace ft {
 
 		size_type max_size() const {
 			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
+			//return (this->getMAlloc().max_size());
 		}
 
 		// // https://www.cplusplus.com/reference/map/map/operator[]/

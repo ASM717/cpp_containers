@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include <iostream>
-#include <vector>
+
 
 #include "ft_tester/tester_vector.cpp"
 #include "ft_tester/tester_stack.cpp"
 #include "ft_tester/tester_map.cpp"
+#include "ft_tester/tester_set.cpp"
 
 //template<typename T>
 //void std_print_vector(const std::vector<T> &std_vector) {
@@ -95,11 +96,19 @@ void map_test() {
     map_red_black_tree_test();
 }
 
+void set_test() {
+	std::cout << "========================== SET =========================" << std::endl;
+	set_all_test();
+	set_swap_test();
+	set_count_test();
+}
+
 int main()
 {
 //    vector_test();
 //    stack_test();
-    map_test();
+//    map_test();
+	set_test();
 //    system ("leaks ft_containers");
     return (0);
 }
