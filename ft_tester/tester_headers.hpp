@@ -81,5 +81,7 @@ void map_red_black_tree_test();
 void set_all_test();
 void set_swap_test();
 void set_count_test();
+void set_bound_test();
+void set_equal_range_test();
 
 #endif

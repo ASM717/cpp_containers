@@ -6,6 +6,7 @@
 #include "../ft_vector/ft_algorithm.hpp"
 #include "ft_set_iterator.hpp"
 #include "../ft_map/ft_pair.hpp"
+//#include "ft_pair_set.hpp"
 #include "../ft_vector/ft_iterator_utils.hpp"
 #include "ft_set_reverse_iterator.hpp"
 //#include "../ft_vector/ft_vector_reverse_iterator.hpp"
@@ -49,6 +50,7 @@ namespace ft {
 	private:
 		node				*root_tree;
 		node				*last_elem;
+		node                *first_elem;
 		node				*elem;
 		Compare				m_compare;
 		allocator_type 		m_alloc;
@@ -61,6 +63,11 @@ namespace ft {
 
 		node *getLastElem() const {
 			return (last_elem);
+		}
+
+		node *getFirstElem() const
+		{
+			return (first_elem);
 		}
 
 		node *getElem() const {
@@ -114,24 +121,71 @@ namespace ft {
 			return (*this);
 		}
 
+		void display(void) {
+			displayTree(root_tree, "", true);
+		}
+
+	void displayTree(node *root, std::string indent, bool last) {
+		if (root != NULL) {
+			std::cout << indent;
+			if (last) {
+				std::cout << "R----";
+				indent += "   ";
+			} else {
+				std::cout << "L----";
+				indent += "|  ";
+			}
+			std::string nodeColor = root->color ? RED_COLOR : BLACK_COLOR;
+			std::cout << nodeColor << root->data << RESET_COLOR << std::endl;
+			displayTree(root->left, indent, false);
+			displayTree(root->right, indent, true);
+		}
+	}
+
+		void printTreeHelper(node *root, int space)
+		{
+			int i;
+			if(root != NULL)
+			{
+				space = space + 10;
+				printTreeHelper(root->right, space);
+				std::cout << std::endl;
+				for ( i = 10; i < space; i++)
+				{
+					std::cout << " ";
+				}
+				if(root == this->root_tree)
+					std::cout << "root  " << root->color << "  "<< root->data << std::endl;
+					// else
+					//     std::cout << root->color << "  " << root->_pair.first << std::endl;
+				else
+				{
+					if(root != this->first_elem && root != this->last_elem)
+						std::cout << root->color << "  " << root->data << std::endl;
+				}
+				std::cout << std::endl;
+				printTreeHelper(root->left, space);
+			}
+		}
+
 		iterator begin() {
 			if(this->getRootTree() != NULL)
-				return(iterator(min(this->getRootTree())));
+				return(iterator(recursiveMin(this->getRootTree())));
 			return(NULL);
 		}
 		const_iterator begin() const {
-//			node *tmp = getRootTree();
-//			if (!tmp->left && !tmp->right)
-//				return (end());
-//			if (!tmp->left && tmp->right)
-//				tmp = tmp->right;
-//			while (tmp->left)
-//				tmp = tmp->left;
-//			return (const_iterator(tmp));
+			node *tmp = getRootTree();
+			if (!tmp->left && !tmp->right)
+				return (end());
+			if (!tmp->left && tmp->right)
+				tmp = tmp->right;
+			while (tmp->left)
+				tmp = tmp->left;
+			return (const_iterator(tmp));
 
-            if(this->getRootTree() != NULL)
-                return(const_iterator(min(this->getRootTree())));
-            return(NULL);
+//            if(this->getRootTree() != NULL)
+//                return(const_iterator(min(this->getRootTree())));
+//            return(NULL);
 		}
 
 		iterator end() {
@@ -143,23 +197,23 @@ namespace ft {
 		}
 
 		reverse_iterator rbegin() {
-			iterator i = end();
-			i--;
-            //std::cout << i.node()->data << std::endl;
-			return (reverse_iterator(i.node()));
+//			iterator i = end();
+//			i--;
+//            //std::cout << i.node()->data << std::endl;
+//			return (reverse_iterator(i.node()));
+			return(reverse_iterator(this->getLastElem()));
 		}
 
 		const_reverse_iterator rbegin() const {
-			return (const_reverse_iterator(rbegin()));
+			return(const_reverse_iterator(this->getLastElem()));
 		}
 
 		reverse_iterator rend() {
-//            std::cout << this->getRootTree()->data << std::endl;
-			return (reverse_iterator(this->getRootTree()));
+			return (reverse_iterator(this->getFirstElem()));
 		}
 
 		const_reverse_iterator rend() const {
-			return (const_reverse_iterator(this->getRootTree()));
+			return (const_reverse_iterator(this->getFirstElem()));
 		}
 
 		bool empty() const {
@@ -239,7 +293,7 @@ namespace ft {
 			return (value_compare(getMCompare()));
 		}
 
-		iterator find (const value_type& val) const{
+		iterator find (const value_type& val) {
 			if (empty())
 				return (end());
 			node *tmp = find_need_elem(val, this->getRootTree());
@@ -248,38 +302,75 @@ namespace ft {
 			return (iterator(tmp));
 		}
 
-//		size_type count (const value_type& val) const {
-//			size_type counter = 0;
-//
+		const_iterator find (const value_type& val) const {
+			if (empty())
+				return (end());
+			node *tmp = find_need_elem(val, this->getRootTree());
+			if (tmp == NULL)
+				return (end());
+			return (const_iterator(tmp));
+		}
+
+		size_type count (const value_type& val) const {
+			if(!this->getRootTree())
+				return (0);
+			return (find_need_elem(val, this->getRootTree()) ? 1 : 0);
+		}
+
+		iterator lower_bound (const value_type& val) {
 //			for (iterator iter = begin(); iter != end(); ++iter) {
-//				if (iter.node()->data == val)
-//					++counter;
+//				if (this->m_compare(iter, val) <= 0)
+//					return (iter);
 //			}
-//			return (counter);
+//			return (end());
 
-
-//			iterator it = find(val);
-//			return (it == end() ? 0 : 1);
-//		}
-
-		iterator lower_bound (const value_type& val) const {
-			for (iterator iter = begin(); iter != end(); ++iter) {
-				if (this->m_compare(iter->first, val) <= 0)
-					return (iter);
+			if(this->root_tree != NULL)
+			{
+				for(iterator tmp = this->begin(); tmp != this->end(); tmp++)
+				{
+					if(*tmp >= val)
+						return(tmp);
+				}
 			}
-			return (end());
+			return(this->end());
 		}
 
-		iterator upper_bound (const value_type& val) const {
-			for (iterator iter = begin(); iter != end(); ++iter) {
-				if (iter->first != val && this->m_compare(iter->first, val) <= 0)
-					return (iter);
+		const_iterator lower_bound(const value_type& val) const {
+			if(this->root_tree != NULL)
+			{
+				for(const_iterator tmp = this->begin(); tmp != this->end(); tmp++)
+				{
+					if(*tmp >= val)
+						return(tmp);
+				}
 			}
-			return (end());
+			return(this->end());
 		}
 
-		pair<iterator, iterator> equal_range (const value_type& val) const {
+		iterator upper_bound (const value_type& val) {
+			for(iterator tmp = this->begin(); tmp != this->end(); tmp++)
+			{
+				if(*tmp > val)
+					return(tmp);
+			}
+			return(this->end());
+		}
+
+		const_iterator upper_bound(const value_type& val) const {
+			for(const_iterator tmp = this->begin(); tmp != this->end(); tmp++)
+			{
+				if(*tmp > val)
+					return(tmp);
+			}
+			return(this->end());
+		}
+
+		pair<iterator, iterator> equal_range (const value_type& val) {
 			return (ft::pair<iterator, iterator>(lower_bound(val), upper_bound(val)));
+		}
+
+		pair<const_iterator, const_iterator> equal_range(const value_type& val) const {
+			return (ft::pair<const_iterator, const_iterator>(lower_bound(val), upper_bound(val)));
 		}
 
 		allocator_type get_allocator() const {
@@ -287,7 +378,7 @@ namespace ft {
 		}
 
 	private:
-		node *find_need_elem(Key key, node *entry_pos) {
+		node *find_need_elem(Key key, node *entry_pos) const {
 			if (entry_pos == NULL)
 				return (NULL);
 			else if (key == entry_pos->data)
@@ -337,9 +428,13 @@ namespace ft {
 		void *insert_1(node *node_elem) {
 			root_tree = node_elem;
 			last_elem = this->getMAlloc().allocate(1);
-			this->getMAlloc().construct(this->getLastElem(), node(node_elem->data));
+			first_elem = this->getMAlloc().allocate(1);
+			this->getMAlloc().construct(last_elem, node(node_elem->data));
+			this->getMAlloc().construct(first_elem, node(node_elem->data));
 			this->getRootTree()->right = last_elem;
-			this->getLastElem()->parent = root_tree;
+			this->last_elem->parent = root_tree;
+			this->getRootTree()->left = first_elem;
+			this->first_elem->parent = root_tree;
 			return (this->getRootTree());
 		}
 
@@ -352,20 +447,35 @@ namespace ft {
 				insert_node_fix(node_elem);
 				this->getLastElem()->parent = tmp;
 				tmp->right = last_elem;
+
+				///
+//				this->getFirstElem()->parent = temp;
+//				tmp->left = first_elem;
 			}
 			return (node_elem);
 		}
 
-		void *insert_3(node *node_elem, node *entry_pos, node *tmp) {
+		void *insert_3(node *node_elem, node *entry_pos, node *tmp, node *temp) {
 			node_elem->parent = entry_pos;
 			entry_pos->right = node_elem;
 			insert_node_fix(node_elem);
 			if (node_elem->data > tmp->data) {
 				node_elem->right = last_elem;
 				this->getLastElem()->parent = node_elem;
-			} else {
+				temp->left = first_elem;
+				this->getFirstElem()->parent = temp;
+			}
+			else if(node_elem->data < temp->data) {
+				node_elem->left = first_elem;
+				this->getFirstElem()->parent = node_elem;
 				tmp->right = last_elem;
 				this->getLastElem()->parent = tmp;
+			}
+			else {
+				tmp->right = last_elem;
+				temp->left = first_elem;
+				this->getLastElem()->parent = tmp;
+				this->getFirstElem()->parent = temp;
 			}
 			return (node_elem);
 		}
@@ -375,24 +485,106 @@ namespace ft {
 				return (NULL);
 			if (entry_pos == NULL) {
 				insert_1(node_elem);
-			} else {
-				node *tmp;
-				tmp = this->getLastElem()->parent;
+			}
+//			if(node_elem->data == entry_pos->data)
+//				return(NULL);
+			else
+			{
+				node *tmp = last_elem->parent;
+				node *tmp2 = first_elem->parent;
 				tmp->right = NULL;
-				if (m_compare(node_elem->data, entry_pos->data)) {
-					insert_2(node_elem, entry_pos, tmp);
-				} else if (node_elem->data == entry_pos->data) {
-					this->getLastElem()->parent = tmp;
+				tmp2->left = NULL;
+				if(find_need_elem(node_elem->data, this->root_tree))
+				{
 					tmp->right = last_elem;
-					return (NULL);
-				} else {
-					if (entry_pos->right)
-						insertElement(node_elem, entry_pos->right);
-					else {
-						insert_3(node_elem, entry_pos, tmp);
+					tmp2->left = first_elem;
+					return NULL;
+				}
+				else
+				{
+
+					if (node_elem->data < entry_pos->data)
+					{
+						if (entry_pos->left)
+							insertElement(node_elem, entry_pos->left);
+						else
+						{
+							node_elem->parent = entry_pos;
+							entry_pos->left = node_elem;
+							insert_node_fix(node_elem);
+						}
 					}
+					if (node_elem->data > entry_pos->data)
+					{
+						if (entry_pos->right)
+							insertElement(node_elem, entry_pos->right);
+						else
+						{
+							node_elem->parent = entry_pos;
+							entry_pos->right = node_elem;
+							insert_node_fix(node_elem);
+						}
+					}
+
+					if(node_elem->data > tmp->data)
+					 {
+						 node_elem->right = last_elem;
+					     last_elem->parent = node_elem;
+
+					     tmp2->left = first_elem;
+					     first_elem->parent = tmp2;
+					 }
+					 else if(node_elem->data < tmp2->data)
+					 {
+						 node_elem->left = first_elem;
+						 first_elem->parent = node_elem;
+
+					     tmp->right = last_elem;
+						 last_elem->parent = tmp;
+					 }
+					 else
+					 {
+					     tmp2->left = first_elem;
+						 first_elem->parent = tmp2;
+
+					     tmp->right = last_elem;
+						 last_elem->parent = tmp;
+					 }
+//					insert_3(node_elem, entry_pos, tmp, tmp2);
 				}
 			}
+//			} else {
+//				node *tmp;
+//				node *temp;
+//				tmp = this->last_elem->parent;
+//				temp = this->first_elem->parent;
+//				tmp->right = NULL;
+//				temp->left = NULL;
+//				if(find_need_elem(node_elem->data, this->root_tree))
+//				{
+//					tmp->right = last_elem;
+//					temp->left = first_elem;
+//					return NULL;
+//				}
+//				else {
+//
+//				if (m_compare(node_elem->data, entry_pos->data)) {
+//					insert_2(node_elem, entry_pos, tmp);
+//				} else if (node_elem->data == entry_pos->data) {
+////					this->getLastElem()->parent = tmp;
+////					this->getFirstElem()->parent = temp;
+//					tmp->right = last_elem;
+//					temp->left = first_elem;
+//					return (NULL);
+//				} else {
+//					if (entry_pos->right)
+//						insertElement(node_elem, entry_pos->right);
+//					else {
+//						insert_3(node_elem, entry_pos, tmp, temp);
+//					}
+//				}
+//					}
+//			}
 			return (node_elem);
 		}
 
@@ -474,8 +666,13 @@ namespace ft {
 		}
 
 		node *recursiveMin(node *entry_pos) {
+			node *tmp = this->first_elem->parent;
+			tmp->left = NULL;
+
 			if (entry_pos->left)
 				return (recursiveMin(entry_pos->left));
+
+			tmp->left = first_elem;
 			return (entry_pos);
 		}
 

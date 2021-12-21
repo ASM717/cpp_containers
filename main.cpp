@@ -99,8 +99,10 @@ void map_test() {
 void set_test() {
 	std::cout << "========================== SET =========================" << std::endl;
 	set_all_test();
-//	set_swap_test();
-//	set_count_test();
+	set_swap_test();
+	set_count_test();
+	set_bound_test();
+	set_equal_range_test();
 }
 
 int main()

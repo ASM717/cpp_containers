@@ -42,12 +42,12 @@ namespace ft {
         }
 
         ReverseSetIterator &operator++() {
-            node_pointer = inc(node_pointer);
+            node_pointer = dec(node_pointer);
             return (*this);
         }
 
         ReverseSetIterator &operator--() {
-            node_pointer = dec(node_pointer);
+            node_pointer = inc(node_pointer);
             return (*this);
         }
 
@@ -156,12 +156,12 @@ namespace ft {
         }
 
         ConstReverseSetIterator &operator++() {
-            node_pointer = inc(node_pointer);
+            node_pointer = dec(node_pointer);
             return (*this);
         }
 
         ConstReverseSetIterator &operator--() {
-            node_pointer = dec(node_pointer);
+            node_pointer = inc(node_pointer);
             return (*this);
         }
 
