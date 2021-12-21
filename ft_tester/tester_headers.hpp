@@ -83,5 +83,6 @@ void set_swap_test();
 void set_count_test();
 void set_bound_test();
 void set_equal_range_test();
+void set_comparison_operator_test();
 
 #endif
