@@ -170,7 +170,7 @@ namespace ft {
             this->operator--();
             return (tmp);
         }
-
+    private:
         const_pointer inc(const_pointer ptr) {
             const_pointer nextPtr;
             if (!ptr->right) {
@@ -200,7 +200,7 @@ namespace ft {
             }
             return (prevPtr);
         }
-
+    public:
         bool operator==(ConstReverseBidirectionalIterator const &ref) const {
             return (this->node_pointer == ref.node_pointer);
         }

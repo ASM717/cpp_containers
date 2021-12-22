@@ -17,24 +17,23 @@
 
 // last_elem-in first-out (LIFO)
 namespace ft {
-	template <class T, class Container = ft::vector<T> >
-	class stack {
+	template <class T, class Container = ft::vector<T>
+	> class stack {
+	public:
 		typedef T         value_type;
 		typedef Container container_type;
 		typedef size_t    size_type;
-
-	private:
-		container_type m_cont;
-
+	protected:
+		container_type c;
 	public:
-		explicit stack (const container_type& cont = container_type()) : m_cont(cont) {}
+		explicit stack (const container_type& cont = container_type()) : c(cont) {}
 		stack(const stack &ref) {
-			m_cont = ref.m_cont;
+			c = ref.c;
 		}
 		stack &operator=(const stack &ref) {
 			if (this == ref)
 				return (*this);
-			m_cont = ref.m_cont;
+			c = ref.c;
 			return (*this);
 		}
 
@@ -43,27 +42,27 @@ namespace ft {
 		}
 
 		bool empty() const {
-			return (m_cont.empty());
+			return (c.empty());
 		}
 
 		size_type size() const {
-			return (m_cont.size());
+			return (c.size());
 		}
 
 		value_type& top() {
-			return (m_cont.back());
+			return (c.back());
 		}
 
 		const value_type& top() const {
-			return (m_cont.back());
+			return (c.back());
 		}
 
 		void push (const value_type& val) {
-			m_cont.push_back(val);
+			c.push_back(val);
 		}
 
 		void pop() {
-			m_cont.pop_back();
+			c.pop_back();
 		}
 	};
 

@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 04:50:06 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 13:55:02 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/22 18:14:22 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,6 @@
 #include "ft_tester/tester_stack.cpp"
 #include "ft_tester/tester_map.cpp"
 #include "ft_tester/tester_set.cpp"
-
-//template<typename T>
-//void std_print_vector(const std::vector<T> &std_vector) {
-//	typename std::vector<T>::const_iterator it;
-//	for (it = std_vector.begin(); it != std_vector.end(); it++) {
-//		std::cout << *it << " ";
-//	}
-//	std::cout << std::endl;
-//}
-//
-//template<typename T>
-//void ft_print_vector(const ft::vector<T> &ft_vector) {
-//	typename ft::vector<T>::const_iterator it;
-//	for (it = ft_vector.begin(); it != ft_vector.end(); it++) {
-//		std::cout << *it << " ";
-//	}
-//	std::cout << std::endl;
-//}
 
 void vector_test() {
 	std::cout << "======================== VECTOR ========================" << std::endl;
@@ -82,18 +64,17 @@ void stack_test() {
 void map_test() {
 	std::cout << "========================== MAP =========================" << std::endl;
 	map_all_test();
-//	map_swap_test();
-//	map_bound_test();
-//	map_count_test();
-//    map_equal_range_test();
-//    map_value_compare_test();
-//    map_key_compare_test();
-//    map_get_allocator_test();
-//    map_comparison_operator_test();
-//    map_make_pair_test();
-//	map_speed_test();
-
 	map_spec_test();
+	map_swap_test();
+	map_bound_test();
+	map_count_test();
+    map_equal_range_test();
+    map_value_compare_test();
+    map_key_compare_test();
+    map_get_allocator_test();
+    map_comparison_operator_test();
+    map_make_pair_test();
+	//map_speed_test();
 
 //    /* VISUAL TREE*/
 //    map_red_black_tree_test();
@@ -111,12 +92,12 @@ void set_test() {
 	set_speed_test();
 }
 
-int main()
-{
-//    vector_test();
-//    stack_test();
-    map_test();
-//	set_test();
+int main(void) {
+
+	// vector_test();
+	// stack_test();
+	map_test();
+	// set_test();
 //    system ("leaks ft_containers");
-    return (0);
+	return (0);
 }

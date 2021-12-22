@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:02:38 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 14:02:39 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/22 15:41:15 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ namespace ft {
 		first_type first;
 		second_type second;
 
-        pair() {}
+		pair() {}
 
-        template<class U, class V>
-        pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {}
-        pair (const first_type& a, const second_type& b) : first(a), second(b) {}
+		template<class U, class V>
+		pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {}
+		pair (const first_type& a, const second_type& b) : first(a), second(b) {}
 
 		pair &operator=(const pair& pr) {
 			first = pr.first;
@@ -62,7 +62,7 @@ namespace ft {
 	bool operator>=(const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 	{ return !(lhs < rhs); }
 
-    // https://www.cplusplus.com/reference/utility/make_pair/?kw=make_pair
+	// https://www.cplusplus.com/reference/utility/make_pair/?kw=make_pair
 	template <class T1,class T2>
 	pair<T1,T2> make_pair (T1 x, T2 y) {return (pair<T1,T2>(x,y));}
 }

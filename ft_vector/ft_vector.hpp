@@ -315,8 +315,8 @@ namespace ft {
 		}
 
 		void swap (vector &ref) {
-			if (*this == ref)
-				return;
+//			if (*this == ref)
+//				return;
 			ft::swap(m_array, ref.m_array);
 			ft::swap(m_size, ref.m_size);
 			ft::swap(m_capacity, ref.m_capacity);

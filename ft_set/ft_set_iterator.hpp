@@ -66,7 +66,7 @@ namespace ft {
 		{
 			return (node_pointer);
 		}
-    private:
+	private:
 		pointer inc(pointer ptr) {
 			pointer nextPtr;
 			if (!ptr->right)
@@ -97,7 +97,7 @@ namespace ft {
 			}
 			return (prevPtr);
 		}
-    public:
+	public:
 		bool operator==(SetIterator const &ref) const {
 			return (this->node_pointer == ref.node_pointer);
 		}
@@ -176,13 +176,13 @@ namespace ft {
 			return (tmp);
 		}
 
-        const_pointer node(void)
+		const_pointer node(void)
 		{
 			return (node_pointer);
 		}
-    private:
-        const_pointer inc(const_pointer ptr) {
-            const_pointer nextPtr;
+	private:
+		const_pointer inc(const_pointer ptr) {
+			const_pointer nextPtr;
 			if (!ptr->right)
 			{
 				nextPtr = ptr;
@@ -197,8 +197,8 @@ namespace ft {
 			return (nextPtr);
 		}
 
-        const_pointer dec(const_pointer ptr) {
-            const_pointer prevPtr;
+		const_pointer dec(const_pointer ptr) {
+			const_pointer prevPtr;
 			if (!ptr->left) {
 				prevPtr = ptr;
 				while (prevPtr == prevPtr->parent->left && prevPtr->parent)
@@ -211,7 +211,7 @@ namespace ft {
 			}
 			return (prevPtr);
 		}
-    public:
+	public:
 		bool operator==(ConstSetIterator const &ref) const {
 			return (this->node_pointer == ref.node_pointer);
 		}

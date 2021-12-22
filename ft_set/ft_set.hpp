@@ -121,7 +121,7 @@ namespace ft {
 //			displayTree(root_tree, "", true);
 //		}
 //
-//	void displayTree(node *root, std::string indent, bool last) {
+//	void displayTree(node_ptr *root, std::string indent, bool last) {
 //		if (root != NULL) {
 //			std::cout << indent;
 //			if (last) {
@@ -138,7 +138,7 @@ namespace ft {
 //		}
 //	}
 //
-//		void printTreeHelper(node *root, int space)
+//		void printTreeHelper(node_ptr *root, int space)
 //		{
 //			int i;
 //			if(root != NULL)
@@ -211,7 +211,7 @@ namespace ft {
 
 		size_type max_size() const {
 			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
-//			return (this->getMAlloc().max_size());
+			// return (this->getMAlloc().max_size());
 		}
 
 		pair<iterator, bool> insert (const value_type& val) {
@@ -259,7 +259,7 @@ namespace ft {
 			ft::swap(root_tree, ref.root_tree);
 			ft::swap(last_elem, ref.last_elem);
 			ft::swap(elem, ref.elem);
-            ft::swap(first_elem, ref.first_elem);
+			ft::swap(first_elem, ref.first_elem);
 			ft::swap(m_compare, ref.m_compare);
 			ft::swap(m_alloc, ref.m_alloc);
 			ft::swap(m_size, ref.m_size);
@@ -423,35 +423,6 @@ namespace ft {
 				insert_node_fix(node_elem);
 				this->getLastElem()->parent = tmp;
 				tmp->right = last_elem;
-
-				///
-//				this->getFirstElem()->parent = temp;
-//				tmp->left = first_elem;
-			}
-			return (node_elem);
-		}
-
-		void *insert_3(node *node_elem, node *entry_pos, node *tmp, node *temp) {
-			node_elem->parent = entry_pos;
-			entry_pos->right = node_elem;
-			insert_node_fix(node_elem);
-			if (node_elem->data > tmp->data) {
-				node_elem->right = last_elem;
-				this->getLastElem()->parent = node_elem;
-				temp->left = first_elem;
-				this->getFirstElem()->parent = temp;
-			}
-			else if(node_elem->data < temp->data) {
-				node_elem->left = first_elem;
-				this->getFirstElem()->parent = node_elem;
-				tmp->right = last_elem;
-				this->getLastElem()->parent = tmp;
-			}
-			else {
-				tmp->right = last_elem;
-				temp->left = first_elem;
-				this->getLastElem()->parent = tmp;
-				this->getFirstElem()->parent = temp;
 			}
 			return (node_elem);
 		}
@@ -462,10 +433,7 @@ namespace ft {
 			if (entry_pos == NULL) {
 				insert_1(node_elem);
 			}
-//			if(node_elem->data == entry_pos->data)
-//				return(NULL);
-			else
-			{
+			else {
 				node *tmp = last_elem->parent;
 				node *tmp2 = first_elem->parent;
 				tmp->right = NULL;
@@ -476,11 +444,8 @@ namespace ft {
 					tmp2->left = first_elem;
 					return NULL;
 				}
-				else
-				{
-
-					if (node_elem->data < entry_pos->data)
-					{
+				else {
+					if (node_elem->data < entry_pos->data) {
 						if (entry_pos->left)
 							insertElement(node_elem, entry_pos->left);
 						else
@@ -489,78 +454,34 @@ namespace ft {
 							entry_pos->left = node_elem;
 							insert_node_fix(node_elem);
 						}
-					}
-					if (node_elem->data > entry_pos->data)
-					{
+					} if (node_elem->data > entry_pos->data) {
 						if (entry_pos->right)
 							insertElement(node_elem, entry_pos->right);
-						else
-						{
+						else {
 							node_elem->parent = entry_pos;
 							entry_pos->right = node_elem;
 							insert_node_fix(node_elem);
 						}
+					} if(node_elem->data > tmp->data) {
+						node_elem->right = last_elem;
+						last_elem->parent = node_elem;
+						tmp2->left = first_elem;
+						first_elem->parent = tmp2;
+					} else if(node_elem->data < tmp2->data) {
+						node_elem->left = first_elem;
+						first_elem->parent = node_elem;
+
+						tmp->right = last_elem;
+						last_elem->parent = tmp;
+					} else {
+						tmp2->left = first_elem;
+						first_elem->parent = tmp2;
+
+						tmp->right = last_elem;
+						last_elem->parent = tmp;
 					}
-
-					if(node_elem->data > tmp->data)
-					 {
-						 node_elem->right = last_elem;
-					     last_elem->parent = node_elem;
-
-					     tmp2->left = first_elem;
-					     first_elem->parent = tmp2;
-					 }
-					 else if(node_elem->data < tmp2->data)
-					 {
-						 node_elem->left = first_elem;
-						 first_elem->parent = node_elem;
-
-					     tmp->right = last_elem;
-						 last_elem->parent = tmp;
-					 }
-					 else
-					 {
-					     tmp2->left = first_elem;
-						 first_elem->parent = tmp2;
-
-					     tmp->right = last_elem;
-						 last_elem->parent = tmp;
-					 }
-//					insert_3(node_elem, entry_pos, tmp, tmp2);
 				}
 			}
-//			} else {
-//				node *tmp;
-//				node *temp;
-//				tmp = this->last_elem->parent;
-//				temp = this->first_elem->parent;
-//				tmp->right = NULL;
-//				temp->left = NULL;
-//				if(find_need_elem(node_elem->data, this->root_tree))
-//				{
-//					tmp->right = last_elem;
-//					temp->left = first_elem;
-//					return NULL;
-//				}
-//				else {
-//
-//				if (m_compare(node_elem->data, entry_pos->data)) {
-//					insert_2(node_elem, entry_pos, tmp);
-//				} else if (node_elem->data == entry_pos->data) {
-////					this->getLastElem()->parent = tmp;
-////					this->getFirstElem()->parent = temp;
-//					tmp->right = last_elem;
-//					temp->left = first_elem;
-//					return (NULL);
-//				} else {
-//					if (entry_pos->right)
-//						insertElement(node_elem, entry_pos->right);
-//					else {
-//						insert_3(node_elem, entry_pos, tmp, temp);
-//					}
-//				}
-//					}
-//			}
 			return (node_elem);
 		}
 

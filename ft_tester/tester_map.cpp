@@ -485,7 +485,7 @@ void map_red_black_tree_test() {
 //    displayTree(root_tree, "", true);
 //}
 //
-//void displayTree(node *root, std::string indent, bool last) {
+//void displayTree(node_ptr *root, std::string indent, bool last) {
 //    if (root != NULL) {
 //        std::cout << indent;
 //        if (last) {

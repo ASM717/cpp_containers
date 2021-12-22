@@ -6,7 +6,7 @@
 /*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:02:34 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 16:41:08 by amuriel          ###   ########.fr       */
+/*   Updated: 2021/12/22 15:40:47 by amuriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 namespace ft {
 	enum rb_tree_color
 	{
-        BLACK,
-        RED
+		BLACK,
+		RED
 	};
 
 	template <typename P>
@@ -38,7 +38,7 @@ namespace ft {
 			this->parent = NULL;
 			this->left = NULL;
 			this->right = NULL;
-			this->color = RED;
+			this->color = RED; //0
 		}
 
 		~Node() {}
