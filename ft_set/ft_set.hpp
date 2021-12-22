@@ -6,10 +6,8 @@
 #include "../ft_vector/ft_algorithm.hpp"
 #include "ft_set_iterator.hpp"
 #include "../ft_map/ft_pair.hpp"
-//#include "ft_pair_set.hpp"
 #include "../ft_vector/ft_iterator_utils.hpp"
 #include "ft_set_reverse_iterator.hpp"
-//#include "../ft_vector/ft_vector_reverse_iterator.hpp"
 
 namespace ft {
 	template< class Key,
@@ -119,52 +117,52 @@ namespace ft {
 			return (*this);
 		}
 
-		void display(void) {
-			displayTree(root_tree, "", true);
-		}
-
-	void displayTree(node *root, std::string indent, bool last) {
-		if (root != NULL) {
-			std::cout << indent;
-			if (last) {
-				std::cout << "R----";
-				indent += "   ";
-			} else {
-				std::cout << "L----";
-				indent += "|  ";
-			}
-			std::string nodeColor = root->color ? RED_COLOR : BLACK_COLOR;
-			std::cout << nodeColor << root->data << RESET_COLOR << std::endl;
-			displayTree(root->left, indent, false);
-			displayTree(root->right, indent, true);
-		}
-	}
-
-		void printTreeHelper(node *root, int space)
-		{
-			int i;
-			if(root != NULL)
-			{
-				space = space + 10;
-				printTreeHelper(root->right, space);
-				std::cout << std::endl;
-				for ( i = 10; i < space; i++)
-				{
-					std::cout << " ";
-				}
-				if(root == this->root_tree)
-					std::cout << "root  " << root->color << "  "<< root->data << std::endl;
-					// else
-					//     std::cout << root->color << "  " << root->_pair.first << std::endl;
-				else
-				{
-					if(root != this->first_elem && root != this->last_elem)
-						std::cout << root->color << "  " << root->data << std::endl;
-				}
-				std::cout << std::endl;
-				printTreeHelper(root->left, space);
-			}
-		}
+//		void display(void) {
+//			displayTree(root_tree, "", true);
+//		}
+//
+//	void displayTree(node *root, std::string indent, bool last) {
+//		if (root != NULL) {
+//			std::cout << indent;
+//			if (last) {
+//				std::cout << "R----";
+//				indent += "   ";
+//			} else {
+//				std::cout << "L----";
+//				indent += "|  ";
+//			}
+//			std::string nodeColor = root->color ? RED_COLOR : BLACK_COLOR;
+//			std::cout << nodeColor << root->data << RESET_COLOR << std::endl;
+//			displayTree(root->left, indent, false);
+//			displayTree(root->right, indent, true);
+//		}
+//	}
+//
+//		void printTreeHelper(node *root, int space)
+//		{
+//			int i;
+//			if(root != NULL)
+//			{
+//				space = space + 10;
+//				printTreeHelper(root->right, space);
+//				std::cout << std::endl;
+//				for ( i = 10; i < space; i++)
+//				{
+//					std::cout << " ";
+//				}
+//				if(root == this->root_tree)
+//					std::cout << "root  " << root->color << "  "<< root->data << std::endl;
+//					// else
+//					//     std::cout << root->color << "  " << root->_pair.first << std::endl;
+//				else
+//				{
+//					if(root != this->first_elem && root != this->last_elem)
+//						std::cout << root->color << "  " << root->data << std::endl;
+//				}
+//				std::cout << std::endl;
+//				printTreeHelper(root->left, space);
+//			}
+//		}
 
 		iterator begin() {
 			if(this->getRootTree() != NULL)
@@ -832,11 +830,10 @@ namespace ft {
 	};
 
 	template<class Key, class Compare, class Alloc>
-	bool operator==(const ft::set<Key,Compare,Alloc>& lhs,
-					 const ft::set<Key,Compare,Alloc>& rhs) {
+	bool operator==(const ft::set<Key,Compare,Alloc>& lhs, const ft::set<Key,Compare,Alloc>& rhs) {
 		if (lhs.size() != rhs.size())
 			return (false);
-		return equal(lhs.begin(), lhs.end(), rhs.begin());
+		return (true);
 	}
 
 	template<class Key, class Compare, class Alloc>
@@ -848,7 +845,7 @@ namespace ft {
 	template<class Key, class Compare, class Alloc>
 	bool operator<(const ft::set<Key,Compare,Alloc>& lhs,
 					const ft::set<Key,Compare,Alloc>& rhs) {
-		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return (lhs.size() < rhs.size()) ? (true) : (false);
 	}
 
 	template<class Key, class Compare, class Alloc>

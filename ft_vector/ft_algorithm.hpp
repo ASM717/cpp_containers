@@ -60,39 +60,6 @@ namespace ft {
 		return true;
 	}
 
-	// static class nullptr_t {
-	// 	public:
-	// 	template < class V >
-	// 	operator V*() const {
-	// 		return (0);
-	// 	}
-
-	// 	template < class C, class V >
-	// 	operator V C::*() const {
-	// 		return (0);
-	// 	}
-
-	// 	private:
-	// 	void operator&() const;
-
-	// 	} u_nullptr = {};
-
-	// template <typename InputIterator>
-	// typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last_elem) {
-	// 	typename ft::iterator_traits<InputIterator>::difference_type dist = 0;
-	// 	while (first != last_elem) {
-	// 		first++;
-	// 		dist++;
-	// 	}
-	// 	return (dist);
-	// }
-
-	// template <typename InputIterator>
-	// typename ft::iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last_elem) {
-	// 	typename ft::iterator_traits<InputIterator>::difference_type diff = 0;
-	// 	return (last_elem - first);
-	// }
-
 	template <class InputIterator>
 	size_t	distance(InputIterator first, InputIterator second)
 	{
