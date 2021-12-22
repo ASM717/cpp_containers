@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_map.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/09 14:02:26 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/22 18:26:33 by amuriel          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FT_MAP_HPP
 #define FT_MAP_HPP
 
@@ -125,20 +113,12 @@ namespace ft {
 		}
 
 		map &operator=(const map &ref) {
-			// if (ref.getRootTree() == NULL || this == &ref)
-			// 	return (*this);
-			// // if (this->getRootTree())
-			// // 	this->clear();
-			// freeTree(this->getRootTree());
-			// copyElement(ref.getRootTree());
-			// return (*this);
-
 			if (this == &ref)
 				return (*this);
 			m_size = ref.m_size;
 			m_alloc = ref.m_alloc;
 			m_compare = ref.m_compare;
-			return *this;
+			return (*this);
 		}
 
 		iterator begin() {
@@ -167,8 +147,7 @@ namespace ft {
 		}
 
 		reverse_iterator rbegin() {
-			iterator i = end();
-			i--;
+			iterator i = end(); i--;
 			return (reverse_iterator(i.node_ptr()));
 		}
 		const_reverse_iterator rbegin() const {
@@ -386,20 +365,17 @@ namespace ft {
 		}
 
 		node *creationElement(const value_type data) {
-			elem = this->m_alloc.allocate(1);
-			this->m_alloc.construct(this->elem, node(data));
-			return (this->elem);
+			elem = this->getMAlloc().allocate(1);
+            this->getMAlloc().construct(this->getElem(), node(data));
+			return (this->getElem());
 		}
 
-		void copyElement(node *copy) {
-			if (copy == NULL)
+		void copyElement(node *cpy) {
+			if (cpy == NULL)
 				return ;
-
-			std::cout << "COPY EL\n";
-			insertElement(creationElement(copy->data), this->getRootTree());
-			std::cout << "COPY EL 2\n";
-			copyElement(copy->right);
-			copyElement(copy->left);
+			insertElement(creationElement(cpy->data), this->getRootTree());
+			copyElement(cpy->right);
+			copyElement(cpy->left);
 		}
 
 		void *insert_1(node *node_elem) {
@@ -553,7 +529,7 @@ namespace ft {
 			tmp->left = NULL;
 			if (entry_pos->left)
 				return (recursiveMin(entry_pos->left));
-			tmp->left = first_elem;
+            tmp->left = this->getFirstElem();
 			return (entry_pos);
 		}
 

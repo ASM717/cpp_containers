@@ -439,10 +439,10 @@ void map_speed_test() {
 	unsigned int ft_start_time = clock();
 	ft::map<int, std::string>::iterator ft_it;
 	ft::map<int, std::string> ft_map;
-	for (int i = 0; i < 1000000; i++) {
+	for (int i = 0; i < 100000; i++) {
 		ft_map.insert(ft::pair<int, std::string>(i, "test"));
 	}
-	ft_it = ft_map.find (500000);
+	ft_it = ft_map.find (50000);
 	ft_map.erase(ft_it, ft_map.end());
 	std::cout << "FTM::size() = " << ft_map.size() << std::endl;
 	unsigned int ft_finish_time = clock();
@@ -454,15 +454,17 @@ void map_speed_test() {
 	unsigned int std_start_time = clock();
 	std::map<int, std::string>::iterator std_it;
 	std::map<int, std::string> std_map;
-	for (int i = 0; i < 1000000; i++) {
+	for (int i = 0; i < 100000; i++) {
 		std_map.insert(std::pair<int, std::string>(i, "test"));
 	}
-	std_it = std_map.find (500000);
+	std_it = std_map.find (50000);
 	std_map.erase(std_it, std_map.end());
 	std::cout << "STD::size() = " << std_map.size() << std::endl;
 	unsigned int std_finish_time = clock();
 	unsigned int std_diff_time = std_finish_time - std_start_time;
 	std::cout << "STD TIME = " << std_diff_time << std::endl;
+
+    std::cout << "DIFF TIME = " << ft_diff_time / std_diff_time << std::endl;
 }
 
 // https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
@@ -485,7 +487,7 @@ void map_red_black_tree_test() {
 //    displayTree(root_tree, "", true);
 //}
 //
-//void displayTree(node_ptr *root, std::string indent, bool last) {
+//void displayTree(node *root, std::string indent, bool last) {
 //    if (root != NULL) {
 //        std::cout << indent;
 //        if (last) {

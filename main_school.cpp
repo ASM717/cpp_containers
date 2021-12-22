@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 0 //CREATE A REAL STL EXAMPLE       //0 is ft
+#if 1 //CREATE A REAL STL EXAMPLE       //0 is ft
     #include <map>
     #include <stack>
     #include <vector>
@@ -101,7 +101,6 @@ int main(int argc, char** argv) {
     {
         ft::map<int, int> copy = map_int;
     }
-    // std::cout << "CONTAINERS 4" << std::endl;
     MutantStack<char> iterable_stack;
     for (char letter = 'a'; letter <= 'z'; letter++)
         iterable_stack.push(letter);

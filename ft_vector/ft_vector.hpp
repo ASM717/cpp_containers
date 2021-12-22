@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_vector.hpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 16:30:42 by amuriel           #+#    #+#             */
-/*   Updated: 2021/11/29 11:50:04 by amuriel          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FT_VECTOR_HPP
 #define FT_VECTOR_HPP
 
@@ -146,8 +134,6 @@ namespace ft {
 		size_type max_size() const {return (m_alloc.max_size());}
 
 		void resize (size_type n, value_type valueType = value_type()) {
-//            if (n < 0)
-//                throw(std::out_of_range("vector"));
 			if (n > m_capacity) {
 				if (n < m_capacity * 2)
 					reserve(m_capacity * 2);
@@ -156,8 +142,6 @@ namespace ft {
 			}
             for (; m_size < m_capacity; m_size++)
                 m_alloc.construct(&m_array[m_size], valueType);
-//			for (size_type i = m_size; i < n; i++)
-//				m_alloc.construct(&m_array[i], valueType);
 			for (size_type i = n; i < m_size; i++)
 				m_alloc.destroy(&m_array[i]);
 			m_size = n;
@@ -315,8 +299,6 @@ namespace ft {
 		}
 
 		void swap (vector &ref) {
-//			if (*this == ref)
-//				return;
 			ft::swap(m_array, ref.m_array);
 			ft::swap(m_size, ref.m_size);
 			ft::swap(m_capacity, ref.m_capacity);

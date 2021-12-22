@@ -63,7 +63,7 @@ namespace ft {
             return (tmp);
         }
 
-        pointer node(void)
+        pointer node_ptr()
         {
             return (node_pointer);
         }
@@ -177,10 +177,11 @@ namespace ft {
             return (tmp);
         }
 
-        const_pointer node(void)
+        const_pointer node_ptr()
         {
             return (node_pointer);
-        };
+        }
+
     private:
         const_pointer inc(const_pointer ptr) {
             const_pointer nextPtr;

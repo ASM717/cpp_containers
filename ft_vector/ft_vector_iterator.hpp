@@ -1,22 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_vector_iterator.hpp                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 04:49:55 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/09 13:45:08 by amuriel          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FT_VECTOR_ITERATOR_HPP
 #define FT_VECTOR_ITERATOR_HPP
 
 #include "ft_iterator_utils.hpp"
 
 namespace ft {
-//	: public ft::iterator<ft::random_access_iterator_tag, V>
 	template <typename T>
 	class VectorRandomAccessIterator {
 	public:
@@ -121,41 +108,6 @@ namespace ft {
 	template<typename T>
 	ft::VectorRandomAccessIterator<T> operator+(typename ft::VectorRandomAccessIterator<T>::difference_type n,
 			typename ft::VectorRandomAccessIterator<T>& ref) {return (&(*ref) + n);}
-
-	template<typename T_Left, typename T_Right>
-	bool operator==(const ft::VectorRandomAccessIterator<T_Left> lhs, const ft::VectorRandomAccessIterator<T_Right> rhs) {
-		return (lhs.base() == rhs.base());
-	}
-
-	template<typename T_Left, typename T_Right>
-	bool operator!=(const ft::VectorRandomAccessIterator<T_Left> lhs, const ft::VectorRandomAccessIterator<T_Right> rhs) {
-		return (lhs.base() != rhs.base());
-	}
-
-	template<typename T_Left, typename T_Right>
-	bool operator<(const ft::VectorRandomAccessIterator<T_Left> lhs, const ft::VectorRandomAccessIterator<T_Right> rhs) {
-		return (lhs.base() < rhs.base());
-	}
-
-	template<typename T_Left, typename T_Right>
-	bool operator>(const ft::VectorRandomAccessIterator<T_Left> lhs, const ft::VectorRandomAccessIterator<T_Right> rhs) {
-		return (lhs.base() > rhs.base());
-	}
-
-	template<typename T_Left, typename T_Right>
-	bool operator<=(const ft::VectorRandomAccessIterator<T_Left> lhs, const ft::VectorRandomAccessIterator<T_Right> rhs) {
-		return (lhs.base() <= rhs.base());
-	}
-
-	template<typename T_Left, typename T_Right>
-	bool operator>=(const ft::VectorRandomAccessIterator<T_Left> lhs, const ft::VectorRandomAccessIterator<T_Right> rhs) {
-		return (lhs.base() >= rhs.base());
-	}
-
-	template<typename T_Left, typename T_Right>
-	typename ft::VectorRandomAccessIterator<T_Left>::difference_type operator-(const ft::VectorRandomAccessIterator<T_Left> lhs,
-		const ft::VectorRandomAccessIterator<T_Right> rhs) {return (lhs.base() - rhs.base());}
-
 }
 
 #endif

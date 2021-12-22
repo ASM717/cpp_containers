@@ -64,6 +64,7 @@ namespace ft {
             return (tmp);
         }
 
+    private:
         pointer inc(pointer ptr) {
             pointer nextPtr;
             if (!ptr->right) {
@@ -94,6 +95,7 @@ namespace ft {
             return (prevPtr);
         }
 
+    public:
         bool operator==(ReverseBidirectionalIterator const &ref) const {
             return (this->node_pointer == ref.node_pointer);
         }

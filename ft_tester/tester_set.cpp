@@ -212,6 +212,25 @@ void set_equal_range_test() {
 	std::cout << "STD SET:: the upper bound points to: " << *ret.second << std::endl;
 }
 
+void set_value_comp_test() {
+    std::cout << "===================== VALUE COMPARE ====================" << std::endl;
+    ft::set<int> myset;
+
+    ft::set<int>::value_compare mycomp = myset.value_comp();
+
+    for (int i=0; i<=5; i++) myset.insert(i);
+
+    std::cout << "myset contains:";
+
+    int highest=*myset.rbegin();
+    ft::set<int>::iterator it=myset.begin();
+    do {
+        std::cout << ' ' << *it;
+    } while ( mycomp(*(++it),highest) );
+
+    std::cout << '\n';
+}
+
 void set_get_allocator_test() {
 	std::cout << "===================== GET ALLOCATOR ====================" << std::endl;
 	ft::set<int> ft_set;

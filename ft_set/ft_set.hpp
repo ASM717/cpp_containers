@@ -17,6 +17,7 @@ namespace ft {
 	public:
 		typedef Key                                                 value_type;
 		typedef Compare                                             key_compare;
+		typedef Compare                                             value_compare;
 		typedef ft::Node<value_type>                                node;
 		typedef typename Allocator::template rebind<node>::other    allocator_type;
 		typedef typename Allocator::reference			            reference;
@@ -29,19 +30,6 @@ namespace ft {
 		typedef ft::ConstReverseSetIterator<const value_type>       const_reverse_iterator;
 		typedef ptrdiff_t								            difference_type;
 		typedef size_t									            size_type;
-
-		class value_compare : public std::binary_function <value_type, value_type, bool> {
-		public:
-			Compare	comp;
-			value_compare (Compare c): comp(c) {}
-
-			typedef	bool		result_type;
-			typedef	value_type	first_argument_type;
-			typedef	value_type	second_argument_type;
-			bool operator() (const value_type& x, const value_type& y) const {
-				return (comp(x.first, y.first));
-			}
-		};
 
 	private:
 		node				*root_tree;
@@ -100,7 +88,7 @@ namespace ft {
 			insert(first, last);
 		};
 
-		set(const set &ref) : m_alloc(ref.m_alloc), m_size(0), last_elem(NULL),
+		set(const set &ref) : m_alloc(ref.m_alloc), m_size(0), last_elem(NULL), first_elem(NULL),
 							  root_tree(NULL), elem(NULL), m_compare(std::less<Key >()) {
 			*this = ref;
 		}
@@ -110,59 +98,13 @@ namespace ft {
 		}
 
 		set &operator=(const set &ref) {
-			if (ref.getRootTree() == NULL || this == &ref)
+			if (this == &ref)
 				return (*this);
-			freeTree(this->getRootTree());
-			copyElement(ref.getRootTree());
+			m_size = ref.m_size;
+			m_alloc = ref.m_alloc;
+			m_compare = ref.m_compare;
 			return (*this);
 		}
-
-//		void display(void) {
-//			displayTree(root_tree, "", true);
-//		}
-//
-//	void displayTree(node_ptr *root, std::string indent, bool last) {
-//		if (root != NULL) {
-//			std::cout << indent;
-//			if (last) {
-//				std::cout << "R----";
-//				indent += "   ";
-//			} else {
-//				std::cout << "L----";
-//				indent += "|  ";
-//			}
-//			std::string nodeColor = root->color ? RED_COLOR : BLACK_COLOR;
-//			std::cout << nodeColor << root->data << RESET_COLOR << std::endl;
-//			displayTree(root->left, indent, false);
-//			displayTree(root->right, indent, true);
-//		}
-//	}
-//
-//		void printTreeHelper(node_ptr *root, int space)
-//		{
-//			int i;
-//			if(root != NULL)
-//			{
-//				space = space + 10;
-//				printTreeHelper(root->right, space);
-//				std::cout << std::endl;
-//				for ( i = 10; i < space; i++)
-//				{
-//					std::cout << " ";
-//				}
-//				if(root == this->root_tree)
-//					std::cout << "root  " << root->color << "  "<< root->data << std::endl;
-//					// else
-//					//     std::cout << root->color << "  " << root->_pair.first << std::endl;
-//				else
-//				{
-//					if(root != this->first_elem && root != this->last_elem)
-//						std::cout << root->color << "  " << root->data << std::endl;
-//				}
-//				std::cout << std::endl;
-//				printTreeHelper(root->left, space);
-//			}
-//		}
 
 		iterator begin() {
 			if(this->getRootTree() != NULL)
@@ -210,8 +152,8 @@ namespace ft {
 		}
 
 		size_type max_size() const {
-			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
-			// return (this->getMAlloc().max_size());
+//			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
+			return (this->getMAlloc().max_size());
 		}
 
 		pair<iterator, bool> insert (const value_type& val) {
@@ -274,7 +216,7 @@ namespace ft {
 		}
 
 		value_compare value_comp() const {
-			return (value_compare(getMCompare()));
+			return (this->getMCompare());
 		}
 
 		iterator find (const value_type& val) {
@@ -302,41 +244,45 @@ namespace ft {
 		}
 
 		iterator lower_bound (const value_type& val) {
-			if(this->root_tree) {
-				for(iterator tmp = this->begin(); tmp != this->end(); tmp++)
-				{
-					if(*tmp >= val)
-						return(tmp);
+			iterator setIterator = this->begin();
+			if(this->getRootTree()) {
+				while (setIterator != this->end()) {
+					if (*setIterator >= val)
+						return (setIterator);
+					setIterator++;
 				}
 			}
 			return(this->end());
 		}
 
 		const_iterator lower_bound(const value_type& val) const {
-			if(this->root_tree) {
-				for(const_iterator tmp = this->begin(); tmp != this->end(); tmp++)
-				{
-					if(*tmp >= val)
-						return(tmp);
+			if(this->getRootTree()) {
+				const_iterator setIterator = this->begin();
+				while (setIterator != this->end()) {
+					if (*setIterator >= val)
+						return (setIterator);
+					setIterator++;
 				}
 			}
 			return(this->end());
 		}
 
 		iterator upper_bound (const value_type& val) {
-			for(iterator tmp = this->begin(); tmp != this->end(); tmp++)
-			{
-				if(*tmp > val)
-					return(tmp);
+			iterator setIterator = this->begin();
+			while (setIterator != this->end()) {
+				if (*setIterator > val)
+					return (setIterator);
+				setIterator++;
 			}
 			return(this->end());
 		}
 
 		const_iterator upper_bound(const value_type& val) const {
-			for(const_iterator tmp = this->begin(); tmp != this->end(); tmp++)
-			{
-				if(*tmp > val)
-					return(tmp);
+			const_iterator setIterator = this->begin();
+			while (setIterator != this->end()) {
+				if (*setIterator > val)
+					return (setIterator);
+				setIterator++;
 			}
 			return(this->end());
 		}
@@ -438,18 +384,15 @@ namespace ft {
 				node *tmp2 = first_elem->parent;
 				tmp->right = NULL;
 				tmp2->left = NULL;
-				if(find_need_elem(node_elem->data, this->root_tree))
-				{
+				if(find_need_elem(node_elem->data, this->root_tree)) {
 					tmp->right = last_elem;
 					tmp2->left = first_elem;
-					return NULL;
-				}
-				else {
+					return (NULL);
+				} else {
 					if (node_elem->data < entry_pos->data) {
 						if (entry_pos->left)
 							insertElement(node_elem, entry_pos->left);
-						else
-						{
+						else {
 							node_elem->parent = entry_pos;
 							entry_pos->left = node_elem;
 							insert_node_fix(node_elem);
@@ -462,23 +405,24 @@ namespace ft {
 							entry_pos->right = node_elem;
 							insert_node_fix(node_elem);
 						}
-					} if(node_elem->data > tmp->data) {
+					}
+					if(node_elem->data > tmp->data) {
 						node_elem->right = last_elem;
-						last_elem->parent = node_elem;
+						this->getLastElem()->parent = node_elem;
 						tmp2->left = first_elem;
-						first_elem->parent = tmp2;
+						this->getFirstElem()->parent = tmp2;
 					} else if(node_elem->data < tmp2->data) {
 						node_elem->left = first_elem;
-						first_elem->parent = node_elem;
+						this->getFirstElem()->parent = node_elem;
 
 						tmp->right = last_elem;
-						last_elem->parent = tmp;
+						this->getLastElem()->parent = tmp;
 					} else {
 						tmp2->left = first_elem;
-						first_elem->parent = tmp2;
+						this->getFirstElem()->parent = tmp2;
 
 						tmp->right = last_elem;
-						last_elem->parent = tmp;
+						this->getLastElem()->parent = tmp;
 					}
 				}
 			}
@@ -563,13 +507,11 @@ namespace ft {
 		}
 
 		node *recursiveMin(node *entry_pos) {
-			node *tmp = this->first_elem->parent;
+			node *tmp = this->getFirstElem()->parent;
 			tmp->left = NULL;
-
 			if (entry_pos->left)
 				return (recursiveMin(entry_pos->left));
-
-			tmp->left = first_elem;
+			tmp->left = this->getFirstElem();
 			return (entry_pos);
 		}
 
@@ -582,7 +524,7 @@ namespace ft {
 			while (del != NULL) {
 				if (del->data == data)
 					break;
-				if (!m_compare(del->data, data))
+				if (!(m_compare(del->data, data)))
 					del = del->left;
 				else
 					del = del->right;
@@ -788,8 +730,7 @@ namespace ft {
 	}
 
 	template<class Key, class Compare, class Alloc>
-	void swap(ft::set<Key,Compare,Alloc>& lhs,
-			   ft::set<Key,Compare,Alloc>& rhs) {
+	void swap(ft::set<Key,Compare,Alloc>& lhs, ft::set<Key,Compare,Alloc>& rhs) {
 		lhs.swap(rhs);
 	}
 }

@@ -23,7 +23,6 @@ add_executable(cpp_containers
 
         ft_map/ft_bidirectional_iterator.hpp
         ft_map/ft_rev_bidir_iter.hpp
-        ft_map/ft_less.hpp
         ft_map/ft_map.hpp
         ft_map/ft_pair.hpp
         ft_map/ft_node.hpp

@@ -1,18 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amuriel <amuriel@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 04:50:06 by amuriel           #+#    #+#             */
-/*   Updated: 2021/12/22 18:14:22 by amuriel          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <iostream>
-
-
 #include "ft_tester/tester_vector.cpp"
 #include "ft_tester/tester_stack.cpp"
 #include "ft_tester/tester_map.cpp"
@@ -74,10 +60,10 @@ void map_test() {
     map_get_allocator_test();
     map_comparison_operator_test();
     map_make_pair_test();
-	//map_speed_test();
+	map_speed_test();
 
 //    /* VISUAL TREE*/
-//    map_red_black_tree_test();
+    // map_red_black_tree_test();
 }
 
 void set_test() {
@@ -93,11 +79,10 @@ void set_test() {
 }
 
 int main(void) {
-
-	// vector_test();
-	// stack_test();
-	map_test();
-	// set_test();
+    vector_test();
+    stack_test();
+//    map_test();
+//    set_test();
 //    system ("leaks ft_containers");
 	return (0);
 }
