@@ -18,7 +18,6 @@ namespace ft {
 	> class set {
 	public:
 		typedef Key                                                 value_type;
-//        typedef Key key_type;
 		typedef Compare                                             key_compare;
 		typedef ft::Node<value_type>                                node;
 		typedef typename Allocator::template rebind<node>::other    allocator_type;
@@ -26,7 +25,6 @@ namespace ft {
 		typedef typename Allocator::const_reference	                const_reference;
 		typedef typename Allocator::pointer                         pointer;
 		typedef typename Allocator::const_pointer		            const_pointer;
-
 		typedef ft::SetIterator<value_type>                         iterator;
 		typedef ft::ConstSetIterator<const value_type>              const_iterator;
 		typedef ft::ReverseSetIterator<value_type>                  reverse_iterator;
@@ -87,10 +85,10 @@ namespace ft {
 		}
 
 	public:
-		set() : root_tree(NULL), last_elem(NULL), elem(NULL), m_compare(std::less<Key >()),
+		set() : root_tree(NULL), last_elem(NULL), first_elem(NULL), elem(NULL), m_compare(std::less<Key >()),
 				m_alloc(std::allocator<node>()), m_size(0) {}
 
-		explicit set(value_type value) : root_tree(m_alloc.allocate(1)), last_elem(NULL),
+		explicit set(value_type value) : root_tree(m_alloc.allocate(1)), last_elem(NULL), first_elem(NULL),
 		elem(NULL), m_compare(std::less<Key >()), m_alloc(std::allocator<node>()), m_size(0) {
 			m_alloc.construct(root_tree, node(value));
 			root_tree->color = BLACK;
@@ -174,18 +172,9 @@ namespace ft {
 			return(NULL);
 		}
 		const_iterator begin() const {
-			node *tmp = getRootTree();
-			if (!tmp->left && !tmp->right)
-				return (end());
-			if (!tmp->left && tmp->right)
-				tmp = tmp->right;
-			while (tmp->left)
-				tmp = tmp->left;
-			return (const_iterator(tmp));
-
-//            if(this->getRootTree() != NULL)
-//                return(const_iterator(min(this->getRootTree())));
-//            return(NULL);
+            if(this->getRootTree() != NULL)
+                return(const_iterator(recursiveMin(this->getRootTree())));
+            return(NULL);
 		}
 
 		iterator end() {
@@ -197,10 +186,6 @@ namespace ft {
 		}
 
 		reverse_iterator rbegin() {
-//			iterator i = end();
-//			i--;
-//            //std::cout << i.node()->data << std::endl;
-//			return (reverse_iterator(i.node()));
 			return(reverse_iterator(this->getLastElem()));
 		}
 
@@ -276,6 +261,7 @@ namespace ft {
 			ft::swap(root_tree, ref.root_tree);
 			ft::swap(last_elem, ref.last_elem);
 			ft::swap(elem, ref.elem);
+            ft::swap(first_elem, ref.first_elem);
 			ft::swap(m_compare, ref.m_compare);
 			ft::swap(m_alloc, ref.m_alloc);
 			ft::swap(m_size, ref.m_size);
@@ -312,20 +298,13 @@ namespace ft {
 		}
 
 		size_type count (const value_type& val) const {
-			if(!this->getRootTree())
+			if(this->getRootTree() == NULL)
 				return (0);
 			return (find_need_elem(val, this->getRootTree()) ? 1 : 0);
 		}
 
 		iterator lower_bound (const value_type& val) {
-//			for (iterator iter = begin(); iter != end(); ++iter) {
-//				if (this->m_compare(iter, val) <= 0)
-//					return (iter);
-//			}
-//			return (end());
-
-			if(this->root_tree != NULL)
-			{
+			if(this->root_tree) {
 				for(iterator tmp = this->begin(); tmp != this->end(); tmp++)
 				{
 					if(*tmp >= val)
@@ -336,8 +315,7 @@ namespace ft {
 		}
 
 		const_iterator lower_bound(const value_type& val) const {
-			if(this->root_tree != NULL)
-			{
+			if(this->root_tree) {
 				for(const_iterator tmp = this->begin(); tmp != this->end(); tmp++)
 				{
 					if(*tmp >= val)

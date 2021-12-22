@@ -222,10 +222,10 @@ void set_get_allocator_test() {
 	//	p=ft_set .get_allocator().allocate(5);
 	p = reinterpret_cast<int *>(ft_set.get_allocator().allocate(5));
 	// assign some values to array
-	for (i = 0; i < 5; i++) p[i]=( i + 1) * 10;
+	for (i = 0; i < 5; i++) p[i] = (i + 1) * 10;
 
 	std::cout << "FT SET::The allocated array contains: ";
-	for (i=0; i<5; i++) std::cout << ' ' << p[i];
+	for (i = 0; i < 5; i++) std::cout << ' ' << p[i];
 	std::cout << std::endl;
 	ft_set.get_allocator().deallocate(reinterpret_cast<ft::Node<int> *>(p), 5);
 
@@ -245,5 +245,46 @@ void set_get_allocator_test() {
 	for (j = 0; j < 5; j++) std::cout << ' ' << q[j];
 	std::cout << std::endl;
 	std_set.get_allocator().deallocate(q, 5);
+}
+
+void set_comparison_operator_test() {
+    std::cout << "================== COMPARISON OPERATOR =================" << std::endl;
+//
+//    ft::set<int> ft_set_1;
+//    ft_set_1.insert(1);
+//    ft_set_1.insert(2);
+//    ft_set_1.insert(3);
+//    ft_set_1.insert(4);
+//    ft_set_1.insert(5);
+//
+//    ft::set<int> ft_set_2;
+//    ft_set_2.insert(1);
+//    ft_set_2.insert(2);
+//    ft_set_2.insert(3);
+//    ft_set_2.insert(4);
+//    ft_set_2.insert(5);
+//    ft_set_2.insert(6);
+//    ft_set_2.insert(7);
+//
+//    ft::set<int> ft_set_3;
+//    ft_set_3.insert(1);
+//    ft_set_3.insert(2);
+//    ft_set_3.insert(3);
+//    ft_set_3.insert(4);
+//    ft_set_3.insert(5);
+//
+//    std::cout << "ft_set_1 == ft_set_2 return " << (ft_set_1 == ft_set_2) << std::endl;
+//    std::cout << "ft_set_1 != ft_set_2 return " << (ft_set_1 != ft_set_2) << std::endl;
+//    std::cout << "ft_set_1 <  ft_set_2 return " << (ft_set_1 < ft_set_2) << std::endl;
+//    std::cout << "ft_set_1 <= ft_set_2 return " << (ft_set_1 <= ft_set_2) << std::endl;
+//    std::cout << "ft_set_1 >  ft_set_2 return " << (ft_set_1 > ft_set_2) << std::endl;
+//    std::cout << "ft_set_1 >= ft_set_2 return " << (ft_set_1 >= ft_set_2) << std::endl;
+//    std::cout << "--------------------------------------------------------" << std::endl;
+//    std::cout << "ft_set_1 == ft_map_3 return " << (ft_set_1 == ft_set_3) << std::endl;
+//    std::cout << "ft_set_1 != ft_map_3 return " << (ft_set_1 != ft_set_3) << std::endl;
+//    std::cout << "ft_set_1 <  ft_map_3 return " << (ft_set_1 < ft_set_3) << std::endl;
+//    std::cout << "ft_set_1 <= ft_map_3 return " << (ft_set_1 <= ft_set_3) << std::endl;
+//    std::cout << "ft_set_1 >  ft_map_3 return " << (ft_set_1 > ft_set_3) << std::endl;
+//    std::cout << "ft_set_1 >= ft_map_3 return " << (ft_set_1 >= ft_set_3) << std::endl;
 }
 
