@@ -210,8 +210,8 @@ namespace ft {
 		}
 
 		size_type max_size() const {
-//			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
-			return (this->getMAlloc().max_size());
+			return (std::numeric_limits<size_type>::max() / (sizeof(node)));
+//			return (this->getMAlloc().max_size());
 		}
 
 		pair<iterator, bool> insert (const value_type& val) {

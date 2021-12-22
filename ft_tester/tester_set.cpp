@@ -288,3 +288,35 @@ void set_comparison_operator_test() {
     std::cout << "ft_set_1 >= ft_map_3 return " << (ft_set_1 >= ft_set_3) << std::endl;
 }
 
+void set_speed_test() {
+	std::cout << "====================== SPEED TEST ======================" << std::endl;
+	unsigned int ft_start_time = clock();
+	ft::set<int> ft_set;
+	ft::set<int>::iterator ft_it;
+	for (int i = 0; i < 500000; i++) {
+		ft_set.insert(i);
+	}
+	ft_it = ft_set.find(50000);
+	ft_set.erase(ft_it, ft_set.end());
+	std::cout << "FTS::size() = " << ft_set.size() << std::endl;
+	unsigned int ft_finish_time = clock();
+	unsigned int ft_diff_time = ft_finish_time - ft_start_time;
+	std::cout << "FT SET TIME =  " << ft_diff_time << std::endl;
+	std::cout << "--------------------------------------------------------" << std::endl;
+
+	unsigned int start_time = clock();
+	std::set<int> std_set;
+	std::set<int>::iterator std_it;
+	for (int i = 0; i < 500000; i++) {
+		std_set.insert(i);
+	}
+	std_it = std_set.find(50000);
+	std_set.erase(std_it, std_set.end());
+	std::cout << "STD::size() = " << std_set.size() << std::endl;
+	unsigned int finish_time = clock();
+	unsigned int diff_time = finish_time - start_time;
+	std::cout << "STD SET TIME = " << diff_time << std::endl;
+	std::cout << "--------------------------------------------------------" << std::endl;
+	std::cout << "FINAL DIFF = " << ft_diff_time / diff_time << std::endl;
+
+}

@@ -43,12 +43,12 @@ namespace ft {
         }
 
         ReverseBidirectionalIterator &operator++() {
-            node_pointer = inc(node_pointer);
+            node_pointer = dec(node_pointer);
             return (*this);
         }
 
         ReverseBidirectionalIterator &operator--() {
-            node_pointer = dec(node_pointer);
+            node_pointer = inc(node_pointer);
             return (*this);
         }
 
@@ -150,12 +150,12 @@ namespace ft {
         }
 
         ConstReverseBidirectionalIterator &operator++() {
-            node_pointer = inc(node_pointer);
+            node_pointer = dec(node_pointer);
             return (*this);
         }
 
         ConstReverseBidirectionalIterator &operator--() {
-            node_pointer = dec(node_pointer);
+            node_pointer = inc(node_pointer);
             return (*this);
         }
 

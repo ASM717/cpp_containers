@@ -76,7 +76,6 @@ void map_all_test() {
 	std_it = std_map.find("Agent Smith");
 	std_map.erase(std_it);
 
-
 	for (ft_it = ft_map.begin(); ft_it != ft_map.end(); ++ft_it)
 		std::cout << ft_it->first << " => " << ft_it->second << std::endl;
 
@@ -96,6 +95,51 @@ void map_all_test() {
 	std::cout << "========================= SIZE =========================" << std::endl;
 	std::cout << "FTM::size() = " << ft_map.size() << std::endl;
 	std::cout << "STD::size() = " << std_map.size() << std::endl;
+}
+
+void map_spec_test() {
+	std::cout << "========================= MAP 2 ========================" << std::endl;
+	ft::map<int, std::string> ft_map;
+	ft_map.insert(ft::pair<int, std::string>(5, "test5"));
+	ft_map.insert(ft::pair<int, std::string>(8, "test8"));
+	ft_map.insert(ft::pair<int, std::string>(1, "test1"));
+	ft_map.insert(ft::pair<int, std::string>(2, "test2"));
+	ft_map.insert(ft::pair<int, std::string>(99, "test99"));
+	ft_map.insert(ft::pair<int, std::string>(100, "test100"));
+
+	std::map<int, std::string> std_map;
+	std_map.insert(std::pair<int, std::string>(5, "test5"));
+	std_map.insert(std::pair<int, std::string>(8, "test8"));
+	std_map.insert(std::pair<int, std::string>(1, "test1"));
+	std_map.insert(std::pair<int, std::string>(2, "test2"));
+	std_map.insert(std::pair<int, std::string>(99, "test99"));
+	std_map.insert(std::pair<int, std::string>(100, "test100"));
+
+	ft::map<int, std::string>::iterator ft_it;
+	for (ft_it = ft_map.begin(); ft_it != ft_map.end(); ++ft_it)
+		std::cout << ft_it->first << " => " << ft_it->second << std::endl;
+
+	std::cout << "--------------------------------------------------------" << std::endl;
+	std::map<int, std::string>::iterator std_it;
+	for (std_it = std_map.begin(); std_it != std_map.end(); ++std_it)
+		std::cout << std_it->first << " => " << std_it->second << std::endl;
+
+	std::cout << "========================= BEGIN ========================" << std::endl;
+	std::cout << "FTM::begin() = " << (*ft_map.begin()).first << " " << (*ft_map.begin()).second << std::endl;
+	std::cout << "STD::begin() = " << (*std_map.begin()).first << " " <<  (*std_map.begin()).second << std::endl;
+
+	std::cout << "========================== END =========================" << std::endl;
+	std::cout << "FTM::end() = " << (*(--ft_map.end())).first << " " << (*(--ft_map.end())).second << std::endl;
+	std::cout << "STD::end() = " << (*(--std_map.end())).first << " " << (*(--std_map.end())).second  << std::endl;
+
+	std::cout << "======================= REV BEGIN ======================" << std::endl;
+	std::cout << "FTM::begin() = " << (*ft_map.rbegin()).first << " " << (*ft_map.rbegin()).second << std::endl;
+	std::cout << "STD::begin() = " << (*std_map.rbegin()).first << " " <<  (*std_map.rbegin()).second << std::endl;
+
+	std::cout << "======================== REV END =======================" << std::endl;
+	std::cout << "FTM::end() = " << (*(--ft_map.rend())).first << " " << (*(--ft_map.rend())).second << std::endl;
+	std::cout << "STD::end() = " << (*(--std_map.rend())).first << " " << (*(--std_map.rend())).second  << std::endl;
+
 }
 
 void map_swap_test() {

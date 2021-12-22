@@ -60,6 +60,7 @@ namespace ft {
     private:
         node				*root_tree;
         node				*last_elem;
+		node                *first_elem;
 		node				*elem;
 		Compare				m_compare;
 		allocator_type 		m_alloc;
@@ -73,6 +74,11 @@ namespace ft {
         node *getLastElem() const {
             return (last_elem);
         }
+
+		node *getFirstElem() const
+		{
+			return (first_elem);
+		}
 
         node *getElem() const {
             return (elem);
@@ -92,10 +98,10 @@ namespace ft {
 
 	public:
 
-		map() : root_tree(NULL), last_elem(NULL), elem(NULL), m_compare(std::less<Key >()),
+		map() : root_tree(NULL), last_elem(NULL), elem(NULL), first_elem(NULL), m_compare(std::less<Key >()),
                 m_alloc(std::allocator<node>()), m_size(0) {}
 
-		explicit map(value_type value) : root_tree(m_alloc.allocate(1)), last_elem(NULL),
+		explicit map(value_type value) : root_tree(m_alloc.allocate(1)), last_elem(NULL), first_elem(NULL),
 			elem(NULL), m_compare(std::less<Key >()), m_alloc(std::allocator<node>()), m_size(0) {
 			m_alloc.construct(root_tree, node(value));
             root_tree->color = BLACK;
@@ -127,8 +133,11 @@ namespace ft {
 		}
 
 		iterator begin() {
+//			if(this->getRootTree() != NULL)
+//				return(iterator(min(this->getRootTree())));
+//			return(NULL);
 			if(this->getRootTree() != NULL)
-				return(iterator(min(this->getRootTree())));
+				return(iterator(recursiveMin(this->getRootTree())));
 			return(NULL);
 		}
 
@@ -155,17 +164,21 @@ namespace ft {
             iterator i = end();
             i--;
             return (reverse_iterator(i.node()));
+			//return(reverse_iterator(this->getLastElem()));
 		 }
         const_reverse_iterator rbegin() const {
         	return (const_reverse_iterator(rbegin()));
+//			return(const_reverse_iterator(this->getLastElem()));
         }
 
         reverse_iterator rend() {
 			return (reverse_iterator(this->getRootTree()));
+//			return (reverse_iterator(this->getFirstElem()));
         }
 
         const_reverse_iterator rend() const {
 			return (const_reverse_iterator(this->getRootTree()));
+// 			return (const_reverse_iterator(this->getFirstElem()));
         }
 
 		bool empty() const {
@@ -247,6 +260,7 @@ namespace ft {
 			ft::swap(root_tree, ref.root_tree);
             ft::swap(last_elem, ref.last_elem);
 			ft::swap(elem, ref.elem);
+			ft::swap(first_elem, ref.first_elem);
 			ft::swap(m_compare, ref.m_compare);
 			ft::swap(m_alloc, ref.m_alloc);
 			ft::swap(m_size, ref.m_size);

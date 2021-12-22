@@ -82,18 +82,21 @@ void stack_test() {
 void map_test() {
 	std::cout << "========================== MAP =========================" << std::endl;
 	map_all_test();
-	map_swap_test();
-	map_bound_test();
-	map_count_test();
-    map_equal_range_test();
-    map_value_compare_test();
-    map_key_compare_test();
-    map_get_allocator_test();
-    map_comparison_operator_test();
-    map_make_pair_test();
-	map_speed_test();
-    /* VISUAL TREE*/
-    map_red_black_tree_test();
+//	map_swap_test();
+//	map_bound_test();
+//	map_count_test();
+//    map_equal_range_test();
+//    map_value_compare_test();
+//    map_key_compare_test();
+//    map_get_allocator_test();
+//    map_comparison_operator_test();
+//    map_make_pair_test();
+//	map_speed_test();
+
+	map_spec_test();
+
+//    /* VISUAL TREE*/
+//    map_red_black_tree_test();
 }
 
 void set_test() {
@@ -105,14 +108,15 @@ void set_test() {
 	set_equal_range_test();
 	set_get_allocator_test();
     set_comparison_operator_test();
+	set_speed_test();
 }
 
 int main()
 {
 //    vector_test();
 //    stack_test();
-//    map_test();
-	set_test();
+    map_test();
+//	set_test();
 //    system ("leaks ft_containers");
     return (0);
 }

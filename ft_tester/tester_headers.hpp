@@ -74,6 +74,8 @@ void map_comparison_operator_test();
 void map_make_pair_test();
 void map_speed_test();
 
+void map_spec_test();
+
 /* VISUAL TREE*/
 void map_red_black_tree_test();
 
@@ -85,5 +87,6 @@ void set_bound_test();
 void set_equal_range_test();
 void set_get_allocator_test();
 void set_comparison_operator_test();
+void set_speed_test();
 
 #endif
