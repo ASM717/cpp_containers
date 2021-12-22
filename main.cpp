@@ -103,6 +103,7 @@ void set_test() {
 	set_count_test();
 	set_bound_test();
 	set_equal_range_test();
+	set_get_allocator_test();
 }
 
 int main()

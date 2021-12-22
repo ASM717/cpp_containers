@@ -205,10 +205,45 @@ void set_equal_range_test() {
 	std::set<int> std_set;
 	for (int i = 1; i <= 5; i++)
 		std_set.insert(i * 10);   // ft_set: 10 20 30 40 50
-	std::pair<std::set<int>::iterator, std::set<int>::iterator> ret;
+	std::pair<std::set<int>::iterator,std::set<int>::iterator> ret;
 	ret = std_set.equal_range(30);
 
 	std::cout << "STD SET:: the lower bound points to: " << *ret.first << std::endl;
 	std::cout << "STD SET:: the upper bound points to: " << *ret.second << std::endl;
+}
+
+void set_get_allocator_test() {
+	std::cout << "===================== GET ALLOCATOR ====================" << std::endl;
+	ft::set<int> ft_set;
+	int *p;
+	unsigned int i;
+
+	// allocate an array of 5 elements using ft_set's allocator:
+	//	p=ft_set .get_allocator().allocate(5);
+	p = reinterpret_cast<int *>(ft_set.get_allocator().allocate(5));
+	// assign some values to array
+	for (i = 0; i < 5; i++) p[i]=( i + 1) * 10;
+
+	std::cout << "FT SET::The allocated array contains: ";
+	for (i=0; i<5; i++) std::cout << ' ' << p[i];
+	std::cout << std::endl;
+	ft_set.get_allocator().deallocate(reinterpret_cast<ft::Node<int> *>(p), 5);
+
+	std::cout << "--------------------------------------------------------" << std::endl;
+
+	std::set<int> std_set;
+	int *q;
+	unsigned int j;
+
+	// allocate an array of 5 elements using ft_set's allocator:
+	//	p=ft_set .get_allocator().allocate(5);
+	q = reinterpret_cast<int *>(std_set.get_allocator().allocate(5));
+	// assign some values to array
+	for (j = 0; j < 5; j++) q[j] = (j + 1) * 10;
+
+	std::cout << "STD SET::The allocated array contains:";
+	for (j = 0; j < 5; j++) std::cout << ' ' << q[j];
+	std::cout << std::endl;
+	std_set.get_allocator().deallocate(q, 5);
 }
 
